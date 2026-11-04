@@ -1,0 +1,333 @@
+import { existsSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { type Browser, type BrowserContext, chromium, type Page } from "playwright";
+import { startStaticServer } from "./static-server.js";
+import { assertAzgaarBuilt, azgaarDist, type FrameBox, type Point, resolvePath, type WorldConfig } from "./world.js";
+
+// Azgaar's Points slider stores a density step; this is its step-to-cell-count table (src/data/graph-density.ts)
+const DENSITY_BY_POINTS: Record<number, number> = {
+  1000: 1, 2000: 2, 5000: 3, 10000: 4, 20000: 5, 30000: 6, 40000: 7,
+  50000: 8, 60000: 9, 70000: 10, 80000: 11, 90000: 12, 100000: 13
+};
+const MAP_TIMEOUT = 180_000;
+
+export interface NewMapOptions extends WorldConfig {
+  template?: string;
+}
+
+export type ListKind = "features" | "burgs" | "markers" | "routes";
+
+/**
+ * One headless browser page running Azgaar, kept alive for the MCP session so map state persists
+ * between tool calls. Calls are serialized: Azgaar is single-threaded state, not a database.
+ */
+export class AzgaarSession {
+  private browser?: Browser;
+  private context?: BrowserContext;
+  private page?: Page;
+  private server?: { url: string; close: () => Promise<void> };
+  private queue: Promise<unknown> = Promise.resolve();
+  private errors: string[] = [];
+
+  constructor(
+    private readonly canvas: { width: number; height: number },
+    private readonly headed: boolean
+  ) {}
+
+  /** Runs `task` after every earlier call has finished */
+  exclusive<T>(task: () => Promise<T>): Promise<T> {
+    const next = this.queue.then(task, task);
+    this.queue = next.catch(() => undefined);
+    return next;
+  }
+
+  get isOpen(): boolean {
+    return Boolean(this.page && !this.page.isClosed());
+  }
+
+  async open(): Promise<Page> {
+    if (this.page && !this.page.isClosed()) return this.page;
+    assertAzgaarBuilt();
+    this.server ??= await startStaticServer(azgaarDist);
+    this.browser ??= await chromium.launch({ headless: !this.headed });
+    this.context = await this.browser.newContext({ viewport: this.canvas, deviceScaleFactor: 1 });
+    // a stored version newer than the app stops the "what's new" notice from covering the map
+    await this.context.addInitScript(() => {
+      try {
+        localStorage.setItem("version", "99.0.0");
+      } catch {}
+    });
+    const page = await this.context.newPage();
+    page.on("pageerror", e => this.recordError(`pageerror: ${e.message}`));
+    page.on("console", m => {
+      if (m.type() === "error" && !m.text().includes("net::ERR_")) this.recordError(`console: ${m.text()}`);
+    });
+    await page.goto(`${this.server.url}index.html`);
+    await page.waitForFunction(() => (window as any).FMG?.mapHistory?.length > 0, undefined, { timeout: MAP_TIMEOUT });
+    await page.addStyleTag({ content: "body.mcp-capture > *:not(#map) { visibility: hidden !important; }" });
+    this.page = page;
+    return page;
+  }
+
+  async close(): Promise<void> {
+    await this.context?.close().catch(() => undefined);
+    await this.browser?.close().catch(() => undefined);
+    await this.server?.close().catch(() => undefined);
+    this.page = this.context = this.browser = this.server = undefined;
+  }
+
+  /** Errors the page reported since the last call, cleared on read */
+  takeErrors(): string[] {
+    const errors = this.errors;
+    this.errors = [];
+    return errors;
+  }
+
+  async newMap(options: NewMapOptions) {
+    const density = DENSITY_BY_POINTS[options.points];
+    if (!density) throw new Error(`points must be one of ${Object.keys(DENSITY_BY_POINTS).join(", ")}`);
+    const page = await this.open();
+    await this.assertNotEditing(page);
+    await page.evaluate(
+      async ({ seed, width, height, density, unit, scale, template }) => {
+        const { Pins } = FMG;
+        Pins.set("points", density);
+        Pins.set("mapWidth", width);
+        Pins.set("mapHeight", height);
+        Pins.set("distanceScale", scale);
+        Pins.set("distanceUnit", unit);
+        if (template) Pins.set("template", template);
+        else Pins.clear("template");
+        const before = FMG.mapHistory.length;
+        FMG.regenerateMap({ seed, width, height });
+        while (FMG.mapHistory.length === before) await new Promise(done => setTimeout(done, 100));
+      },
+      {
+        seed: options.seed,
+        width: options.canvas.width,
+        height: options.canvas.height,
+        density,
+        unit: options.units.distance.unit,
+        scale: options.units.distance.scale,
+        template: options.template
+      }
+    );
+    return this.info();
+  }
+
+  async saveMap(path: string): Promise<{ path: string; bytes: number }> {
+    const page = await this.open();
+    await this.assertNotEditing(page);
+    const data = await page.evaluate(() => {
+      if (FMG.options.map.viewOnly) throw new Error("The map is in view-only mode and cannot be saved.");
+      return FMG.Services.Save.prepareMapData() as string;
+    });
+    const file = resolvePath(path, true);
+    writeFileSync(file, data, "utf8");
+    return { path: file, bytes: Buffer.byteLength(data, "utf8") };
+  }
+
+  async openMap(path: string) {
+    const file = resolvePath(path);
+    if (!existsSync(file)) throw new Error(`No map file at ${file}`);
+    const page = await this.open();
+    await this.assertNotEditing(page);
+    const before = await page.evaluate(() => FMG.mapHistory.length as number);
+    await page.locator("#mapToLoad").setInputFiles(file);
+    try {
+      await page.waitForFunction(n => FMG.mapHistory.length > n, before, { timeout: MAP_TIMEOUT });
+    } catch {
+      const dialog = await page.evaluate(() => document.querySelector("#dialogs")?.textContent?.trim().slice(0, 500));
+      throw new Error(`Azgaar did not finish loading ${file}.${dialog ? ` It reported: ${dialog}` : ""}`);
+    }
+    return this.info();
+  }
+
+  async info() {
+    const page = await this.open();
+    return page.evaluate(() => {
+      const { pack, grid, options } = FMG;
+      const live = (list: any[]) => list.filter(e => e && typeof e === "object" && !e.removed);
+      const featureTypes: Record<string, number> = {};
+      for (const f of live(pack.features)) {
+        const key = `${f.type}:${f.subtype ?? f.group}`;
+        featureTypes[key] = (featureTypes[key] ?? 0) + 1;
+      }
+      let land = 0;
+      for (const h of pack.cells.h) if (h >= 20) land++;
+      return {
+        azgaarVersion: FMG.VERSION,
+        seed: options.map.seed,
+        name: options.map.lore.name,
+        canvas: { width: options.map.graph.width, height: options.map.graph.height },
+        points: options.map.graph.points,
+        units: options.map.units.distance,
+        geography: { mapSize: options.map.geography.mapSize, latitude: options.map.geography.latitude, longitude: options.map.geography.longitude },
+        cells: { grid: grid.cells.i.length, pack: pack.cells.i.length, packLand: land },
+        features: featureTypes,
+        counts: {
+          burgs: live(pack.burgs).length,
+          states: live(pack.states).length,
+          cultures: live(pack.cultures).length,
+          religions: live(pack.religions).length,
+          rivers: live(pack.rivers).length,
+          routes: live(pack.routes).length,
+          markers: live(pack.markers).length,
+          biomes: live(pack.biomes).length
+        },
+        editMode: options.app.mode
+      };
+    });
+  }
+
+  /** Summarises the pack cells whose centres fall inside `polygon` (map pixels) */
+  async queryCells(polygon: Point[], includeCells: number) {
+    const page = await this.open();
+    return page.evaluate(
+      ({ polygon, includeCells }) => {
+        const { pack } = FMG;
+        const inside = (x: number, y: number) => {
+          let hit = false;
+          for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+            const [xi, yi] = polygon[i];
+            const [xj, yj] = polygon[j];
+            if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) hit = !hit;
+          }
+          return hit;
+        };
+        const biomeName = (id: number) => pack.biomes?.[id]?.name ?? String(id);
+        const biomes: Record<string, number> = {};
+        const features: Record<string, { type: string; subtype: string; name: string; cells: number }> = {};
+        const burgs = new Set<number>();
+        const cells: object[] = [];
+        let count = 0, land = 0, sum = 0, min = 100, max = 0;
+        for (const i of pack.cells.i) {
+          const [x, y] = pack.cells.p[i];
+          if (!inside(x, y)) continue;
+          const h = pack.cells.h[i];
+          count++;
+          sum += h;
+          min = Math.min(min, h);
+          max = Math.max(max, h);
+          if (h >= 20) land++;
+          const biome = biomeName(pack.cells.biome[i]);
+          biomes[biome] = (biomes[biome] ?? 0) + 1;
+          const f = pack.features[pack.cells.f[i]];
+          if (f) {
+            const key = String(f.i);
+            features[key] ??= { type: f.type, subtype: f.subtype, name: f.name, cells: 0 };
+            features[key].cells++;
+          }
+          if (pack.cells.burg[i]) burgs.add(pack.cells.burg[i]);
+          if (cells.length < includeCells) cells.push({ i, x, y, h, biome, feature: pack.cells.f[i] });
+        }
+        return {
+          cells: count,
+          landCells: land,
+          height: count ? { min, max, mean: Math.round((sum / count) * 10) / 10 } : null,
+          biomes,
+          features,
+          burgs: [...burgs].map(b => ({ i: b, name: pack.burgs[b]?.name })),
+          sample: cells
+        };
+      },
+      { polygon, includeCells }
+    );
+  }
+
+  async list(kind: ListKind, within: FrameBox | undefined, limit: number) {
+    const page = await this.open();
+    return page.evaluate(
+      ({ kind, within, limit }) => {
+        const { pack } = FMG;
+        const live = (list: any[]) => list.filter(e => e && typeof e === "object" && !e.removed);
+        const inFrame = (x: number, y: number) =>
+          !within || (x >= within.x && x <= within.x + within.width && y >= within.y && y <= within.y + within.height);
+        let rows: object[];
+        if (kind === "features") {
+          rows = live(pack.features)
+            .filter(f => !within || inFrame(...(pack.cells.p[f.firstCell] as [number, number])))
+            .map(f => ({ i: f.i, type: f.type, subtype: f.subtype, group: f.group, name: f.name, land: f.land, cells: f.cells, border: f.border }));
+        } else if (kind === "burgs") {
+          rows = live(pack.burgs)
+            .filter(b => b.i && inFrame(b.x, b.y))
+            .map(b => ({ i: b.i, name: b.name, x: b.x, y: b.y, population: b.population, state: b.state, capital: Boolean(b.capital), group: b.group, type: b.type }));
+        } else if (kind === "markers") {
+          rows = live(pack.markers)
+            .filter(m => inFrame(m.x, m.y))
+            .map(m => ({ i: m.i, name: m.name, type: m.type, icon: m.icon, x: m.x, y: m.y, cell: m.cell, hasNote: Boolean(m.note) }));
+        } else {
+          rows = live(pack.routes)
+            .filter(r => !within || r.points.some((p: number[]) => inFrame(p[0], p[1])))
+            .map(r => ({ i: r.i, name: r.name, group: r.group, length: r.length, points: r.points.length, feature: r.feature }));
+        }
+        return { total: rows.length, items: rows.slice(0, limit) };
+      },
+      { kind, within, limit }
+    );
+  }
+
+  /** PNG of the whole map, or of one frame zoomed to fill the viewport, with the UI chrome hidden */
+  async screenshot(frame: FrameBox | undefined, layers: string[] | undefined): Promise<Buffer> {
+    const page = await this.open();
+    const previousLayers = layers
+      ? await page.evaluate(ids => {
+          const all: string[] = (FMG.Layers as any).layers?.map((l: any) => l.params?.id).filter(Boolean) ?? [];
+          const active = all.filter(id => FMG.Layers.isOn(id));
+          FMG.Layers.set(ids);
+          return active;
+        }, layers)
+      : undefined;
+    try {
+      await page.evaluate(box => {
+        document.body.classList.add("mcp-capture");
+        if (box) {
+          const k = Math.min(innerWidth / box.width, innerHeight / box.height);
+          FMG.zoomTo(box.x + box.width / 2, box.y + box.height / 2, k, 0);
+        } else FMG.resetZoom(0);
+      }, frame ?? null);
+      // the viewport redraw settles a moment after the zoom
+      await page.waitForTimeout(900);
+      if (!frame) return await page.screenshot({ type: "png" });
+      const clip = await page.evaluate(box => {
+        const ctm = (document.querySelector("#viewbox") as SVGGraphicsElement).getScreenCTM()!;
+        const x = ctm.a * box.x + ctm.e;
+        const y = ctm.d * box.y + ctm.f;
+        return { x, y, width: ctm.a * box.width, height: ctm.d * box.height };
+      }, frame);
+      const viewport = page.viewportSize()!;
+      const x = Math.max(0, clip.x);
+      const y = Math.max(0, clip.y);
+      return await page.screenshot({
+        type: "png",
+        clip: { x, y, width: Math.min(clip.width, viewport.width - x), height: Math.min(clip.height, viewport.height - y) }
+      });
+    } finally {
+      await page.evaluate(() => document.body.classList.remove("mcp-capture"));
+      // an empty list means the active layers could not be read; leaving the capture's layers beats hiding all
+      if (previousLayers?.length) await page.evaluate(ids => FMG.Layers.set(ids), previousLayers);
+    }
+  }
+
+  /** Evaluates `code` as the body of an async function with `FMG` in scope */
+  async runJs(code: string): Promise<unknown> {
+    const page = await this.open();
+    return page.evaluate(async source => {
+      const fn = new Function("FMG", `return (async () => {\n${source}\n})();`);
+      const result = await fn(FMG);
+      return result === undefined ? null : JSON.parse(JSON.stringify(result));
+    }, code);
+  }
+
+  private recordError(message: string): void {
+    this.errors.push(message);
+    if (this.errors.length > 50) this.errors.shift();
+  }
+
+  private async assertNotEditing(page: Page): Promise<void> {
+    const mode = await page.evaluate(() => FMG.options.app.mode as string | null);
+    if (mode) throw new Error(`Azgaar is in "${mode}" edit mode; finish or cancel that edit first.`);
+  }
+}
+
+export const screenshotPath = (name: string) => join("world", "build", "screenshots", `${name}.png`);

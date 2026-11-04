@@ -1,0 +1,7 @@
+{
+  "act1": {
+    "description": "Act I Rift Basin. Local 0-1 coordinates match the regional overview: x runs west to east, y north to south.",
+    "center": [0.4, 0.63],
+    "sizeKm": [100, 64]
+  }
+}

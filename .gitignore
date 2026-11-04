@@ -1,0 +1,6 @@
+node_modules/
+tools/azgaar/source/
+tools/azgaar/dist/
+tools/azgaar-mcp/dist/
+world/build/
+*.log
