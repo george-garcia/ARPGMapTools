@@ -11,5 +11,16 @@ The world map's source of truth. Generated `.map` files and screenshots are buil
 | `eras/now/` | Present-day water, biomes, settlements, routes and notes |
 | `build/` | Generated `before.map`, `now.map`, screenshots and the `run_js` log |
 
-Ops arrive in milestone 3. Each op file will be JSON: an ordered list of `{ "id", "tool", "args", "note" }`, where `id` is a stable name
-(such as `act1.city`) so an op is edited in place rather than appended again.
+## Ops and builds
+
+Each op file is a JSON array of `{ "id", "tool", "args", "note" }`, replayed through the azgaar MCP server in file-name order:
+`base/*.json` first, then `eras/<era>/*.json`. `id` is a stable name (such as `act1.city`) so an op is edited in place rather than
+appended again. The first op must be `new_map`, and `run_js` is never allowed in an op.
+
+```
+npm run world          # rebuilds world/build/now.map and its screenshots
+npm run world before   # the pre-catastrophe map
+```
+
+`base/00-continent.json` holds the continent as a custom Azgaar heightmap template. Template steps draw random positions from the seed,
+so changing one step reshapes the whole continent: review the screenshots after every edit.
