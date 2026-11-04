@@ -1,0 +1,6 @@
+{
+  "seed": "arpg-world",
+  "canvas": { "width": 1920, "height": 1080 },
+  "points": 100000,
+  "units": { "distance": { "unit": "km", "scale": 0.5 } }
+}

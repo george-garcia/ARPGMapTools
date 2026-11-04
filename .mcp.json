@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "azgaar": {
+      "command": "node",
+      "args": ["tools/azgaar-mcp/dist/index.js"]
+    }
+  }
+}
