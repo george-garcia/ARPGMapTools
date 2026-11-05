@@ -44,6 +44,12 @@ Settlements: `eras/now/40-settlements.json` founds the city with `add_burg` (its
 they sit about 30 km apart on the overview) and puts the Ruined Outpost down as a ruins marker with `add_marker`. Names and
 populations are placeholders, tagged `[placeholder]` in each note. The before era has no settlements until they are decided.
 
+Routes: `eras/now/50-routes.json` draws only the traffic that the terrain and the story support: the main road into the
+city (through the low Caravan Approach pass, across the terrace to the Slums, up the one spur onto the upper-city shelf) and
+the old caravan road through the Ruined Outpost, in faded fragments that fade out before the washes. Routes do not join zone
+to zone: zones are ARPG tilesets, and how the player travels between them is undecided. Each class is its own route group
+from `define_style_group`; `add_burg` drops Azgaar's auto-linked trails, so every route is hand-drawn.
+
 `eras/now/00-climate.json` applies the present-day drought with `set_climate`; the before era keeps the natural climate from `config.json`.
 
 `base/00-continent.json` holds the continent as a custom Azgaar heightmap template. Template steps draw random positions from the seed,
