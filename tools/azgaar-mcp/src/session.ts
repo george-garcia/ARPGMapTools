@@ -325,6 +325,153 @@ export class AzgaarSession {
     return this.info();
   }
 
+  /** Adds or updates a lake or route style group, starting from a stock group's look */
+  async defineStyleGroup(layer: "lakes" | "routes", group: string, attrs: Record<string, string | number | null>) {
+    const page = await this.open();
+    return page.evaluate(
+      ({ layer, group, attrs }) => {
+        const groups = FMG.styles[layer].groups;
+        const created = !groups[group];
+        if (created) groups[group] = structuredClone(layer === "lakes" ? groups.freshwater : groups.trails);
+        try {
+          // Styles.setValue checks each attr against Azgaar's style schema, so the .map reloads with it intact
+          for (const [name, value] of Object.entries(attrs)) FMG.Styles.setValue(`${layer}.groups.${group}.attrs.${name}`, value);
+        } catch (error) {
+          if (created) delete groups[group];
+          throw error;
+        }
+        FMG.Layers.draw(layer);
+        FMG.Styles.write(layer);
+        return { layer, group, created, attrs: groups[group].attrs };
+      },
+      { layer, group, attrs }
+    );
+  }
+
+  /** Sets subtype, style group and name on every lake with a cell centre inside `polygon` (map pixels) */
+  async setLakes(polygon: Point[], change: { subtype?: string; group?: string; name?: string }) {
+    const page = await this.open();
+    return page.evaluate(
+      ({ polygon, change }) => {
+        const { pack } = FMG;
+        const inside = (x: number, y: number) => {
+          let hit = false;
+          for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+            const [xi, yi] = polygon[i];
+            const [xj, yj] = polygon[j];
+            if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) hit = !hit;
+          }
+          return hit;
+        };
+        const ids = new Set<number>();
+        pack.cells.i.forEach((i: number) => {
+          const feature = pack.features[pack.cells.f[i]];
+          if (feature?.type === "lake" && inside(pack.cells.p[i][0], pack.cells.p[i][1])) ids.add(feature.i);
+        });
+        if (!ids.size) throw new Error("No lake has a cell inside the polygon. Sculpt the basin below 20 and finalize_terrain first.");
+        for (const id of ids) {
+          if (change.subtype) FMG.Features.setSubtype(id, change.subtype);
+          if (change.group) FMG.Features.setGroup(id, change.group);
+          if (change.name) FMG.Features.rename(id, change.name);
+        }
+        FMG.Layers.draw("lakes");
+        return [...ids].map(id => {
+          const f = pack.features[id];
+          return { i: id, name: f.name, subtype: f.subtype, group: f.group, cells: f.cells };
+        });
+      },
+      { polygon, change }
+    );
+  }
+
+  /** Removes unlocked rivers whose mouth lies inside `polygon`: the generated rivers draining into that region */
+  async removeRivers(polygon: Point[]) {
+    const page = await this.open();
+    return page.evaluate(polygon => {
+      const { pack } = FMG;
+      const inside = (x: number, y: number) => {
+        let hit = false;
+        for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+          const [xi, yi] = polygon[i];
+          const [xj, yj] = polygon[j];
+          if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) hit = !hit;
+        }
+        return hit;
+      };
+      const draining = pack.rivers.filter((r: any) => {
+        if (r.lock) return false; // hand-placed rivers stay
+        const mouth = r.cells?.findLast((c: number) => c >= 0 && c < pack.cells.i.length);
+        return mouth !== undefined && inside(pack.cells.p[mouth][0], pack.cells.p[mouth][1]);
+      });
+      const removed: number[] = [];
+      for (const river of draining) {
+        if (!pack.rivers.some((r: any) => r.i === river.i)) continue; // already gone with its basin
+        FMG.Rivers.remove(river.i);
+        removed.push(river.i);
+      }
+      FMG.Layers.draw("rivers");
+      return { removed: removed.length, remaining: pack.rivers.length };
+    }, polygon);
+  }
+
+  /** Draws a locked river along a polyline (map pixels, source first) through the cells it crosses */
+  async addRiver(points: Point[], options: { name?: string; type?: string; sourceWidth?: number; widthFactor?: number } = {}) {
+    const page = await this.open();
+    return page.evaluate(
+      ({ points, options }) => {
+        const { pack } = FMG;
+        const neighbors = (cell: number): number[] => pack.cells.c[cell];
+        // cells under the line, sampled every half pixel, each a neighbour of the one before
+        const cells: number[] = [];
+        const push = (cell: number) => {
+          const last = cells.at(-1);
+          if (last === cell) return;
+          if (last !== undefined && !neighbors(last).includes(cell)) {
+            const bridge = neighbors(last).find(n => neighbors(n).includes(cell) && !cells.includes(n));
+            if (bridge === undefined) throw new Error(`No path between cells ${last} and ${cell}; add more points`);
+            cells.push(bridge);
+          }
+          const loop = cells.indexOf(cell);
+          if (loop >= 0) cells.length = loop; // the line doubled back: cut the loop
+          cells.push(cell);
+        };
+        for (let s = 0; s < points.length - 1; s++) {
+          const [x1, y1] = points[s];
+          const [x2, y2] = points[s + 1];
+          const steps = Math.max(1, Math.ceil(Math.hypot(x2 - x1, y2 - y1) * 2));
+          for (let k = 0; k <= steps; k++) push(FMG.Pack.requireCell(x1 + ((x2 - x1) * k) / steps, y1 + ((y2 - y1) * k) / steps));
+        }
+        const id = FMG.Rivers.create(cells);
+        FMG.Rivers.setLocked(id, true);
+        if (options.name) FMG.Rivers.rename(id, options.name);
+        if (options.type) FMG.Rivers.setType(id, options.type);
+        if (options.sourceWidth !== undefined || options.widthFactor !== undefined) {
+          const river = pack.rivers.find((r: any) => r.i === id);
+          FMG.Rivers.setWidth(id, options.sourceWidth ?? river.sourceWidth, options.widthFactor ?? river.widthFactor);
+        }
+        FMG.Layers.draw("rivers");
+        const river = pack.rivers.find((r: any) => r.i === id);
+        return { i: id, name: river.name, type: river.type, cells: cells.length, width: river.width };
+      },
+      { points, options }
+    );
+  }
+
+  /** Draws a route (any line group, e.g. a dashed seasonal wash) along a polyline in map pixels */
+  async addRoute(points: Point[], group: string, name?: string) {
+    const page = await this.open();
+    return page.evaluate(
+      ({ points, group, name }) => {
+        const id = FMG.Routes.create(points, group);
+        if (name) FMG.Routes.rename(id, name);
+        FMG.Routes.setLocked(id, true);
+        FMG.Layers.draw("routes");
+        return { i: id, points: points.length, group };
+      },
+      { points, group, name }
+    );
+  }
+
   async info() {
     const page = await this.open();
     return page.evaluate(() => {

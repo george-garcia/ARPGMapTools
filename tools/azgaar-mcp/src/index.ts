@@ -149,6 +149,101 @@ server.registerTool(
   ({ precipitation, temperature }) => respond(() => session.setClimate({ precipitation, temperature }))
 );
 
+/** Polygon or polyline from the caller, in map pixels: frame-local 0-1 points with `frame`, map pixels otherwise */
+const toMapPoints = (points: number[][], frame?: string): Point[] => {
+  const box = frame ? getFrame(frame) : undefined;
+  return box ? points.map(p => toMap(box, p as Point)) : (points as Point[]);
+};
+const wholeFrame = [[0, 0], [1, 0], [1, 1], [0, 1]];
+
+server.registerTool(
+  "define_style_group",
+  {
+    title: "Define a lake or route style group",
+    description:
+      "Adds a style group to the lakes or routes layer, or updates one. A new lake group starts from the freshwater look, a new route group from trails; the given SVG attrs are merged over it and checked against Azgaar's style schema. Lakes take opacity, fill, fill-opacity, stroke, stroke-width, stroke-opacity, stroke-dasharray, filter; routes the same minus fill. A null value unsets an attr. The group is saved in the .map.",
+    inputSchema: {
+      layer: z.enum(["lakes", "routes"]),
+      group: z.string().regex(/^[a-zA-Z][\w-]*$/),
+      attrs: z.record(z.string(), z.union([z.string(), z.number(), z.null()]))
+    }
+  },
+  ({ layer, group, attrs }) => respond(() => session.defineStyleGroup(layer, group, attrs))
+);
+
+server.registerTool(
+  "set_lakes",
+  {
+    title: "Set lakes' subtype, look and name",
+    description:
+      "For every lake with a cell inside the polygon: sets its subtype (freshwater, salt, dry, sinkhole, frozen, lava), its style group (from define_style_group or a stock one) and/or its name. Lakes form where finalize_terrain finds enclosed ground below height 20. Run after finalize_terrain and set_climate, which reset lake groups. With `frame`, points are frame-local 0-1; omit `polygon` to cover the whole frame.",
+    inputSchema: {
+      polygon: z.array(point).min(3).optional(),
+      frame: z.string().optional(),
+      subtype: z.enum(["freshwater", "salt", "dry", "sinkhole", "frozen", "lava"]).optional(),
+      group: z.string().optional(),
+      name: z.string().optional()
+    }
+  },
+  ({ polygon, frame, subtype, group, name }) =>
+    respond(async () => {
+      if (!polygon && !frame) throw new Error("Pass a polygon, a frame, or both");
+      return session.setLakes(toMapPoints(polygon ?? wholeFrame, frame), { subtype, group, name });
+    })
+);
+
+server.registerTool(
+  "remove_rivers",
+  {
+    title: "Remove generated rivers",
+    description:
+      "Removes every unlocked river whose mouth lies inside the polygon, with its tributaries (rivers from add_river are locked and stay): the generated rivers draining into a region, before hand-placed ones go in with add_river. With `frame`, points are frame-local 0-1; omit `polygon` to cover the whole frame.",
+    inputSchema: { polygon: z.array(point).min(3).optional(), frame: z.string().optional() }
+  },
+  ({ polygon, frame }) =>
+    respond(async () => {
+      if (!polygon && !frame) throw new Error("Pass a polygon, a frame, or both");
+      return session.removeRivers(toMapPoints(polygon ?? wholeFrame, frame));
+    })
+);
+
+server.registerTool(
+  "add_river",
+  {
+    title: "Draw a river",
+    description:
+      "Draws a river along a polyline from source to mouth through the cells under it, and locks it so later climate and river regeneration keep its course. It joins a river it ends on. With `frame`, points are frame-local 0-1. Widths are in km: source_width at the source, width_factor how fast it widens.",
+    inputSchema: {
+      points: z.array(point).min(2),
+      frame: z.string().optional(),
+      name: z.string().optional(),
+      type: z.string().optional().describe("Free label such as River, Creek, Stream, Falls"),
+      source_width: z.number().min(0).optional(),
+      width_factor: z.number().min(0).optional()
+    }
+  },
+  ({ points, frame, name, type, source_width, width_factor }) =>
+    respond(() =>
+      session.addRiver(toMapPoints(points, frame), { name, type, sourceWidth: source_width, widthFactor: width_factor })
+    )
+);
+
+server.registerTool(
+  "add_route",
+  {
+    title: "Draw a route line",
+    description:
+      "Draws a locked line in a route group (roads, trails, searoutes, or a group from define_style_group, e.g. a dashed seasonal wash) along a polyline. With `frame`, points are frame-local 0-1.",
+    inputSchema: {
+      points: z.array(point).min(2),
+      frame: z.string().optional(),
+      group: z.string(),
+      name: z.string().optional()
+    }
+  },
+  ({ points, frame, group, name }) => respond(() => session.addRoute(toMapPoints(points, frame), group, name))
+);
+
 server.registerTool(
   "get_map_info",
   {

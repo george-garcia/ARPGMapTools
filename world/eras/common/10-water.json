@@ -1,0 +1,324 @@
+[
+  {
+    "id": "act1.river.falls",
+    "tool": "add_river",
+    "note": "Stream off the escarpment: two falls down the slot to the Slums, its water source. The upper city's intake sits upstream; it ends at the Slums, used up",
+    "args": {
+      "frame": "act1",
+      "points": [
+        [
+          0.15,
+          0.17
+        ],
+        [
+          0.18,
+          0.21
+        ],
+        [
+          0.21,
+          0.27
+        ],
+        [
+          0.235,
+          0.31
+        ],
+        [
+          0.24,
+          0.38
+        ],
+        [
+          0.235,
+          0.44
+        ],
+        [
+          0.225,
+          0.47
+        ]
+      ],
+      "name": "Slums Falls",
+      "type": "Falls",
+      "source_width": 0.05,
+      "width_factor": 0.6
+    }
+  },
+  {
+    "id": "act1.style.washes",
+    "tool": "define_style_group",
+    "note": "Seasonal mineral washes: dashed rust channels, dry most of the year",
+    "args": {
+      "layer": "routes",
+      "group": "washes",
+      "attrs": {
+        "stroke": "#9a3d17",
+        "stroke-width": 0.9,
+        "stroke-dasharray": "2.5 1.2",
+        "stroke-linecap": "round",
+        "opacity": 0.85
+      }
+    }
+  },
+  {
+    "id": "act1.wash.main",
+    "tool": "add_route",
+    "note": "Main wash, from the basalt edge south to the teal mineral pool",
+    "args": {
+      "frame": "act1",
+      "group": "washes",
+      "name": "Mineral Washes",
+      "points": [
+        [
+          0.565,
+          0.28
+        ],
+        [
+          0.545,
+          0.33
+        ],
+        [
+          0.53,
+          0.38
+        ],
+        [
+          0.535,
+          0.45
+        ],
+        [
+          0.55,
+          0.52
+        ],
+        [
+          0.575,
+          0.585
+        ],
+        [
+          0.615,
+          0.625
+        ]
+      ]
+    }
+  },
+  {
+    "id": "act1.wash.braid",
+    "tool": "add_route",
+    "note": "Western braid of the main wash",
+    "args": {
+      "frame": "act1",
+      "group": "washes",
+      "points": [
+        [
+          0.535,
+          0.42
+        ],
+        [
+          0.505,
+          0.47
+        ],
+        [
+          0.515,
+          0.53
+        ],
+        [
+          0.55,
+          0.58
+        ]
+      ]
+    }
+  },
+  {
+    "id": "act1.wash.terraces",
+    "tool": "add_route",
+    "note": "Branch through the fossil-terrace gap out to the salt flats",
+    "args": {
+      "frame": "act1",
+      "group": "washes",
+      "points": [
+        [
+          0.54,
+          0.37
+        ],
+        [
+          0.6,
+          0.455
+        ],
+        [
+          0.67,
+          0.47
+        ],
+        [
+          0.73,
+          0.47
+        ],
+        [
+          0.79,
+          0.485
+        ],
+        [
+          0.85,
+          0.5
+        ]
+      ]
+    }
+  },
+  {
+    "id": "act1.style.brine",
+    "tool": "define_style_group",
+    "note": "Pink brine pools with pale salt rims",
+    "args": {
+      "layer": "lakes",
+      "group": "brine",
+      "attrs": {
+        "opacity": 0.9,
+        "fill": "#c98aa8",
+        "stroke": "#e8dccb",
+        "stroke-width": 0.8
+      }
+    }
+  },
+  {
+    "id": "act1.style.acid",
+    "tool": "define_style_group",
+    "note": "Acid pools: shallow-acid green with sulfur rims (Acid Pits art bible palette)",
+    "args": {
+      "layer": "lakes",
+      "group": "acid",
+      "attrs": {
+        "opacity": 0.95,
+        "fill": "#98B72C",
+        "stroke": "#E1BA29",
+        "stroke-width": 1
+      }
+    }
+  },
+  {
+    "id": "act1.style.mineral",
+    "tool": "define_style_group",
+    "note": "Teal mineral pools with gypsum rims",
+    "args": {
+      "layer": "lakes",
+      "group": "mineral",
+      "attrs": {
+        "opacity": 0.9,
+        "fill": "#49b3a8",
+        "stroke": "#d9d5c8",
+        "stroke-width": 0.8
+      }
+    }
+  },
+  {
+    "id": "act1.lakes.brine",
+    "tool": "set_lakes",
+    "note": "Brine pools NE of the salt flats",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.84,
+          0.2
+        ],
+        [
+          0.97,
+          0.2
+        ],
+        [
+          0.97,
+          0.35
+        ],
+        [
+          0.84,
+          0.35
+        ]
+      ],
+      "subtype": "salt",
+      "group": "brine"
+    }
+  },
+  {
+    "id": "act1.lakes.acid",
+    "tool": "set_lakes",
+    "note": "The Acid Pits' pools: blockers in the field",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.64,
+          0.62
+        ],
+        [
+          0.92,
+          0.6
+        ],
+        [
+          0.92,
+          0.84
+        ],
+        [
+          0.64,
+          0.84
+        ],
+        [
+          0.64,
+          0.7
+        ]
+      ],
+      "subtype": "salt",
+      "group": "acid"
+    }
+  },
+  {
+    "id": "act1.lakes.mineral",
+    "tool": "set_lakes",
+    "note": "Teal mineral pool at the end of the washes (after the acid pass, which covers it)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.6,
+          0.6
+        ],
+        [
+          0.7,
+          0.6
+        ],
+        [
+          0.7,
+          0.67
+        ],
+        [
+          0.6,
+          0.67
+        ]
+      ],
+      "subtype": "salt",
+      "group": "mineral"
+    }
+  },
+  {
+    "id": "act1.lakes.lava",
+    "tool": "set_lakes",
+    "note": "Small, fluctuating summit lava lake; not the source of the acid",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.8,
+          0.02
+        ],
+        [
+          0.88,
+          0.02
+        ],
+        [
+          0.88,
+          0.12
+        ],
+        [
+          0.8,
+          0.12
+        ]
+      ],
+      "subtype": "lava",
+      "group": "lava",
+      "name": "Summit Lava Lake"
+    }
+  }
+]
