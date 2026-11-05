@@ -36,7 +36,7 @@ async function call(name, args = {}) {
 try {
   const { tools } = await client.listTools();
   const names = tools.map(t => t.name).sort();
-  check("tools registered", names.length === 9, names.join(", "));
+  check("tools registered", names.length === 10 && names.includes("set_climate"), names.join(", "));
 
   const gen = await call("new_map", { seed: "smoke-test" });
   check("new_map builds a 100K-point map", gen.body.cells.grid >= 99000 && gen.body.points === 100000, `${gen.body.cells.grid} cells in ${gen.ms} ms`);
@@ -63,8 +63,9 @@ try {
   const query = await call("query_cells", { frame: "act1", polygon: [[0, 0], [1, 0], [1, 1], [0, 1]], include_cells: 3 });
   check("query_cells covers the act1 frame", query.body.cells > 100, `${query.body.cells} cells, ${query.body.landCells} land`);
 
-  const burgs = await call("list", { kind: "burgs", limit: 5 });
-  check("list returns burgs", burgs.body.total > 0, `${burgs.body.total} burgs`);
+  const features = await call("list", { kind: "features", limit: 5 });
+  check("list returns features", features.body.total > 0, `${features.body.total} features`);
+  check("config turns off procedural towns and markers", gen.body.counts.burgs === 0 && gen.body.counts.markers === 0);
 
   const shot = await call("screenshot", { frame: "act1", name: "smoke-act1" });
   const image = shot.res.content.find(c => c.type === "image");

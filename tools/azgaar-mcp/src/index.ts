@@ -34,17 +34,29 @@ server.registerTool(
   {
     title: "Generate a new map",
     description:
-      "Replaces the current map with a newly generated one. Canvas size, point count and distance units come from world/config.json unless overridden. Seeds are reproducible only with the same Azgaar version and settings.",
+      "Replaces the current map with a newly generated one. Canvas, points, units, globe position, winds, temperatures and procedural-content caps come from world/config.json. The terrain comes from a built-in template, from custom template_steps, or is random. Seeds are reproducible only with the same Azgaar version and settings.",
     inputSchema: {
       seed: z.string().optional().describe("Map seed; defaults to world/config.json"),
-      template: z.string().optional().describe("Azgaar heightmap template id, e.g. 'continents', 'pangea'; random if omitted"),
+      template: z.string().optional().describe("Azgaar built-in heightmap template id, e.g. 'continents', 'pangea'"),
+      template_steps: z
+        .array(z.string())
+        .optional()
+        .describe(
+          "Custom heightmap template, one Azgaar step per entry: 'Tool count height x% y%', e.g. 'Hill 1 80-85 40-60 40-60'. Tools: Hill, Pit, Range, Trough, Strait, Mask, Invert, Add, Multiply, Smooth"
+        ),
       points: z.number().int().optional().describe("Cell count, one of Azgaar's steps (1000 to 100000)")
     }
   },
-  ({ seed, template, points }) =>
+  ({ seed, template, template_steps, points }) =>
     respond(async () => {
       const config = loadConfig();
-      return session.newMap({ ...config, seed: seed ?? config.seed, points: points ?? config.points, template });
+      return session.newMap({
+        ...config,
+        seed: seed ?? config.seed,
+        points: points ?? config.points,
+        template,
+        templateSteps: template_steps
+      });
     })
 );
 
@@ -71,6 +83,22 @@ server.registerTool(
       const target = path ?? `world/build/${(await session.info()).seed}.map`;
       return session.saveMap(target);
     })
+);
+
+server.registerTool(
+  "set_climate",
+  {
+    title: "Change the climate",
+    description:
+      "Changes precipitation (Azgaar's %, 100 is Earth-like) and/or temperatures (degrees C at the equator and poles) on the current map, then re-derives temperature, precipitation, rivers and biomes. Terrain is untouched. Use in an era's ops to make that era wetter or drier than the shared base.",
+    inputSchema: {
+      precipitation: z.number().min(0).max(500).optional(),
+      temperature: z
+        .object({ equator: z.number().optional(), northPole: z.number().optional(), southPole: z.number().optional() })
+        .optional()
+    }
+  },
+  ({ precipitation, temperature }) => respond(() => session.setClimate({ precipitation, temperature }))
 );
 
 server.registerTool(

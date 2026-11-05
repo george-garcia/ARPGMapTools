@@ -4,12 +4,15 @@
   "private": true,
   "description": "MCP server that drives Azgaar's Fantasy Map Generator to build the ARPG world map",
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "setup": "node scripts/setup-azgaar.mjs",
     "build": "tsc -p tools/azgaar-mcp",
     "start": "node tools/azgaar-mcp/dist/index.js",
-    "smoke": "node scripts/smoke.mjs"
+    "smoke": "node scripts/smoke.mjs",
+    "world": "node scripts/build-world.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2",

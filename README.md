@@ -11,6 +11,7 @@ npm install
 npm run setup    # fetches and builds the pinned Azgaar release, installs Playwright's Chromium
 npm run build    # compiles the MCP server
 npm run smoke    # optional: end-to-end check over MCP, about 30 seconds
+npm run world    # rebuilds the world map from the ops in world/ into world/build/now.map
 ```
 
 Open this folder in Claude Code and approve the `azgaar` server from `.mcp.json`. To watch the browser while it works, add `"--headed"` to the server's `args` in `.mcp.json`.
@@ -19,7 +20,8 @@ Open this folder in Claude Code and approve the `azgaar` server from `.mcp.json`
 
 | Tool | What it does |
 | --- | --- |
-| `new_map` | Generates a new map with the canvas, point count and units from `world/config.json`; optional seed, template and point override |
+| `new_map` | Generates a new map with the canvas, points, units, globe position, winds, temperatures and content caps from `world/config.json`; terrain from a built-in template or custom `template_steps` |
+| `set_climate` | Changes precipitation and temperatures and re-derives rivers and biomes, keeping the terrain (used for the present-day drought) |
 | `open_map` | Loads a `.map` file |
 | `save_map` | Saves exactly what Azgaar's own Save writes, so the desktop app opens it (default `world/build/<seed>.map`) |
 | `get_map_info` | Seed, version, canvas, units, cell and entity counts, and the named frames in map pixels |

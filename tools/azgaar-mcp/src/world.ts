@@ -12,6 +12,16 @@ export interface WorldConfig {
   canvas: { width: number; height: number };
   points: number;
   units: { distance: { unit: string; scale: number } };
+  /** where the map sits on the globe, in Azgaar's percentages */
+  geography?: { mapSize: number; latitude: number; longitude: number };
+  climate?: {
+    winds: number[];
+    temperature: { equator: number; northPole: number; southPole: number };
+    precipitation: number;
+  };
+  /** caps on procedural content; 0 turns it off */
+  generation?: { states?: number; burgs?: number; religions?: number; markers?: 0 | null };
+  lore?: { name?: string };
 }
 
 /** A named region of the map. `center` is a fraction of the canvas, `sizeKm` its width and height */

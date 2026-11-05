@@ -11,8 +11,14 @@ const DENSITY_BY_POINTS: Record<number, number> = {
 };
 const MAP_TIMEOUT = 180_000;
 
+/** Id the custom template is registered under in Azgaar's template list for one generation */
+const CUSTOM_TEMPLATE = "arpgCustom";
+
 export interface NewMapOptions extends WorldConfig {
+  /** one of Azgaar's built-in template ids */
   template?: string;
+  /** a custom heightmap template, one Azgaar step per entry ("Hill 1 80-85 40-60 40-60") */
+  templateSteps?: string[];
 }
 
 export type ListKind = "features" | "burgs" | "markers" | "routes";
@@ -86,30 +92,60 @@ export class AzgaarSession {
   async newMap(options: NewMapOptions) {
     const density = DENSITY_BY_POINTS[options.points];
     if (!density) throw new Error(`points must be one of ${Object.keys(DENSITY_BY_POINTS).join(", ")}`);
+    if (options.template && options.templateSteps) throw new Error("Pass either template or template_steps, not both.");
+    const { geography, climate, generation, lore } = options;
+    // a pinned value is what Azgaar keeps instead of re-rolling; undefined clears the pin
+    const pins: Record<string, unknown> = {
+      points: density,
+      mapWidth: options.canvas.width,
+      mapHeight: options.canvas.height,
+      distanceScale: options.units.distance.scale,
+      distanceUnit: options.units.distance.unit,
+      template: options.templateSteps ? CUSTOM_TEMPLATE : options.template,
+      mapSize: geography?.mapSize,
+      latitude: geography?.latitude,
+      longitude: geography?.longitude,
+      temperatureEquator: climate?.temperature.equator,
+      temperatureNorthPole: climate?.temperature.northPole,
+      temperatureSouthPole: climate?.temperature.southPole,
+      prec: climate?.precipitation,
+      statesNumber: generation?.states,
+      manors: generation?.burgs,
+      religionsNumber: generation?.religions,
+      mapName: lore?.name
+    };
     const page = await this.open();
     await this.assertNotEditing(page);
     await page.evaluate(
-      async ({ seed, width, height, density, unit, scale, template }) => {
+      async ({ seed, width, height, pins, winds, steps, customId, keepMarkers }) => {
         const { Pins } = FMG;
-        Pins.set("points", density);
-        Pins.set("mapWidth", width);
-        Pins.set("mapHeight", height);
-        Pins.set("distanceScale", scale);
-        Pins.set("distanceUnit", unit);
-        if (template) Pins.set("template", template);
-        else Pins.clear("template");
+        for (const [key, value] of Object.entries(pins)) {
+          if (value === undefined || value === null) Pins.clear(key);
+          else Pins.set(key, value);
+        }
+        if (steps) FMG.heightmapTemplates[customId] = { id: 999, name: "ARPG custom", template: steps, probability: 0 };
+        if (winds) FMG.options.map.climate.winds = winds;
         const before = FMG.mapHistory.length;
         FMG.regenerateMap({ seed, width, height });
         while (FMG.mapHistory.length === before) await new Promise(done => setTimeout(done, 100));
+        // Azgaar has no pin for markers, so procedural ones are cleared after generation
+        if (!keepMarkers) {
+          FMG.pack.markers = [];
+          FMG.Layers.draw("markers");
+        }
+        if (steps && FMG.options.generation.template !== customId) {
+          throw new Error(`Azgaar generated from "${FMG.options.generation.template}" instead of the custom template.`);
+        }
       },
       {
         seed: options.seed,
         width: options.canvas.width,
         height: options.canvas.height,
-        density,
-        unit: options.units.distance.unit,
-        scale: options.units.distance.scale,
-        template: options.template
+        pins,
+        winds: climate?.winds,
+        steps: options.templateSteps?.join("\n"),
+        customId: CUSTOM_TEMPLATE,
+        keepMarkers: generation?.markers !== 0
       }
     );
     return this.info();
@@ -143,6 +179,34 @@ export class AzgaarSession {
     return this.info();
   }
 
+  /**
+   * Changes the climate of the current map and re-derives temperature, precipitation, rivers and biomes
+   * from it, keeping the terrain. Mirrors Azgaar's World Configurator update (src/controllers/world-configurator.ts)
+   */
+  async setClimate(change: { precipitation?: number; temperature?: { equator?: number; northPole?: number; southPole?: number } }) {
+    const page = await this.open();
+    await this.assertNotEditing(page);
+    await page.evaluate(change => {
+      const { climate } = FMG.options.map;
+      if (change.precipitation !== undefined) climate.precipitation = change.precipitation;
+      Object.assign(climate.temperature, change.temperature ?? {});
+      const { pack } = FMG;
+      FMG.Temperature.generate();
+      FMG.Precipitation.generate();
+      const heights = new Uint8Array(pack.cells.h);
+      FMG.Rivers.generate(true, FMG.Rivers.getLocked());
+      FMG.Rivers.specify();
+      FMG.Routes.sync();
+      pack.cells.h = new Float32Array(heights); // the river pass erodes heights; the terrain must not change
+      FMG.Biomes.define();
+      FMG.Features.defineGroups();
+      FMG.Features.defineNames();
+      FMG.Layers.draw("temperature", "precipitation");
+      FMG.Layers.draw("biomes", "coordinates", "rivers");
+    }, change);
+    return this.info();
+  }
+
   async info() {
     const page = await this.open();
     return page.evaluate(() => {
@@ -154,11 +218,29 @@ export class AzgaarSession {
         featureTypes[key] = (featureTypes[key] ?? 0) + 1;
       }
       let land = 0;
-      for (const h of pack.cells.h) if (h >= 20) land++;
+      const biomeCells: Record<string, number> = {};
+      pack.cells.h.forEach((h: number, i: number) => {
+        if (h < 20) return;
+        land++;
+        const name = pack.biomes?.[pack.cells.biome[i]]?.name ?? String(pack.cells.biome[i]);
+        biomeCells[name] = (biomeCells[name] ?? 0) + 1;
+      });
+      const landBiomes = Object.fromEntries(
+        Object.entries(biomeCells)
+          .sort((a, b) => b[1] - a[1])
+          .map(([name, cells]) => [name, `${Math.round((cells / land) * 1000) / 10}%`])
+      );
       return {
         azgaarVersion: FMG.VERSION,
         seed: options.map.seed,
         name: options.map.lore.name,
+        climate: {
+          winds: options.map.climate.winds,
+          temperature: options.map.climate.temperature,
+          precipitation: options.map.climate.precipitation
+        },
+        landBiomes,
+        latitudeRange: [options.map.geography.coordinates.latS, options.map.geography.coordinates.latN],
         canvas: { width: options.map.graph.width, height: options.map.graph.height },
         points: options.map.graph.points,
         units: options.map.units.distance,

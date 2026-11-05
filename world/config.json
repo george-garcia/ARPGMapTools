@@ -1,6 +1,47 @@
 {
   "seed": "arpg-world",
-  "canvas": { "width": 1920, "height": 1080 },
+  "canvas": {
+    "width": 1920,
+    "height": 1080
+  },
   "points": 100000,
-  "units": { "distance": { "unit": "km", "scale": 0.5 } }
+  "units": {
+    "distance": {
+      "unit": "km",
+      "scale": 0.5
+    }
+  },
+  "geography": {
+    "note": "mapSize is the share of the globe the map covers (1080 px x 0.5 km = 540 km, about 4.9 degrees of latitude). latitude 29.4 puts the map at about 33.6-38.4 N, so Act I sits near 35.4 N.",
+    "mapSize": 2.7,
+    "latitude": 29.4,
+    "longitude": 50
+  },
+  "climate": {
+    "note": "Natural climate shared by both eras. Wind angle per 30-degree band, north pole to south pole: 45 = from the south-west (westerlies, tier 1 covers the whole map); 225 = trades from the north-east. The present-day drought is applied in eras/now.",
+    "winds": [
+      225,
+      45,
+      225,
+      315,
+      135,
+      315
+    ],
+    "temperature": {
+      "equator": 33,
+      "northPole": -25,
+      "southPole": -25
+    },
+    "precipitation": 100
+  },
+  "generation": {
+    "note": "No procedural states, towns, religions or markers: places are added by hand from the story bible.",
+    "states": 0,
+    "burgs": 0,
+    "religions": 0,
+    "markers": 0
+  },
+  "lore": {
+    "name": "ARPG World"
+  }
 }

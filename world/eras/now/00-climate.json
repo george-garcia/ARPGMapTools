@@ -1,0 +1,10 @@
+[
+  {
+    "id": "now.drought",
+    "tool": "set_climate",
+    "note": "The extraction's drought: the present-day world is a hazardous, Kenshi-like wasteland. Untouched, otherworldly regions are painted later, once their places are chosen.",
+    "args": {
+      "precipitation": 25
+    }
+  }
+]
