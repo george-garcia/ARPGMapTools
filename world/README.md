@@ -22,6 +22,8 @@ npm run world          # rebuilds world/build/now.map and its screenshots
 npm run world before   # the pre-catastrophe map
 ```
 
+`base/10-act1-terrain.json` sculpts Act I's rift basin into the continent and ends with `finalize_terrain`. Later ops in a file overwrite earlier ones where they overlap, so lay broad ground first and the features that must survive (rims, floors) after.
+
 `eras/now/00-climate.json` applies the present-day drought with `set_climate`; the before era keeps the natural climate from `config.json`.
 
 `base/00-continent.json` holds the continent as a custom Azgaar heightmap template. Template steps draw random positions from the seed,

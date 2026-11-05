@@ -23,6 +23,18 @@ export interface NewMapOptions extends WorldConfig {
 
 export type ListKind = "features" | "burgs" | "markers" | "routes";
 
+export interface SculptEdit {
+  polygon: Point[];
+  op: "set" | "raise" | "lower" | "smooth" | "roughen";
+  value: number;
+  featherPx: number;
+  noisePx: number;
+  /** wobbles the outline by up to this many pixels */
+  edgeNoisePx: number;
+  seed: number;
+  clamp?: [number, number];
+}
+
 /**
  * One headless browser page running Azgaar, kept alive for the MCP session so map state persists
  * between tool calls. Calls are serialized: Azgaar is single-threaded state, not a database.
@@ -156,6 +168,7 @@ export class AzgaarSession {
     await this.assertNotEditing(page);
     const data = await page.evaluate(() => {
       if (FMG.options.map.viewOnly) throw new Error("The map is in view-only mode and cannot be saved.");
+      if ((window as any).__mcpTerrainPending) throw new Error("Terrain edits are pending; run finalize_terrain before saving.");
       return FMG.Services.Save.prepareMapData() as string;
     });
     const file = resolvePath(path, true);
@@ -176,6 +189,111 @@ export class AzgaarSession {
       const dialog = await page.evaluate(() => document.querySelector("#dialogs")?.textContent?.trim().slice(0, 500));
       throw new Error(`Azgaar did not finish loading ${file}.${dialog ? ` It reported: ${dialog}` : ""}`);
     }
+    return this.info();
+  }
+
+  /**
+   * Edits the raw heightmap (grid.cells.h) inside a polygon in map pixels. Cells inside get the full effect;
+   * cells within `featherPx` outside it get a linearly fading share. Nothing downstream is rebuilt until
+   * finalizeTerrain(), so several sculpts can stack before one regeneration.
+   */
+  async sculpt(edit: SculptEdit) {
+    const page = await this.open();
+    await this.assertNotEditing(page);
+    return page.evaluate(edit => {
+      const { grid } = FMG;
+      const { polygon, op, value, featherPx, noisePx, edgeNoisePx, seed, clamp } = edit;
+      const heights: Uint8Array = grid.cells.h;
+      const original = Uint8Array.from(heights);
+      const xs = polygon.map(p => p[0]);
+      const ys = polygon.map(p => p[1]);
+      const pad = featherPx + edgeNoisePx;
+      const box = [Math.min(...xs) - pad, Math.min(...ys) - pad, Math.max(...xs) + pad, Math.max(...ys) + pad];
+
+      const inside = (x: number, y: number) => {
+        let hit = false;
+        for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+          const [xi, yi] = polygon[i];
+          const [xj, yj] = polygon[j];
+          if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) hit = !hit;
+        }
+        return hit;
+      };
+      const edgeDistance = (x: number, y: number) => {
+        let best = Infinity;
+        for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+          const [x1, y1] = polygon[j];
+          const [x2, y2] = polygon[i];
+          const dx = x2 - x1, dy = y2 - y1;
+          const t = Math.max(0, Math.min(1, ((x - x1) * dx + (y - y1) * dy) / (dx * dx + dy * dy || 1)));
+          best = Math.min(best, Math.hypot(x - (x1 + t * dx), y - (y1 + t * dy)));
+        }
+        return best;
+      };
+      // deterministic value noise in [-1, 1], one lattice point every noisePx
+      const hash = (ix: number, iy: number) => {
+        let h = (ix * 374761393 + iy * 668265263 + seed * 2147483647) | 0;
+        h = Math.imul(h ^ (h >>> 13), 1274126177);
+        return (((h ^ (h >>> 16)) >>> 0) / 4294967295) * 2 - 1;
+      };
+      const noise = (x: number, y: number) => {
+        const gx = x / noisePx, gy = y / noisePx;
+        const ix = Math.floor(gx), iy = Math.floor(gy);
+        const fx = gx - ix, fy = gy - iy;
+        const sx = fx * fx * (3 - 2 * fx), sy = fy * fy * (3 - 2 * fy);
+        const top = hash(ix, iy) * (1 - sx) + hash(ix + 1, iy) * sx;
+        const bottom = hash(ix, iy + 1) * (1 - sx) + hash(ix + 1, iy + 1) * sx;
+        return top * (1 - sy) + bottom * sy;
+      };
+
+      let touched = 0, totalChange = 0;
+      for (let i = 0; i < heights.length; i++) {
+        const [x, y] = grid.points[i];
+        if (x < box[0] || y < box[1] || x > box[2] || y > box[3]) continue;
+        // signed distance to the outline, wobbled by edge noise so shapes get natural, irregular borders
+        const signed = (inside(x, y) ? -1 : 1) * edgeDistance(x, y) + (edgeNoisePx ? edgeNoisePx * noise(x + 9173, y - 5281) : 0);
+        const weight = signed <= 0 ? 1 : featherPx > 0 ? Math.max(0, 1 - signed / featherPx) : 0;
+        if (!weight) continue;
+        const h = original[i];
+        let next = h;
+        if (op === "set") next = h + weight * (value - h);
+        else if (op === "raise") next = h + weight * value;
+        else if (op === "lower") next = h - weight * value;
+        else if (op === "roughen") next = h + weight * value * noise(x, y);
+        else if (op === "smooth") {
+          const around = grid.cells.c[i].map((c: number) => original[c]);
+          const mean = (h + around.reduce((a: number, b: number) => a + b, 0)) / (around.length + 1);
+          next = h + weight * Math.min(1, value) * (mean - h);
+        }
+        if (clamp) next = Math.max(clamp[0], Math.min(clamp[1], next));
+        heights[i] = Math.max(0, Math.min(100, Math.round(next)));
+        if (heights[i] !== h) {
+          touched++;
+          totalChange += heights[i] - h;
+        }
+      }
+      (window as any).__mcpTerrainPending = true;
+      return { cellsChanged: touched, meanChange: touched ? Math.round((totalChange / touched) * 10) / 10 : 0 };
+    }, edit);
+  }
+
+  /** Rebuilds the map from the edited heightmap, as Azgaar's heightmap editor does when an Erase edit is finalized */
+  async finalizeTerrain(keepMarkers: boolean) {
+    const page = await this.open();
+    await this.assertNotEditing(page);
+    await page.evaluate(async keepMarkers => {
+      const { pack } = FMG;
+      pack.cultures = [];
+      pack.burgs = [];
+      pack.states = [];
+      pack.provinces = [];
+      pack.religions = [];
+      pack.relief = [];
+      await FMG.ErasePipeline.run({ erosion: false });
+      if (!keepMarkers) pack.markers = [];
+      FMG.Layers.drawAll();
+      (window as any).__mcpTerrainPending = false;
+    }, keepMarkers);
     return this.info();
   }
 
@@ -257,7 +375,8 @@ export class AzgaarSession {
           markers: live(pack.markers).length,
           biomes: live(pack.biomes).length
         },
-        editMode: options.app.mode
+        editMode: options.app.mode,
+        terrainPending: Boolean((window as any).__mcpTerrainPending)
       };
     });
   }

@@ -86,6 +86,54 @@ server.registerTool(
 );
 
 server.registerTool(
+  "sculpt",
+  {
+    title: "Sculpt the heightmap",
+    description:
+      "Edits terrain heights inside a polygon (Azgaar heights 0-100; 20 is the shoreline, land is 20+). Ops: set (blend toward value), raise/lower (by value), smooth (value 0-1 strength), roughen (value = amplitude, natural noise). Cells inside get the full effect, cells within feather_km outside fade out. With `frame`, polygon points are frame-local 0-1 (x west to east, y north to south). Edits stack; run finalize_terrain afterwards to rebuild coastlines, lakes, rivers and biomes.",
+    inputSchema: {
+      polygon: z.array(point).min(3),
+      frame: z.string().optional(),
+      op: z.enum(["set", "raise", "lower", "smooth", "roughen"]),
+      value: z.number(),
+      feather_km: z.number().min(0).default(2).describe("Soft edge width outside the polygon"),
+      noise_km: z.number().positive().default(3).describe("Feature size of the noise used by roughen and edge_noise_km"),
+      edge_noise_km: z.number().min(0).default(0).describe("Wobbles the polygon outline by up to this distance for natural, irregular borders"),
+      seed: z.number().int().default(1).describe("Noise seed for roughen and edge_noise_km"),
+      clamp: z.tuple([z.number(), z.number()]).optional().describe("Keep results within [min, max], e.g. [21, 100] to keep a basin floor above the shoreline")
+    }
+  },
+  ({ polygon, frame, op, value, feather_km, noise_km, edge_noise_km, seed, clamp }) =>
+    respond(async () => {
+      const config = loadConfig();
+      const kmPerPx = config.units.distance.scale;
+      const box = frame ? getFrame(frame) : undefined;
+      const mapPolygon: Point[] = box ? polygon.map(p => toMap(box, p as Point)) : (polygon as Point[]);
+      return session.sculpt({
+        polygon: mapPolygon,
+        op,
+        value,
+        featherPx: feather_km / kmPerPx,
+        noisePx: noise_km / kmPerPx,
+        edgeNoisePx: edge_noise_km / kmPerPx,
+        seed,
+        clamp: clamp as [number, number] | undefined
+      });
+    })
+);
+
+server.registerTool(
+  "finalize_terrain",
+  {
+    title: "Rebuild from the edited terrain",
+    description:
+      "After sculpt edits: rebuilds coastlines, lakes, rivers, biomes and everything downstream from the edited heightmap (Azgaar's heightmap-editor Erase finalize, without erosion), then clears procedural markers if world/config.json turns them off.",
+    inputSchema: {}
+  },
+  () => respond(() => session.finalizeTerrain(loadConfig().generation?.markers !== 0))
+);
+
+server.registerTool(
   "set_climate",
   {
     title: "Change the climate",

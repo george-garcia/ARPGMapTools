@@ -1,0 +1,1193 @@
+[
+  {
+    "id": "act1.base",
+    "tool": "sculpt",
+    "note": "Neutral basin ground for the whole region, blended into the surrounding continent",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "op": "set",
+      "value": 33,
+      "feather_km": 8
+    }
+  },
+  {
+    "id": "act1.rim.west",
+    "tool": "sculpt",
+    "note": "Rugged red-rock hills along the west edge, south of the escarpment",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0,
+          0.38
+        ],
+        [
+          0.12,
+          0.4
+        ],
+        [
+          0.15,
+          0.66
+        ],
+        [
+          0.2,
+          0.9
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "op": "set",
+      "value": 50,
+      "feather_km": 3,
+      "edge_noise_km": 3,
+      "noise_km": 2.5,
+      "seed": 102
+    }
+  },
+  {
+    "id": "act1.rim.south",
+    "tool": "sculpt",
+    "note": "Broken southern rim closing the basin",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0,
+          0.88
+        ],
+        [
+          0.4,
+          0.9
+        ],
+        [
+          0.7,
+          0.86
+        ],
+        [
+          0.86,
+          0.84
+        ],
+        [
+          1,
+          0.86
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "op": "set",
+      "value": 48,
+      "feather_km": 3,
+      "edge_noise_km": 3,
+      "noise_km": 2.5,
+      "seed": 103
+    }
+  },
+  {
+    "id": "act1.highlands",
+    "tool": "sculpt",
+    "note": "Rift escarpment highland plateau, west and north-west; catches the westerly rain",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0,
+          0
+        ],
+        [
+          0.55,
+          0
+        ],
+        [
+          0.54,
+          0.12
+        ],
+        [
+          0.5,
+          0.3
+        ],
+        [
+          0.34,
+          0.33
+        ],
+        [
+          0.3,
+          0.38
+        ],
+        [
+          0.14,
+          0.38
+        ],
+        [
+          0.07,
+          0.42
+        ],
+        [
+          0,
+          0.42
+        ]
+      ],
+      "op": "set",
+      "value": 58,
+      "feather_km": 1.2,
+      "edge_noise_km": 2.5,
+      "noise_km": 2.5,
+      "seed": 104
+    }
+  },
+  {
+    "id": "act1.roughen.highlands",
+    "tool": "sculpt",
+    "note": "Natural relief on the highlands and rims, before the shelves and terraces are cut into them",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0,
+          0
+        ],
+        [
+          0.56,
+          0
+        ],
+        [
+          0.5,
+          0.32
+        ],
+        [
+          0.3,
+          0.4
+        ],
+        [
+          0.14,
+          0.66
+        ],
+        [
+          0.2,
+          0.9
+        ],
+        [
+          0.86,
+          0.84
+        ],
+        [
+          1,
+          0.86
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "op": "roughen",
+      "value": 4,
+      "feather_km": 1.5,
+      "noise_km": 2.5,
+      "seed": 11
+    }
+  },
+  {
+    "id": "act1.upper-city-shelf",
+    "tool": "sculpt",
+    "note": "Shelf below the plateau rim where the upper city stands",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.35,
+          0.13
+        ],
+        [
+          0.5,
+          0.13
+        ],
+        [
+          0.52,
+          0.28
+        ],
+        [
+          0.37,
+          0.32
+        ]
+      ],
+      "op": "set",
+      "value": 50,
+      "feather_km": 1,
+      "edge_noise_km": 1.2,
+      "noise_km": 2.5,
+      "seed": 106
+    }
+  },
+  {
+    "id": "act1.caravan-pass",
+    "tool": "sculpt",
+    "note": "Pass through the south-west rim where the caravan road enters",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0,
+          0.83
+        ],
+        [
+          0.13,
+          0.66
+        ],
+        [
+          0.18,
+          0.69
+        ],
+        [
+          0.05,
+          0.88
+        ]
+      ],
+      "op": "set",
+      "value": 38,
+      "feather_km": 1.5,
+      "edge_noise_km": 1,
+      "noise_km": 2.5,
+      "seed": 107
+    }
+  },
+  {
+    "id": "act1.city-terrace",
+    "tool": "sculpt",
+    "note": "Terrace at the foot of the escarpment: the Slums",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.12,
+          0.4
+        ],
+        [
+          0.33,
+          0.36
+        ],
+        [
+          0.36,
+          0.5
+        ],
+        [
+          0.31,
+          0.62
+        ],
+        [
+          0.15,
+          0.63
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ],
+      "op": "set",
+      "value": 40,
+      "feather_km": 1.5,
+      "edge_noise_km": 1.5,
+      "noise_km": 2.5,
+      "seed": 108
+    }
+  },
+  {
+    "id": "act1.falls-slot",
+    "tool": "sculpt",
+    "note": "Slot cut into the escarpment edge where the spring-fed falls drop to the terrace",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.215,
+          0.3
+        ],
+        [
+          0.245,
+          0.3
+        ],
+        [
+          0.245,
+          0.41
+        ],
+        [
+          0.215,
+          0.41
+        ]
+      ],
+      "op": "set",
+      "value": 46,
+      "feather_km": 0.6
+    }
+  },
+  {
+    "id": "act1.midbasin",
+    "tool": "sculpt",
+    "note": "Ruins, washes and dead spring: gentle ground falling east",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.33,
+          0.34
+        ],
+        [
+          0.58,
+          0.34
+        ],
+        [
+          0.62,
+          0.58
+        ],
+        [
+          0.58,
+          0.86
+        ],
+        [
+          0.2,
+          0.88
+        ],
+        [
+          0.17,
+          0.66
+        ],
+        [
+          0.32,
+          0.62
+        ]
+      ],
+      "op": "set",
+      "value": 34,
+      "feather_km": 4,
+      "edge_noise_km": 3,
+      "noise_km": 2.5,
+      "seed": 110
+    }
+  },
+  {
+    "id": "act1.midbasin.east",
+    "tool": "sculpt",
+    "note": "Lower eastern half of the mid-basin, stepping toward the terraces",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.46,
+          0.4
+        ],
+        [
+          0.6,
+          0.36
+        ],
+        [
+          0.63,
+          0.6
+        ],
+        [
+          0.6,
+          0.84
+        ],
+        [
+          0.46,
+          0.84
+        ]
+      ],
+      "op": "set",
+      "value": 31,
+      "feather_km": 3,
+      "edge_noise_km": 3,
+      "noise_km": 2.5,
+      "seed": 111
+    }
+  },
+  {
+    "id": "act1.dead-spring",
+    "tool": "sculpt",
+    "note": "Hollow of the dead spring, off the wash channels",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.44,
+          0.76
+        ],
+        [
+          0.4362,
+          0.7899
+        ],
+        [
+          0.4254,
+          0.8152
+        ],
+        [
+          0.4091,
+          0.8322
+        ],
+        [
+          0.39,
+          0.8381
+        ],
+        [
+          0.3709,
+          0.8322
+        ],
+        [
+          0.3546,
+          0.8152
+        ],
+        [
+          0.3438,
+          0.7899
+        ],
+        [
+          0.34,
+          0.76
+        ],
+        [
+          0.3438,
+          0.7301
+        ],
+        [
+          0.3546,
+          0.7048
+        ],
+        [
+          0.3709,
+          0.6878
+        ],
+        [
+          0.39,
+          0.6819
+        ],
+        [
+          0.4091,
+          0.6878
+        ],
+        [
+          0.4254,
+          0.7048
+        ],
+        [
+          0.4362,
+          0.7301
+        ]
+      ],
+      "op": "lower",
+      "value": 3,
+      "feather_km": 1.5,
+      "edge_noise_km": 1,
+      "noise_km": 2.5,
+      "seed": 112
+    }
+  },
+  {
+    "id": "act1.basalt.a",
+    "tool": "sculpt",
+    "note": "Main basalt lobe, south-west of the volcano",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.78,
+          0.1
+        ],
+        [
+          0.86,
+          0.14
+        ],
+        [
+          0.84,
+          0.3
+        ],
+        [
+          0.7,
+          0.38
+        ],
+        [
+          0.6,
+          0.34
+        ],
+        [
+          0.68,
+          0.2
+        ]
+      ],
+      "op": "set",
+      "value": 38,
+      "feather_km": 1.5,
+      "edge_noise_km": 2,
+      "noise_km": 2.5,
+      "seed": 113
+    }
+  },
+  {
+    "id": "act1.basalt.b",
+    "tool": "sculpt",
+    "note": "Western basalt lobe",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.7,
+          0.07
+        ],
+        [
+          0.76,
+          0.11
+        ],
+        [
+          0.62,
+          0.26
+        ],
+        [
+          0.52,
+          0.25
+        ],
+        [
+          0.58,
+          0.12
+        ]
+      ],
+      "op": "set",
+      "value": 39,
+      "feather_km": 1.5,
+      "edge_noise_km": 2,
+      "noise_km": 2.5,
+      "seed": 114
+    }
+  },
+  {
+    "id": "act1.basalt.c",
+    "tool": "sculpt",
+    "note": "Eastern basalt lobe",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.88,
+          0.12
+        ],
+        [
+          0.95,
+          0.17
+        ],
+        [
+          0.93,
+          0.24
+        ],
+        [
+          0.86,
+          0.22
+        ]
+      ],
+      "op": "set",
+      "value": 36,
+      "feather_km": 1.5,
+      "edge_noise_km": 1.5,
+      "noise_km": 2.5,
+      "seed": 115
+    }
+  },
+  {
+    "id": "act1.volcano",
+    "tool": "sculpt",
+    "note": "Active volcano cone",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.89,
+          0.07
+        ],
+        [
+          0.8862,
+          0.0999
+        ],
+        [
+          0.8754,
+          0.1252
+        ],
+        [
+          0.8591,
+          0.1422
+        ],
+        [
+          0.84,
+          0.1481
+        ],
+        [
+          0.8209,
+          0.1422
+        ],
+        [
+          0.8046,
+          0.1252
+        ],
+        [
+          0.7938,
+          0.0999
+        ],
+        [
+          0.79,
+          0.07
+        ],
+        [
+          0.7938,
+          0.0401
+        ],
+        [
+          0.8046,
+          0.0148
+        ],
+        [
+          0.8209,
+          -0.0022
+        ],
+        [
+          0.84,
+          -0.0081
+        ],
+        [
+          0.8591,
+          -0.0022
+        ],
+        [
+          0.8754,
+          0.0148
+        ],
+        [
+          0.8862,
+          0.0401
+        ]
+      ],
+      "op": "set",
+      "value": 66,
+      "feather_km": 3,
+      "edge_noise_km": 1,
+      "noise_km": 2.5,
+      "seed": 116
+    }
+  },
+  {
+    "id": "act1.volcano.crater",
+    "tool": "sculpt",
+    "note": "Summit crater for the small lava lake (about one cell: an anchor, not visible on the heightmap)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.852,
+          0.07
+        ],
+        [
+          0.8511,
+          0.0772
+        ],
+        [
+          0.8485,
+          0.0833
+        ],
+        [
+          0.8446,
+          0.0873
+        ],
+        [
+          0.84,
+          0.0888
+        ],
+        [
+          0.8354,
+          0.0873
+        ],
+        [
+          0.8315,
+          0.0833
+        ],
+        [
+          0.8289,
+          0.0772
+        ],
+        [
+          0.828,
+          0.07
+        ],
+        [
+          0.8289,
+          0.0628
+        ],
+        [
+          0.8315,
+          0.0567
+        ],
+        [
+          0.8354,
+          0.0527
+        ],
+        [
+          0.84,
+          0.0513
+        ],
+        [
+          0.8446,
+          0.0527
+        ],
+        [
+          0.8485,
+          0.0567
+        ],
+        [
+          0.8511,
+          0.0628
+        ]
+      ],
+      "op": "set",
+      "value": 58,
+      "feather_km": 0.4
+    }
+  },
+  {
+    "id": "act1.roughen.basin",
+    "tool": "sculpt",
+    "note": "Gentle relief on the mid-basin and basalt, before the terraces and floor are laid",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.32,
+          0.6
+        ],
+        [
+          0.33,
+          0.3
+        ],
+        [
+          0.52,
+          0.05
+        ],
+        [
+          0.92,
+          0.05
+        ],
+        [
+          0.92,
+          0.33
+        ],
+        [
+          0.6,
+          0.36
+        ],
+        [
+          0.62,
+          0.58
+        ],
+        [
+          0.58,
+          0.86
+        ],
+        [
+          0.2,
+          0.88
+        ],
+        [
+          0.17,
+          0.66
+        ]
+      ],
+      "op": "roughen",
+      "value": 2,
+      "feather_km": 1.5,
+      "noise_km": 2,
+      "seed": 12,
+      "clamp": [
+        28,
+        100
+      ]
+    }
+  },
+  {
+    "id": "act1.terraces.belt",
+    "tool": "sculpt",
+    "note": "Low ground of the terrace belt: the gaps between the benches sit at wash level",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.6,
+          0.35
+        ],
+        [
+          0.85,
+          0.35
+        ],
+        [
+          0.85,
+          0.58
+        ],
+        [
+          0.62,
+          0.59
+        ]
+      ],
+      "op": "set",
+      "value": 27,
+      "feather_km": 1,
+      "edge_noise_km": 1,
+      "noise_km": 2.5,
+      "seed": 119
+    }
+  },
+  {
+    "id": "act1.terraces.north",
+    "tool": "sculpt",
+    "note": "Fossil reef bench, north",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.6,
+          0.37
+        ],
+        [
+          0.7,
+          0.36
+        ],
+        [
+          0.7,
+          0.46
+        ],
+        [
+          0.62,
+          0.47
+        ]
+      ],
+      "op": "set",
+      "value": 30,
+      "feather_km": 0.8,
+      "edge_noise_km": 1.2,
+      "noise_km": 2.5,
+      "seed": 120
+    }
+  },
+  {
+    "id": "act1.terraces.east",
+    "tool": "sculpt",
+    "note": "Fossil reef bench, east",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.75,
+          0.37
+        ],
+        [
+          0.83,
+          0.37
+        ],
+        [
+          0.84,
+          0.46
+        ],
+        [
+          0.75,
+          0.47
+        ]
+      ],
+      "op": "set",
+      "value": 29,
+      "feather_km": 0.8,
+      "edge_noise_km": 1.2,
+      "noise_km": 2.5,
+      "seed": 121
+    }
+  },
+  {
+    "id": "act1.terraces.south",
+    "tool": "sculpt",
+    "note": "Fossil reef bench, south",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.67,
+          0.51
+        ],
+        [
+          0.8,
+          0.51
+        ],
+        [
+          0.8,
+          0.57
+        ],
+        [
+          0.69,
+          0.58
+        ]
+      ],
+      "op": "set",
+      "value": 28,
+      "feather_km": 0.8,
+      "edge_noise_km": 1.2,
+      "noise_km": 2.5,
+      "seed": 122
+    }
+  },
+  {
+    "id": "act1.washes",
+    "tool": "sculpt",
+    "note": "Mineral Washes: seasonal channels from the escarpment foot, through the terrace gaps, to the salt flats",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.46,
+          0.33
+        ],
+        [
+          0.5,
+          0.33
+        ],
+        [
+          0.6,
+          0.46
+        ],
+        [
+          0.73,
+          0.455
+        ],
+        [
+          0.85,
+          0.48
+        ],
+        [
+          0.85,
+          0.52
+        ],
+        [
+          0.73,
+          0.49
+        ],
+        [
+          0.57,
+          0.5
+        ]
+      ],
+      "op": "set",
+      "value": 26,
+      "feather_km": 1,
+      "edge_noise_km": 0.6,
+      "noise_km": 2.5,
+      "seed": 123
+    }
+  },
+  {
+    "id": "act1.gypsum",
+    "tool": "sculpt",
+    "note": "Gypsum pavement and dunes, a step above the salt pan",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.82,
+          0.4
+        ],
+        [
+          0.88,
+          0.38
+        ],
+        [
+          0.9,
+          0.57
+        ],
+        [
+          0.83,
+          0.59
+        ]
+      ],
+      "op": "set",
+      "value": 26,
+      "feather_km": 2,
+      "edge_noise_km": 2,
+      "noise_km": 2.5,
+      "seed": 124
+    }
+  },
+  {
+    "id": "act1.salt-flats",
+    "tool": "sculpt",
+    "note": "Salt flats: the low, flat, closed basin floor",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.86,
+          0.28
+        ],
+        [
+          0.94,
+          0.26
+        ],
+        [
+          0.94,
+          0.8
+        ],
+        [
+          0.9,
+          0.84
+        ],
+        [
+          0.86,
+          0.62
+        ],
+        [
+          0.89,
+          0.36
+        ]
+      ],
+      "op": "set",
+      "value": 23,
+      "feather_km": 2.5,
+      "edge_noise_km": 2.5,
+      "noise_km": 2.5,
+      "seed": 125
+    }
+  },
+  {
+    "id": "act1.acid-pits",
+    "tool": "sculpt",
+    "note": "Acid Pits: a shallow depression in the salt flats' south edge",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.62,
+          0.6
+        ],
+        [
+          0.8,
+          0.56
+        ],
+        [
+          0.92,
+          0.62
+        ],
+        [
+          0.92,
+          0.8
+        ],
+        [
+          0.76,
+          0.82
+        ],
+        [
+          0.62,
+          0.78
+        ]
+      ],
+      "op": "set",
+      "value": 21,
+      "feather_km": 2,
+      "edge_noise_km": 2,
+      "noise_km": 2.5,
+      "seed": 126
+    }
+  },
+  {
+    "id": "act1.brine-pits",
+    "tool": "sculpt",
+    "note": "North-east pits where brine pools collect",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.87,
+          0.24
+        ],
+        [
+          0.93,
+          0.23
+        ],
+        [
+          0.93,
+          0.31
+        ],
+        [
+          0.88,
+          0.32
+        ]
+      ],
+      "op": "set",
+      "value": 20,
+      "feather_km": 1,
+      "edge_noise_km": 0.8,
+      "noise_km": 2.5,
+      "seed": 127
+    }
+  },
+  {
+    "id": "act1.rim.east",
+    "tool": "sculpt",
+    "note": "Eastern rim closing the basin, laid last so the floor cannot overwrite it",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.95,
+          0.15
+        ],
+        [
+          1,
+          0.15
+        ],
+        [
+          1,
+          0.9
+        ],
+        [
+          0.95,
+          0.9
+        ]
+      ],
+      "op": "set",
+      "value": 44,
+      "feather_km": 1.5,
+      "edge_noise_km": 1.5,
+      "noise_km": 2.5,
+      "seed": 128
+    }
+  },
+  {
+    "id": "act1.finalize",
+    "tool": "finalize_terrain",
+    "note": "Rebuild coastlines, lakes, rivers and biomes from the Act I terrain",
+    "args": {}
+  }
+]

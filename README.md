@@ -21,6 +21,8 @@ Open this folder in Claude Code and approve the `azgaar` server from `.mcp.json`
 | Tool | What it does |
 | --- | --- |
 | `new_map` | Generates a new map with the canvas, points, units, globe position, winds, temperatures and content caps from `world/config.json`; terrain from a built-in template or custom `template_steps` |
+| `sculpt` | Edits terrain heights inside a polygon: set, raise, lower, smooth or roughen, with a soft edge and optional natural outline noise |
+| `finalize_terrain` | Rebuilds coastlines, lakes, rivers and biomes from the edited heightmap, like Azgaar's heightmap editor |
 | `set_climate` | Changes precipitation and temperatures and re-derives rivers and biomes, keeping the terrain (used for the present-day drought) |
 | `open_map` | Loads a `.map` file |
 | `save_map` | Saves exactly what Azgaar's own Save writes, so the desktop app opens it (default `world/build/<seed>.map`) |
