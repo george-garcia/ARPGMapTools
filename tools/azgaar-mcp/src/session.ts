@@ -179,6 +179,34 @@ export class AzgaarSession {
     return this.info();
   }
 
+  /**
+   * Changes the climate of the current map and re-derives temperature, precipitation, rivers and biomes
+   * from it, keeping the terrain. Mirrors Azgaar's World Configurator update (src/controllers/world-configurator.ts)
+   */
+  async setClimate(change: { precipitation?: number; temperature?: { equator?: number; northPole?: number; southPole?: number } }) {
+    const page = await this.open();
+    await this.assertNotEditing(page);
+    await page.evaluate(change => {
+      const { climate } = FMG.options.map;
+      if (change.precipitation !== undefined) climate.precipitation = change.precipitation;
+      Object.assign(climate.temperature, change.temperature ?? {});
+      const { pack } = FMG;
+      FMG.Temperature.generate();
+      FMG.Precipitation.generate();
+      const heights = new Uint8Array(pack.cells.h);
+      FMG.Rivers.generate(true, FMG.Rivers.getLocked());
+      FMG.Rivers.specify();
+      FMG.Routes.sync();
+      pack.cells.h = new Float32Array(heights); // the river pass erodes heights; the terrain must not change
+      FMG.Biomes.define();
+      FMG.Features.defineGroups();
+      FMG.Features.defineNames();
+      FMG.Layers.draw("temperature", "precipitation");
+      FMG.Layers.draw("biomes", "coordinates", "rivers");
+    }, change);
+    return this.info();
+  }
+
   async info() {
     const page = await this.open();
     return page.evaluate(() => {
@@ -190,12 +218,28 @@ export class AzgaarSession {
         featureTypes[key] = (featureTypes[key] ?? 0) + 1;
       }
       let land = 0;
-      for (const h of pack.cells.h) if (h >= 20) land++;
+      const biomeCells: Record<string, number> = {};
+      pack.cells.h.forEach((h: number, i: number) => {
+        if (h < 20) return;
+        land++;
+        const name = pack.biomes?.[pack.cells.biome[i]]?.name ?? String(pack.cells.biome[i]);
+        biomeCells[name] = (biomeCells[name] ?? 0) + 1;
+      });
+      const landBiomes = Object.fromEntries(
+        Object.entries(biomeCells)
+          .sort((a, b) => b[1] - a[1])
+          .map(([name, cells]) => [name, `${Math.round((cells / land) * 1000) / 10}%`])
+      );
       return {
         azgaarVersion: FMG.VERSION,
         seed: options.map.seed,
         name: options.map.lore.name,
-        winds: options.map.climate.winds,
+        climate: {
+          winds: options.map.climate.winds,
+          temperature: options.map.climate.temperature,
+          precipitation: options.map.climate.precipitation
+        },
+        landBiomes,
         latitudeRange: [options.map.geography.coordinates.latS, options.map.geography.coordinates.latN],
         canvas: { width: options.map.graph.width, height: options.map.graph.height },
         points: options.map.graph.points,

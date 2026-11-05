@@ -22,5 +22,7 @@ npm run world          # rebuilds world/build/now.map and its screenshots
 npm run world before   # the pre-catastrophe map
 ```
 
+`eras/now/00-climate.json` applies the present-day drought with `set_climate`; the before era keeps the natural climate from `config.json`.
+
 `base/00-continent.json` holds the continent as a custom Azgaar heightmap template. Template steps draw random positions from the seed,
 so changing one step reshapes the whole continent: review the screenshots after every edit.

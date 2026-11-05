@@ -86,6 +86,22 @@ server.registerTool(
 );
 
 server.registerTool(
+  "set_climate",
+  {
+    title: "Change the climate",
+    description:
+      "Changes precipitation (Azgaar's %, 100 is Earth-like) and/or temperatures (degrees C at the equator and poles) on the current map, then re-derives temperature, precipitation, rivers and biomes. Terrain is untouched. Use in an era's ops to make that era wetter or drier than the shared base.",
+    inputSchema: {
+      precipitation: z.number().min(0).max(500).optional(),
+      temperature: z
+        .object({ equator: z.number().optional(), northPole: z.number().optional(), southPole: z.number().optional() })
+        .optional()
+    }
+  },
+  ({ precipitation, temperature }) => respond(() => session.setClimate({ precipitation, temperature }))
+);
+
+server.registerTool(
   "get_map_info",
   {
     title: "Map summary",

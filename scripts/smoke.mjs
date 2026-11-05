@@ -36,7 +36,7 @@ async function call(name, args = {}) {
 try {
   const { tools } = await client.listTools();
   const names = tools.map(t => t.name).sort();
-  check("tools registered", names.length === 9, names.join(", "));
+  check("tools registered", names.length === 10 && names.includes("set_climate"), names.join(", "));
 
   const gen = await call("new_map", { seed: "smoke-test" });
   check("new_map builds a 100K-point map", gen.body.cells.grid >= 99000 && gen.body.points === 100000, `${gen.body.cells.grid} cells in ${gen.ms} ms`);
