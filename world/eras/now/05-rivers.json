@@ -1,0 +1,10 @@
+[
+  {
+    "id": "now.act1.rivers.clear",
+    "tool": "remove_rivers",
+    "note": "Present day: the basin's water is hand-placed, so drop any generated river draining into Act I (the drought leaves none today; this keeps it so if the climate changes). The before era keeps its generated rivers until its water is designed.",
+    "args": {
+      "frame": "act1"
+    }
+  }
+]

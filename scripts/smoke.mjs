@@ -38,7 +38,10 @@ try {
   const names = tools.map(t => t.name).sort();
   check(
     "tools registered",
-    names.length === 12 && ["set_climate", "sculpt", "finalize_terrain"].every(n => names.includes(n)),
+    names.length === 17 &&
+      ["set_climate", "sculpt", "finalize_terrain", "define_style_group", "set_lakes", "remove_rivers", "add_river", "add_route"].every(n =>
+        names.includes(n)
+      ),
     names.join(", ")
   );
 
@@ -51,14 +54,31 @@ try {
   const act1 = info.body.frames.find(f => f.name === "act1");
   check("act1 frame resolves to map pixels", act1 && act1.width === 200 && act1.height === 128, JSON.stringify(act1));
 
-  const square = [[0.4, 0.4], [0.6, 0.4], [0.6, 0.6], [0.4, 0.6]];
+  const square = [[0.3, 0.3], [0.7, 0.3], [0.7, 0.7], [0.3, 0.7]];
+  const pit = [[0.33, 0.33], [0.42, 0.33], [0.42, 0.45], [0.33, 0.45]];
   const sculpted = await call("sculpt", { frame: "act1", polygon: square, op: "set", value: 70, feather_km: 1 });
   check("sculpt edits the heightmap", sculpted.body.cellsChanged > 20, `${sculpted.body.cellsChanged} cells`);
+  await call("sculpt", { frame: "act1", polygon: pit, op: "set", value: 10, feather_km: 0 });
   const pendingSave = await client.callTool({ name: "save_map", arguments: { path: "world/build/smoke/pending.map" } });
   check("save_map refuses while terrain edits are pending", pendingSave.isError === true);
   const finalized = await call("finalize_terrain");
   const peak = await call("query_cells", { frame: "act1", polygon: [[0.45, 0.45], [0.55, 0.45], [0.55, 0.55], [0.45, 0.55]] });
   check("finalize_terrain rebuilds from the edit", !finalized.body.terrainPending && peak.body.height?.min >= 65, JSON.stringify(peak.body.height));
+
+  const lakeStyle = await call("define_style_group", { layer: "lakes", group: "smokeAcid", attrs: { fill: "#98B72C", stroke: "#E1BA29", opacity: 0.9 } });
+  check("define_style_group adds a lake group", lakeStyle.body.created && lakeStyle.body.attrs.fill === "#98B72C");
+  const badStyle = await client.callTool({ name: "define_style_group", arguments: { layer: "lakes", group: "smokeBad", attrs: { "font-size": 3 } } });
+  check("define_style_group rejects attrs outside Azgaar's style schema", badStyle.isError === true);
+  const lakes = await call("set_lakes", { frame: "act1", polygon: pit, subtype: "salt", group: "smokeAcid", name: "Smoke Pool" });
+  check("set_lakes restyles the lake in a sculpted pit", lakes.body.length >= 1 && lakes.body.every(l => l.group === "smokeAcid" && l.subtype === "salt"), JSON.stringify(lakes.body));
+  const river = await call("add_river", { frame: "act1", points: [[0.65, 0.65], [0.55, 0.5], [0.42, 0.4]], name: "Smoke Creek", type: "Creek" });
+  check("add_river draws a named river through neighbouring cells", river.body.cells >= 3 && river.body.name === "Smoke Creek", JSON.stringify(river.body));
+  const cleared = await call("remove_rivers", { frame: "act1" });
+  const kept = await call("run_js", { code: `return FMG.pack.rivers.some(r => r.i === ${river.body.i} && r.lock);` });
+  check("remove_rivers keeps hand-placed (locked) rivers", kept.body === true, `${cleared.body.removed} removed`);
+  await call("define_style_group", { layer: "routes", group: "smokeWash", attrs: { stroke: "#9a3d17", "stroke-dasharray": "2 1" } });
+  const route = await call("add_route", { frame: "act1", points: [[0.35, 0.6], [0.5, 0.65], [0.65, 0.6]], group: "smokeWash", name: "Smoke Wash" });
+  check("add_route draws a line in a custom group", route.body.group === "smokeWash" && route.body.points === 3);
 
   const saved = await call("save_map", { path: "world/build/smoke/smoke-test.map" });
   check("save_map writes a .map file", saved.body.bytes > 1_000_000, `${(saved.body.bytes / 1e6).toFixed(1)} MB in ${saved.ms} ms`);
@@ -66,6 +86,17 @@ try {
   await call("new_map", { seed: "smoke-other", points: 10000 });
   const opened = await call("open_map", { path: "world/build/smoke/smoke-test.map" });
   check("open_map restores the saved map", opened.body.seed === "smoke-test" && opened.body.cells.grid === gen.body.cells.grid, `${opened.ms} ms`);
+
+  const persisted = await call("run_js", {
+    code: `const lake = FMG.pack.features.find(f => f && f.name === "Smoke Pool");
+      return { style: FMG.styles.lakes.groups.smokeAcid?.attrs.fill, lakeGroup: lake?.group, wash: FMG.styles.routes.groups.smokeWash?.attrs.stroke,
+        route: FMG.pack.routes.find(r => r.name === "Smoke Wash")?.group, river: FMG.pack.rivers.find(r => r.name === "Smoke Creek")?.lock };`
+  });
+  check(
+    "custom lake/route groups, lakes, rivers and routes survive save and open",
+    JSON.stringify(persisted.body) === JSON.stringify({ style: "#98B72C", lakeGroup: "smokeAcid", wash: "#9a3d17", route: "smokeWash", river: true }),
+    JSON.stringify(persisted.body)
+  );
 
   const resaved = await call("save_map", { path: "world/build/smoke/smoke-roundtrip.map" });
   const a = readFileSync(join(root, "world/build/smoke/smoke-test.map"), "utf8").split(/\r\n/);

@@ -1,4 +1,6 @@
-// Rebuilds a world map from the recorded ops: world/base/*.json, then world/eras/<era>/*.json, in file-name order.
+// Rebuilds a world map from the recorded ops: world/base/*.json, then the era's ops, in file-name order.
+// The era's ops are world/eras/common/*.json (shared by every era) and world/eras/<era>/*.json, interleaved by
+// file name, so now/00-climate.json runs before common/10-water.json and an era's 20-*.json can override it.
 // Each op file is a JSON array of { id, tool, args, note } replayed through the azgaar MCP server.
 // Usage: node scripts/build-world.mjs [now|before]   (default: now)
 import { existsSync, readdirSync, readFileSync } from "node:fs";
@@ -11,16 +13,17 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const era = process.argv[2] ?? "now";
 if (!["now", "before"].includes(era)) throw new Error(`Unknown era "${era}". Use "now" or "before".`);
 
-function opFiles(dir) {
-  const full = join(root, dir);
-  if (!existsSync(full)) return [];
-  return readdirSync(full)
-    .filter(f => f.endsWith(".json"))
-    .sort()
-    .map(f => join(dir, f));
+function opFiles(...dirs) {
+  return dirs
+    .flatMap(dir => {
+      const full = join(root, dir);
+      return existsSync(full) ? readdirSync(full).filter(f => f.endsWith(".json")).map(name => ({ dir, name })) : [];
+    })
+    .sort((a, b) => (a.name === b.name ? a.dir.localeCompare(b.dir) : a.name < b.name ? -1 : 1))
+    .map(({ dir, name }) => join(dir, name));
 }
 
-const files = [...opFiles("world/base"), ...opFiles(`world/eras/${era}`)];
+const files = [...opFiles("world/base"), ...opFiles("world/eras/common", `world/eras/${era}`)];
 const ops = files.flatMap(file => {
   const list = JSON.parse(readFileSync(join(root, file), "utf8"));
   if (!Array.isArray(list)) throw new Error(`${file} must be a JSON array of ops`);
@@ -50,13 +53,14 @@ async function call(name, args) {
 try {
   for (const op of ops) {
     const started = Date.now();
-    await call(op.tool, op.args ?? {});
-    console.log(`ok  ${op.id} (${op.tool}, ${op.file}) ${Date.now() - started} ms`);
+    const result = await call(op.tool, op.args ?? {});
+    const summary = op.tool === "sculpt" ? "" : `  ${result.replace(/\s+/g, " ").slice(0, 160)}`;
+    console.log(`ok  ${op.id} (${op.tool}, ${op.file}) ${Date.now() - started} ms${summary}`);
   }
   console.log(await call("save_map", { path: `world/build/${era}.map` }));
   for (const [name, layers] of [
     ["heightmap", ["heightmap", "rivers", "lakes"]],
-    ["biomes", ["biomes", "rivers", "lakes"]]
+    ["biomes", ["biomes", "rivers", "lakes", "routes"]]
   ]) {
     await call("screenshot", { name: `${era}-${name}`, layers });
     await call("screenshot", { name: `${era}-act1-${name}`, frame: "act1", layers });

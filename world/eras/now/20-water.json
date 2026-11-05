@@ -1,0 +1,31 @@
+[
+  {
+    "id": "now.lakes.dead-spring",
+    "tool": "set_lakes",
+    "note": "Present day: the oasis is dead; only stagnant mineral pools remain (teal on the overview)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.33,
+          0.76
+        ],
+        [
+          0.49,
+          0.76
+        ],
+        [
+          0.49,
+          0.88
+        ],
+        [
+          0.33,
+          0.88
+        ]
+      ],
+      "subtype": "salt",
+      "group": "mineral",
+      "name": "Dead Spring"
+    }
+  }
+]
