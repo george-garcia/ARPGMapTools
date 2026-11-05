@@ -161,14 +161,18 @@ server.registerTool(
   {
     title: "Define a lake or route style group",
     description:
-      "Adds a style group to the lakes or routes layer, or updates one. A new lake group starts from the freshwater look, a new route group from trails; the given SVG attrs are merged over it and checked against Azgaar's style schema. Lakes take opacity, fill, fill-opacity, stroke, stroke-width, stroke-opacity, stroke-dasharray, filter; routes the same minus fill. A null value unsets an attr. The group is saved in the .map.",
+      "Adds a style group to the lakes or routes layer, or updates one; or restyles an existing label group (city, town, added, river, …). A new lake group starts from the freshwater look, a new route group from trails; the given SVG attrs are merged over it and checked against Azgaar's style schema. Lakes take opacity, fill, fill-opacity, stroke, stroke-width, stroke-opacity, stroke-dasharray, filter; routes the same minus fill; labels also take font-family, font-size (a percentage such as '5%'), font-style, font-weight, letter-spacing and style. A null value unsets an attr. Styles are saved in the .map.",
     inputSchema: {
-      layer: z.enum(["lakes", "routes"]),
+      layer: z.enum(["lakes", "routes", "labels"]),
       group: z.string().regex(/^[a-zA-Z][\w-]*$/),
-      attrs: z.record(z.string(), z.union([z.string(), z.number(), z.null()]))
+      attrs: z.record(z.string(), z.union([z.string(), z.number(), z.null()])),
+      zoom: z
+        .object({ min: z.number().min(0), max: z.number().positive() })
+        .optional()
+        .describe("Labels only: the zoom range the group shows at (1 = whole map; an act-sized frame is about 8)")
     }
   },
-  ({ layer, group, attrs }) => respond(() => session.defineStyleGroup(layer, group, attrs))
+  ({ layer, group, attrs, zoom }) => respond(() => session.defineStyleGroup(layer, group, attrs, zoom))
 );
 
 const toMapPoint = (p: number[], frame?: string): Point => toMapPoints([p], frame)[0];
@@ -194,6 +198,23 @@ server.registerTool(
   },
   ({ point: p, frame, name, population, group, buildings, note }) =>
     respond(() => session.addBurg({ point: toMapPoint(p, frame), name, population, group, buildings, note }))
+);
+
+server.registerTool(
+  "add_label",
+  {
+    title: "Place a text label",
+    description:
+      "Places a free text label (a region or landform name) at a point, in an 'added' label group (default: Azgaar's first one, 'added'), with an optional HTML note. Restyle the group with define_style_group on the labels layer. With `frame`, the point is frame-local 0-1.",
+    inputSchema: {
+      point,
+      frame: z.string().optional(),
+      text: z.string().min(1),
+      group: z.string().optional(),
+      note: z.string().optional()
+    }
+  },
+  ({ point: p, frame, text, group, note }) => respond(() => session.addLabel({ point: toMapPoint(p, frame), text, group, note }))
 );
 
 server.registerTool(

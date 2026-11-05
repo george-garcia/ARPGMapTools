@@ -50,6 +50,11 @@ the old caravan road through the Ruined Outpost, in faded fragments that fade ou
 to zone: zones are ARPG tilesets, and how the player travels between them is undecided. Each class is its own route group
 from `define_style_group`; `add_burg` drops Azgaar's auto-linked trails, so every route is hand-drawn.
 
+Markers, labels and notes: `eras/now/60-markers-labels.json` names the landforms with `add_label` (Azgaar's "added" label
+group, restyled and shown from zoom 3 to 40, since Azgaar hides it past 5.5 by default), places markers for the caravan escape
+(zone 01), the active volcano, the Acid Pits and the Dead Spring, and hangs the region note (status, locked anchors, the
+provisional 19-section scaffold and links to Notion) on the "Rift Basin" label. Every name is tagged `[placeholder]`.
+
 `eras/now/00-climate.json` applies the present-day drought with `set_climate`; the before era keeps the natural climate from `config.json`.
 
 `base/00-continent.json` holds the continent as a custom Azgaar heightmap template. Template steps draw random positions from the seed,
