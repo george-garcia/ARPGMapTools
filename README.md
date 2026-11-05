@@ -10,8 +10,8 @@ Needs Node.js 22+ and git.
 npm install
 npm run setup    # fetches and builds the pinned Azgaar release, installs Playwright's Chromium
 npm run build    # compiles the MCP server
-npm run smoke    # optional: end-to-end check over MCP, about 40 seconds
-npm run world    # rebuilds the world map from the ops in world/ into world/build/now.map
+npm run smoke    # optional: end-to-end check over MCP, about 40 seconds (rebuilds first)
+npm run world    # compiles, then rebuilds the world map from the ops in world/ into world/build/now.map
 ```
 
 Open this folder in Claude Code and approve the `azgaar` server from `.mcp.json`. To watch the browser while it works, add `"--headed"` to the server's `args` in `.mcp.json`.
