@@ -8,4 +8,4 @@ Plan and Act I decisions: https://claude.ai/artifact/NrpjN6j3QnuGywgZpwmD4c (the
 - `run_js` is a dev escape hatch. Anything a build depends on becomes a named tool before it is used.
 - Later milestones record every map change as an op under `world/` so the before and after maps can be rebuilt (see `world/README.md`).
 - Drawing order: terrain, then water, biomes, settlements, routes, then markers, labels and notes.
-- Check visual work with `screenshot` against the reference before calling a pass done.
+- Check visual work with `screenshot` against the reference (`world/reference/act1-overview.jpg` for Act I) before calling a pass done.

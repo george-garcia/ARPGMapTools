@@ -9,6 +9,7 @@ The world map's source of truth. Generated `.map` files and screenshots are buil
 | `base/` | Terrain ops shared by both eras (coastline, escarpment, rift, basalt, terraces) |
 | `eras/before/` | Pre-catastrophe water, biomes, settlements, routes and notes |
 | `eras/now/` | Present-day water, biomes, settlements, routes and notes |
+| `reference/act1-overview.jpg` | The canonical Act I regional overview (4K, map only). Passes from water onward trace and review against it; the terrain pass was traced from an earlier, smaller crop that agrees within one to two cells |
 | `build/` | Generated `before.map`, `now.map`, screenshots and the `run_js` log |
 
 ## Ops and builds
@@ -21,6 +22,8 @@ appended again. The first op must be `new_map`, and `run_js` is never allowed in
 npm run world          # rebuilds world/build/now.map and its screenshots
 npm run world before   # the pre-catastrophe map
 ```
+
+`base/10-act1-terrain.json` sculpts Act I's rift basin into the continent and ends with `finalize_terrain`. Later ops in a file overwrite earlier ones where they overlap, so lay broad ground first and the features that must survive (rims, floors) after.
 
 `eras/now/00-climate.json` applies the present-day drought with `set_climate`; the before era keeps the natural climate from `config.json`.
 
