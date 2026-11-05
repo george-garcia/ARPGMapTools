@@ -171,6 +171,50 @@ server.registerTool(
   ({ layer, group, attrs }) => respond(() => session.defineStyleGroup(layer, group, attrs))
 );
 
+const toMapPoint = (p: number[], frame?: string): Point => toMapPoints([p], frame)[0];
+
+server.registerTool(
+  "add_burg",
+  {
+    title: "Found a settlement",
+    description:
+      "Founds a locked burg (settlement) at a point: name, population in people, burg group (capital, city, town, fort, village, hamlet…) and buildings (walls, citadel, plaza, temple, shanty). The trail Azgaar would auto-link to the nearest route is removed, so roads stay hand-drawn. `note` is HTML for the burg's note, e.g. '[placeholder] name from the overview'. With `frame`, the point is frame-local 0-1. The cell must be dry land without a burg.",
+    inputSchema: {
+      point,
+      frame: z.string().optional(),
+      name: z.string().min(1),
+      population: z.number().min(0).optional(),
+      group: z.string().optional(),
+      buildings: z
+        .object({ walls: z.boolean(), citadel: z.boolean(), plaza: z.boolean(), temple: z.boolean(), shanty: z.boolean() })
+        .partial()
+        .optional(),
+      note: z.string().optional()
+    }
+  },
+  ({ point: p, frame, name, population, group, buildings, note }) =>
+    respond(() => session.addBurg({ point: toMapPoint(p, frame), name, population, group, buildings, note }))
+);
+
+server.registerTool(
+  "add_marker",
+  {
+    title: "Place a marker",
+    description:
+      "Places a locked map marker at a point. A type from Azgaar's markers config (volcanoes, ruins, …) brings its own icon and legend, each replaced by the name, note or icon given; any other type needs a note (HTML). `icon` is an emoji or an Azgaar icon id. With `frame`, the point is frame-local 0-1.",
+    inputSchema: {
+      point,
+      frame: z.string().optional(),
+      type: z.string().min(1),
+      name: z.string().optional(),
+      note: z.string().optional(),
+      icon: z.string().optional()
+    }
+  },
+  ({ point: p, frame, type, name, note, icon }) =>
+    respond(() => session.addMarker({ point: toMapPoint(p, frame), type, name, note, icon }))
+);
+
 server.registerTool(
   "paint_biome",
   {

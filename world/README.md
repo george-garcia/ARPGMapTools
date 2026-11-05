@@ -40,6 +40,10 @@ terrain (the escarpment is every cell at 44 or more; terrace benches are 28 or m
 present day paints all eleven zones in the art-bible palette; the before era so far only keeps the bedrock zones (basalt,
 terraces) and greens the Spring and the falls.
 
+Settlements: `eras/now/40-settlements.json` founds the city with `add_burg` (its upper city and its Slums as two burgs, since
+they sit about 30 km apart on the overview) and puts the Ruined Outpost down as a ruins marker with `add_marker`. Names and
+populations are placeholders, tagged `[placeholder]` in each note. The before era has no settlements until they are decided.
+
 `eras/now/00-climate.json` applies the present-day drought with `set_climate`; the before era keeps the natural climate from `config.json`.
 
 `base/00-continent.json` holds the continent as a custom Azgaar heightmap template. Template steps draw random positions from the seed,

@@ -38,8 +38,8 @@ try {
   const names = tools.map(t => t.name).sort();
   check(
     "tools registered",
-    names.length === 18 &&
-      ["set_climate", "sculpt", "finalize_terrain", "define_style_group", "set_lakes", "remove_rivers", "add_river", "add_route", "paint_biome"].every(n =>
+    names.length === 20 &&
+      ["set_climate", "sculpt", "finalize_terrain", "define_style_group", "set_lakes", "remove_rivers", "add_river", "add_route", "paint_biome", "add_burg", "add_marker"].every(n =>
         names.includes(n)
       ),
     names.join(", ")
@@ -86,6 +86,20 @@ try {
   const pitBiomes = await call("query_cells", { frame: "act1", polygon: pit });
   check("paint_biome reuses a biome by name and skips water", !repainted.body.created && pitBiomes.body.cells > repainted.body.cells, `${repainted.body.cells} of ${pitBiomes.body.cells} cells`);
 
+  const routesBefore = await call("run_js", { code: "return FMG.pack.routes.length;" });
+  const burg = await call("add_burg", {
+    frame: "act1", point: [0.6, 0.6], name: "Smoke Keep", population: 15000, group: "city",
+    buildings: { walls: true, citadel: true }, note: "<p>[placeholder]</p>"
+  });
+  const routesAfter = await call("run_js", { code: "return FMG.pack.routes.length;" });
+  check(
+    "add_burg founds a walled city with its population and leaves routes alone",
+    burg.body.name === "Smoke Keep" && burg.body.group === "city" && Math.abs(burg.body.people - 15000) < 2 && burg.body.buildings.walls && burg.body.buildings.citadel && routesAfter.body === routesBefore.body,
+    JSON.stringify(burg.body)
+  );
+  const marker = await call("add_marker", { frame: "act1", point: [0.5, 0.4], type: "ruins", name: "Smoke Ruin", note: "<p>picked over</p>" });
+  check("add_marker places a named ruins marker with a note", marker.body.name === "Smoke Ruin" && marker.body.note === "<p>picked over</p>", JSON.stringify(marker.body));
+
   const saved = await call("save_map", { path: "world/build/smoke/smoke-test.map" });
   check("save_map writes a .map file", saved.body.bytes > 1_000_000, `${(saved.body.bytes / 1e6).toFixed(1)} MB in ${saved.ms} ms`);
 
@@ -97,12 +111,14 @@ try {
     code: `const lake = FMG.pack.features.find(f => f && f.name === "Smoke Pool");
       return { style: FMG.styles.lakes.groups.smokeAcid?.attrs.fill, lakeGroup: lake?.group, wash: FMG.styles.routes.groups.smokeWash?.attrs.stroke,
         route: FMG.pack.routes.find(r => r.name === "Smoke Wash")?.group, river: FMG.pack.rivers.find(r => r.name === "Smoke Creek")?.lock,
-        biome: FMG.pack.biomes[${painted.body.i}]?.color, biomeCells: FMG.pack.cells.biome.filter(b => b === ${painted.body.i}).length > 20 };`
+        biome: FMG.pack.biomes[${painted.body.i}]?.color, biomeCells: FMG.pack.cells.biome.filter(b => b === ${painted.body.i}).length > 20,
+        burg: FMG.pack.burgs[${burg.body.i}]?.name, burgNote: FMG.pack.burgs[${burg.body.i}]?.note, marker: FMG.pack.markers.find(m => m.name === "Smoke Ruin")?.note };`
   });
   check(
-    "custom lake/route groups, lakes, rivers, routes and biomes survive save and open",
+    "custom lake/route groups, lakes, rivers, routes, biomes, burgs and markers survive save and open",
     JSON.stringify(persisted.body) ===
-      JSON.stringify({ style: "#98B72C", lakeGroup: "smokeAcid", wash: "#9a3d17", route: "smokeWash", river: true, biome: "#333333", biomeCells: true }),
+      JSON.stringify({ style: "#98B72C", lakeGroup: "smokeAcid", wash: "#9a3d17", route: "smokeWash", river: true, biome: "#333333", biomeCells: true,
+        burg: "Smoke Keep", burgNote: "<p>[placeholder]</p>", marker: "<p>picked over</p>" }),
     JSON.stringify(persisted.body)
   );
 
@@ -119,7 +135,7 @@ try {
 
   const features = await call("list", { kind: "features", limit: 5 });
   check("list returns features", features.body.total > 0, `${features.body.total} features`);
-  check("config turns off procedural towns and markers", gen.body.counts.burgs === 0 && gen.body.counts.markers === 0);
+  check("config turns off procedural towns and markers", gen.body.counts.burgs === 0 && gen.body.counts.markers === 0, JSON.stringify(gen.body.counts));
 
   const shot = await call("screenshot", { frame: "act1", name: "smoke-act1" });
   const image = shot.res.content.find(c => c.type === "image");

@@ -1,0 +1,63 @@
+[
+  {
+    "id": "now.burg.upper-camp",
+    "tool": "add_burg",
+    "note": "The upper city on its shelf above the falls: nobles and wealthier civilians, walled with a citadel. Name and population are placeholders",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.43,
+        0.2
+      ],
+      "name": "Slaver Upper Camp",
+      "population": 6000,
+      "group": "city",
+      "buildings": {
+        "walls": true,
+        "citadel": true,
+        "plaza": true,
+        "temple": true,
+        "shanty": false
+      },
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p><p>Upper city of Act I's medium city: nobles and wealthier civilians. Walled, with a citadel. Its water intake is on the falls stream upstream of the Slums.</p><p>Population: placeholder; about 15,000 across the city with the Slums.</p>"
+    }
+  },
+  {
+    "id": "now.burg.slums",
+    "tool": "add_burg",
+    "note": "The Slums at the foot of the falls, Act I's quest hub: the lower half of the same city. Placeholder name and population",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.205,
+        0.49
+      ],
+      "name": "Slums",
+      "population": 9000,
+      "group": "town",
+      "buildings": {
+        "walls": false,
+        "citadel": false,
+        "plaza": true,
+        "temple": false,
+        "shanty": true
+      },
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p><p>Act I's quest hub. The poor lower city below the falls, which are its water source (wells and cisterns as backup). The main road from the Caravan Approach passes through on its way up to the Upper Camp.</p><p>Population: placeholder share of the city's 15,000.</p>"
+    }
+  },
+  {
+    "id": "now.marker.ruined-outpost",
+    "tool": "add_marker",
+    "note": "Ruined Outpost between the Slums and the washes",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.41,
+        0.51
+      ],
+      "type": "ruins",
+      "name": "Ruined Outpost",
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p><p>A former caravan waystation (provisional), long abandoned and already picked over. On the old regional road east toward the Mineral Washes.</p>"
+    }
+  }
+]
