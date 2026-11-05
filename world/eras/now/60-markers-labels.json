@@ -1,0 +1,253 @@
+[
+  {
+    "id": "now.style.label.region",
+    "tool": "define_style_group",
+    "note": "Region and landform names: dark, italic, spaced, smaller than Azgaar's default for added labels; shown from zoom 3 (the act at a glance) to 40, where Azgaar's default hides them past 5.5",
+    "args": {
+      "layer": "labels",
+      "group": "added",
+      "attrs": {
+        "fill": "#2a1d14",
+        "font-size": "5%",
+        "font-style": "italic",
+        "letter-spacing": 0.4,
+        "style": "text-shadow: #f6efe0 0px 0px 3px"
+      },
+      "zoom": {
+        "min": 3,
+        "max": 40
+      }
+    }
+  },
+  {
+    "id": "now.style.label.city",
+    "tool": "define_style_group",
+    "note": "City labels readable over the escarpment",
+    "args": {
+      "layer": "labels",
+      "group": "city",
+      "attrs": {
+        "fill": "#1d140e",
+        "font-size": "7%",
+        "style": "text-shadow: #f6efe0 0px 0px 3px; transform: translate(0em, -0.4em)"
+      }
+    }
+  },
+  {
+    "id": "now.style.label.town",
+    "tool": "define_style_group",
+    "note": "Town labels (the Slums) readable over the terrace",
+    "args": {
+      "layer": "labels",
+      "group": "town",
+      "attrs": {
+        "fill": "#1d140e",
+        "font-size": "6%",
+        "style": "text-shadow: #f6efe0 0px 0px 3px; transform: translate(0em, -0.4em)"
+      }
+    }
+  },
+  {
+    "id": "now.label.region",
+    "tool": "add_label",
+    "note": "The region's name, on the south rim, carrying the region note",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.5,
+        0.93
+      ],
+      "text": "Rift Basin",
+      "note": "<p>[placeholder] \"Rift Basin\" is the overview's title, not an approved name.</p><p><b>Act I region.</b> A closed (endorheic) rift basin modelled on the Danakil Depression / Dallol, about 100 km rim to rim. Escarpment and highlands to the west and north-west; the city's Slums and upper city on a terrace at its foot; mineral washes and the Ruined Outpost mid-basin; basalt to the north under an active volcano; fossil reef terraces and gypsum stepping east to the salt flats and brine pools; localized acid pits at the south of the floor; the Dead Spring to the south.</p><p><b>Locked:</b> zone 01 is the caravan escape tutorial (combat); zone 02 is the Slums, the safe quest hub (no combat). Anchors: Slums, upper city (4-6 combat maps for the finale), Acid Pits, destroyed ruins, captive-caravan intro.</p><p><b>Provisional:</b> about 15-20 playable maps. The working 19-section scaffold groups them as 01 caravan escape, 02 Slums hub, 03-04 ruined road and ruins, 05-06 iron-stained washes, 07-08 basalt, 09-10 fossil terraces and gypsum, 11-12 salt flat and brine margin, 13-14 acid pools, 15-19 upper-city ascent to the final fight. Order, names and routes between zones are undecided; each zone is an ARPG tileset, so the map draws no zone-to-zone paths.</p><p>Story bible: <a href=\"https://app.notion.com/p/405b47e923df81698c6df73db88565a3\">Act I</a> \u00b7 <a href=\"https://app.notion.com/p/40db47e923df8163b21ff76a975870e8\">Geological blueprint</a></p>"
+    }
+  },
+  {
+    "id": "now.label.escarpment",
+    "tool": "add_label",
+    "note": "Highlands and escarpment, north-west",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.14,
+        0.12
+      ],
+      "text": "Rift Escarpment",
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p>"
+    }
+  },
+  {
+    "id": "now.label.basalt",
+    "tool": "add_label",
+    "note": "Basalt flows under the volcano",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.68,
+        0.15
+      ],
+      "text": "Basalt Fields",
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p>"
+    }
+  },
+  {
+    "id": "now.label.terraces",
+    "tool": "add_label",
+    "note": "Fossil reef benches",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.72,
+        0.42
+      ],
+      "text": "Fossil Terraces",
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p>"
+    }
+  },
+  {
+    "id": "now.label.washes",
+    "tool": "add_label",
+    "note": "Iron-stained seasonal washes",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.56,
+        0.43
+      ],
+      "text": "Mineral Washes",
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p>"
+    }
+  },
+  {
+    "id": "now.label.salt",
+    "tool": "add_label",
+    "note": "Halite floor in the east",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.905,
+        0.66
+      ],
+      "text": "Salt Flats",
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p>"
+    }
+  },
+  {
+    "id": "now.label.acid",
+    "tool": "add_label",
+    "note": "Localized acid hydrothermal field",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.77,
+        0.83
+      ],
+      "text": "Acid Pits",
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p>"
+    }
+  },
+  {
+    "id": "now.label.dead-spring",
+    "tool": "add_label",
+    "note": "The failed oasis",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.42,
+        0.72
+      ],
+      "text": "Dead Spring",
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p>"
+    }
+  },
+  {
+    "id": "now.label.outpost",
+    "tool": "add_label",
+    "note": "Under the ruins marker",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.41,
+        0.56
+      ],
+      "text": "Ruined Outpost",
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p>"
+    }
+  },
+  {
+    "id": "now.label.caravan",
+    "tool": "add_label",
+    "note": "The pass where the caravan escape (zone 01) happens",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.17,
+        0.81
+      ],
+      "text": "Caravan Approach",
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p>"
+    }
+  },
+  {
+    "id": "now.marker.caravan",
+    "tool": "add_marker",
+    "note": "Zone 01 anchor: the captive-caravan escape on the main road through the pass",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.06,
+        0.8
+      ],
+      "type": "caravan escape",
+      "name": "Caravan Approach",
+      "note": "<p>Zone 01, locked: the captive caravan escape, the combat tutorial. Who attacks the caravan, and why, is open.</p>",
+      "icon": "\u26d3\ufe0f"
+    }
+  },
+  {
+    "id": "now.marker.volcano",
+    "tool": "add_marker",
+    "note": "The active volcano north of the basalt",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.84,
+        0.1
+      ],
+      "type": "volcanoes",
+      "name": "Active volcano",
+      "note": "<p>Active volcano with a small, fluctuating summit lava lake. Not the source of the acid pits. Unnamed.</p>"
+    }
+  },
+  {
+    "id": "now.marker.acid",
+    "tool": "add_marker",
+    "note": "Acid Pits anchor",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.72,
+        0.69
+      ],
+      "type": "acid pits",
+      "name": "Acid Pits",
+      "note": "<p>Anchor: localized acid hydrothermal pools (Dallol). Medium pools act as blockers. Acid chemistry tied to the Grand Machine's extraction is open.</p>",
+      "icon": "\ud83e\uddea"
+    }
+  },
+  {
+    "id": "now.marker.dead-spring",
+    "tool": "add_marker",
+    "note": "Dead Spring",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.31,
+        0.8
+      ],
+      "type": "dead spring",
+      "name": "Dead Spring",
+      "note": "<p>A freshwater oasis before the catastrophe; today dead trees and stagnant mineral pools.</p>",
+      "icon": "\ud83e\udd40"
+    }
+  }
+]

@@ -38,8 +38,8 @@ try {
   const names = tools.map(t => t.name).sort();
   check(
     "tools registered",
-    names.length === 20 &&
-      ["set_climate", "sculpt", "finalize_terrain", "define_style_group", "set_lakes", "remove_rivers", "add_river", "add_route", "paint_biome", "add_burg", "add_marker"].every(n =>
+    names.length === 21 &&
+      ["set_climate", "sculpt", "finalize_terrain", "define_style_group", "set_lakes", "remove_rivers", "add_river", "add_route", "paint_biome", "add_burg", "add_marker", "add_label"].every(n =>
         names.includes(n)
       ),
     names.join(", ")
@@ -100,6 +100,13 @@ try {
   const marker = await call("add_marker", { frame: "act1", point: [0.5, 0.4], type: "ruins", name: "Smoke Ruin", note: "<p>picked over</p>" });
   check("add_marker places a named ruins marker with a note", marker.body.name === "Smoke Ruin" && marker.body.note === "<p>picked over</p>", JSON.stringify(marker.body));
 
+  const labelStyle = await call("define_style_group", { layer: "labels", group: "added", attrs: { "font-size": "5%", fill: "#2a1d14" }, zoom: { min: 3, max: 40 } });
+  check("define_style_group restyles a label group and sets its zoom range", labelStyle.body.attrs["font-size"] === "5%" && labelStyle.body.zoom?.max === 40);
+  const newLabelGroup = await client.callTool({ name: "define_style_group", arguments: { layer: "labels", group: "smokeNope", attrs: { fill: "#000000" } } });
+  check("define_style_group refuses to invent a label group", newLabelGroup.isError === true);
+  const label = await call("add_label", { frame: "act1", point: [0.5, 0.5], text: "Smoke Basin", note: "<p>[placeholder]</p>" });
+  check("add_label places a region label with a note", label.body.text === "Smoke Basin" && label.body.group === "added" && label.body.note === "<p>[placeholder]</p>", JSON.stringify(label.body));
+
   const saved = await call("save_map", { path: "world/build/smoke/smoke-test.map" });
   check("save_map writes a .map file", saved.body.bytes > 1_000_000, `${(saved.body.bytes / 1e6).toFixed(1)} MB in ${saved.ms} ms`);
 
@@ -112,13 +119,15 @@ try {
       return { style: FMG.styles.lakes.groups.smokeAcid?.attrs.fill, lakeGroup: lake?.group, wash: FMG.styles.routes.groups.smokeWash?.attrs.stroke,
         route: FMG.pack.routes.find(r => r.name === "Smoke Wash")?.group, river: FMG.pack.rivers.find(r => r.name === "Smoke Creek")?.lock,
         biome: FMG.pack.biomes[${painted.body.i}]?.color, biomeCells: FMG.pack.cells.biome.filter(b => b === ${painted.body.i}).length > 20,
-        burg: FMG.pack.burgs[${burg.body.i}]?.name, burgNote: FMG.pack.burgs[${burg.body.i}]?.note, marker: FMG.pack.markers.find(m => m.name === "Smoke Ruin")?.note };`
+        burg: FMG.pack.burgs[${burg.body.i}]?.name, burgNote: FMG.pack.burgs[${burg.body.i}]?.note, marker: FMG.pack.markers.find(m => m.name === "Smoke Ruin")?.note,
+        label: FMG.pack.addedLabels.find(l => l.label.text === "Smoke Basin")?.note,
+        labelZoom: FMG.options.map.labels.groups.find(g => g.name === "added")?.zoom.max };`
   });
   check(
-    "custom lake/route groups, lakes, rivers, routes, biomes, burgs and markers survive save and open",
+    "custom lake/route groups, lakes, rivers, routes, biomes, burgs, markers and labels survive save and open",
     JSON.stringify(persisted.body) ===
       JSON.stringify({ style: "#98B72C", lakeGroup: "smokeAcid", wash: "#9a3d17", route: "smokeWash", river: true, biome: "#333333", biomeCells: true,
-        burg: "Smoke Keep", burgNote: "<p>[placeholder]</p>", marker: "<p>picked over</p>" }),
+        burg: "Smoke Keep", burgNote: "<p>[placeholder]</p>", marker: "<p>picked over</p>", label: "<p>[placeholder]</p>", labelZoom: 40 }),
     JSON.stringify(persisted.body)
   );
 

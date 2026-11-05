@@ -325,13 +325,20 @@ export class AzgaarSession {
     return this.info();
   }
 
-  /** Adds or updates a lake or route style group, starting from a stock group's look */
-  async defineStyleGroup(layer: "lakes" | "routes", group: string, attrs: Record<string, string | number | null>) {
+  /** Adds or updates a lake or route style group, starting from a stock group's look, or restyles an existing label group */
+  async defineStyleGroup(
+    layer: "lakes" | "routes" | "labels",
+    group: string,
+    attrs: Record<string, string | number | null>,
+    zoom?: { min: number; max: number }
+  ) {
     const page = await this.open();
     return page.evaluate(
-      ({ layer, group, attrs }) => {
+      ({ layer, group, attrs, zoom }) => {
         const groups = FMG.styles[layer].groups;
         const created = !groups[group];
+        if (created && layer === "labels")
+          throw new Error(`No label group "${group}". Label groups: ${Object.keys(groups).join(", ")}`);
         if (created) groups[group] = structuredClone(layer === "lakes" ? groups.freshwater : groups.trails);
         try {
           // Styles.setValue checks each attr against Azgaar's style schema, so the .map reloads with it intact
@@ -340,11 +347,22 @@ export class AzgaarSession {
           if (created) delete groups[group];
           throw error;
         }
+        let shownAt: unknown;
+        if (zoom) {
+          if (layer !== "labels") throw new Error("zoom applies to label groups only");
+          // which zoom levels a label group shows at is a map setting, saved with the .map
+          FMG.Options.set((config: any) => {
+            const entry = config.map.labels.groups.find((g: any) => g.name === group);
+            if (!entry) throw new Error(`Label group "${group}" has no settings`);
+            entry.zoom = { min: zoom.min, max: zoom.max };
+          });
+          shownAt = zoom;
+        }
         FMG.Layers.draw(layer);
         FMG.Styles.write(layer);
-        return { layer, group, created, attrs: groups[group].attrs };
+        return { layer, group, created, attrs: groups[group].attrs, ...(shownAt ? { zoom: shownAt } : {}) };
       },
-      { layer, group, attrs }
+      { layer, group, attrs, zoom }
     );
   }
 
@@ -384,6 +402,18 @@ export class AzgaarSession {
         buildings: Object.fromEntries(["citadel", "plaza", "shanty", "temple", "walls"].map(k => [k, Boolean(b[k])]))
       };
     }, burg);
+  }
+
+  /** Places a free text label at a map point in an "added" label group, with an optional note */
+  async addLabel(label: { point: Point; text: string; group?: string; note?: string }) {
+    const page = await this.open();
+    return page.evaluate(({ point, text, group, note }) => {
+      const id = FMG.AddedLabels.place(point[0], point[1], text, group);
+      if (note) FMG.Notes.write(`addedLabel:${id}`, note);
+      FMG.Layers.draw("labels");
+      const added = FMG.AddedLabels.get(id);
+      return { i: id, text: added.label.text, group: added.label.group, note: added.note };
+    }, label);
   }
 
   /** Places a locked marker at a map point: a configured type (volcanoes, ruins…) or a custom one with a note */
