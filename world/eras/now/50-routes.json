@@ -32,59 +32,35 @@
     }
   },
   {
-    "id": "now.style.tracks",
-    "tool": "define_style_group",
-    "note": "Secondary tracks: thin dotted trails",
-    "args": {
-      "layer": "routes",
-      "group": "tracks",
-      "attrs": {
-        "stroke": "#3a2a1e",
-        "stroke-width": 0.45,
-        "stroke-dasharray": "0.8 1.2",
-        "stroke-linecap": "round",
-        "opacity": 0.9
-      }
-    }
-  },
-  {
     "id": "now.road.main.approach",
     "tool": "add_route",
-    "note": "Main road, south-west leg: up the Caravan Approach pass to the Slums. Slave caravans, merchants, travelers and free people all use it",
+    "note": "Main road into the city, first leg: through the low (height 38) Caravan Approach pass in the south-west rim and across the terrace to the Slums. Slave caravans, merchants, travelers and free people all use it",
     "args": {
       "frame": "act1",
       "group": "main-road",
       "points": [
         [
           0.0,
-          0.875
+          0.84
         ],
         [
-          0.028,
-          0.86
+          0.05,
+          0.79
         ],
         [
-          0.056,
-          0.783
+          0.1,
+          0.73
         ],
         [
-          0.094,
-          0.711
+          0.14,
+          0.67
         ],
         [
-          0.147,
-          0.667
+          0.17,
+          0.6
         ],
         [
-          0.197,
-          0.628
-        ],
-        [
-          0.216,
-          0.594
-        ],
-        [
-          0.208,
+          0.19,
           0.54
         ],
         [
@@ -97,7 +73,7 @@
   {
     "id": "now.road.main.ascent",
     "tool": "add_route",
-    "note": "Main road, the climb: switchbacks from the Slums up the escarpment face to Slaver Upper Camp",
+    "note": "Main road, the climb: from the Slums terrace (40) up the spur east of the falls slot (46) onto the upper-city shelf (50) to Slaver Upper Camp, the only ramp between the two levels",
     "args": {
       "frame": "act1",
       "group": "main-road",
@@ -107,59 +83,32 @@
           0.49
         ],
         [
-          0.24,
-          0.45
+          0.25,
+          0.44
         ],
         [
-          0.259,
-          0.394
+          0.285,
+          0.39
         ],
         [
-          0.266,
-          0.361
+          0.3,
+          0.345
         ],
         [
-          0.3375,
-          0.306
+          0.335,
+          0.315
         ],
         [
-          0.372,
-          0.272
+          0.375,
+          0.29
         ],
         [
-          0.419,
-          0.256
+          0.41,
+          0.25
         ],
         [
           0.43,
           0.2
-        ]
-      ]
-    }
-  },
-  {
-    "id": "now.road.main.highlands",
-    "tool": "add_route",
-    "note": "Main road on into the highlands above the escarpment, leaving Act I to the north",
-    "args": {
-      "frame": "act1",
-      "group": "main-road",
-      "points": [
-        [
-          0.43,
-          0.2
-        ],
-        [
-          0.455,
-          0.13
-        ],
-        [
-          0.445,
-          0.06
-        ],
-        [
-          0.43,
-          0.0
         ]
       ]
     }
@@ -167,22 +116,22 @@
   {
     "id": "now.road.old.1",
     "tool": "add_route",
-    "note": "Old regional road, first fragment east of the Slums",
+    "note": "Old caravan road, first fragment: east off the Slums terrace down to the basin floor",
     "args": {
       "frame": "act1",
       "group": "old-road",
       "points": [
         [
           0.235,
-          0.49
+          0.5
         ],
         [
-          0.3,
-          0.47
+          0.29,
+          0.51
         ],
         [
-          0.355,
-          0.475
+          0.34,
+          0.515
         ]
       ]
     }
@@ -190,22 +139,22 @@
   {
     "id": "now.road.old.2",
     "tool": "add_route",
-    "note": "Old regional road past the Ruined Outpost, its old waystation",
+    "note": "Old caravan road through the Ruined Outpost, the waystation it served",
     "args": {
       "frame": "act1",
       "group": "old-road",
       "points": [
         [
-          0.375,
-          0.49
+          0.37,
+          0.515
         ],
         [
           0.41,
-          0.505
+          0.51
         ],
         [
-          0.455,
-          0.5
+          0.45,
+          0.505
         ]
       ]
     }
@@ -213,208 +162,18 @@
   {
     "id": "now.road.old.3",
     "tool": "add_route",
-    "note": "Old regional road's last fragment, beside the Mineral Washes up to the basalt edge",
+    "note": "Old caravan road's last trace, fading out on the basin floor before the washes; where it once led is still open",
     "args": {
       "frame": "act1",
       "group": "old-road",
       "points": [
         [
-          0.475,
-          0.49
-        ],
-        [
-          0.515,
-          0.465
-        ],
-        [
-          0.545,
-          0.41
-        ],
-        [
-          0.575,
-          0.34
-        ]
-      ]
-    }
-  },
-  {
-    "id": "now.track.basalt",
-    "tool": "add_route",
-    "note": "Track east from the Upper Camp into the Basalt Fields",
-    "args": {
-      "frame": "act1",
-      "group": "tracks",
-      "points": [
-        [
-          0.45,
-          0.22
-        ],
-        [
-          0.53,
-          0.245
-        ],
-        [
-          0.6,
-          0.225
-        ],
-        [
-          0.66,
-          0.2
-        ]
-      ]
-    }
-  },
-  {
-    "id": "now.track.washes-basalt",
-    "tool": "add_route",
-    "note": "Fork from the old road up into the basalt",
-    "args": {
-      "frame": "act1",
-      "group": "tracks",
-      "points": [
-        [
-          0.545,
-          0.41
-        ],
-        [
-          0.585,
-          0.33
-        ],
-        [
-          0.62,
-          0.29
-        ]
-      ]
-    }
-  },
-  {
-    "id": "now.track.dead-spring",
-    "tool": "add_route",
-    "note": "Track from the main road down to the Dead Spring",
-    "args": {
-      "frame": "act1",
-      "group": "tracks",
-      "points": [
-        [
-          0.197,
-          0.628
-        ],
-        [
-          0.28,
-          0.656
-        ],
-        [
-          0.36,
-          0.7
-        ],
-        [
-          0.41,
-          0.745
-        ]
-      ]
-    }
-  },
-  {
-    "id": "now.track.acid",
-    "tool": "add_route",
-    "note": "Track from the Dead Spring track east between the acid pools",
-    "args": {
-      "frame": "act1",
-      "group": "tracks",
-      "points": [
-        [
-          0.36,
-          0.7
-        ],
-        [
-          0.46,
-          0.65
-        ],
-        [
-          0.55,
-          0.68
-        ],
-        [
-          0.6,
-          0.715
-        ],
-        [
-          0.655,
-          0.7
-        ],
-        [
-          0.71,
-          0.665
-        ],
-        [
-          0.78,
-          0.7
-        ]
-      ]
-    }
-  },
-  {
-    "id": "now.track.washes",
-    "tool": "add_route",
-    "note": "Fork north-east from the acid track into the washes",
-    "args": {
-      "frame": "act1",
-      "group": "tracks",
-      "points": [
-        [
-          0.46,
-          0.65
+          0.47,
+          0.5
         ],
         [
           0.5,
-          0.583
-        ],
-        [
-          0.544,
-          0.522
-        ],
-        [
-          0.58,
-          0.5
-        ]
-      ]
-    }
-  },
-  {
-    "id": "now.track.terraces-salt",
-    "tool": "add_route",
-    "note": "Track through the terrace gap to the gypsum pavement, across the salt flats to the brine pools",
-    "args": {
-      "frame": "act1",
-      "group": "tracks",
-      "points": [
-        [
-          0.58,
-          0.5
-        ],
-        [
-          0.68,
-          0.5
-        ],
-        [
-          0.78,
-          0.52
-        ],
-        [
-          0.84,
-          0.53
-        ],
-        [
-          0.89,
-          0.47
-        ],
-        [
-          0.9,
-          0.38
-        ],
-        [
-          0.89,
-          0.345
+          0.49
         ]
       ]
     }
