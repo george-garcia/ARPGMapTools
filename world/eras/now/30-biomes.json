@@ -1,0 +1,496 @@
+[
+  {
+    "id": "now.biome.basin-ground",
+    "tool": "paint_biome",
+    "note": "Connecting basin ground is plain hot desert: clears the wetland and grassland specks that lake moisture leaves",
+    "args": {
+      "frame": "act1",
+      "name": "Hot desert",
+      "polygon": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "heights": [
+        20,
+        43
+      ]
+    }
+  },
+  {
+    "id": "now.biome.escarpment",
+    "tool": "paint_biome",
+    "note": "Red-brown rock of the escarpment, highlands and basin rims: every Act I cell at height 44 or more; later zones paint over it",
+    "args": {
+      "frame": "act1",
+      "name": "Rift Escarpment",
+      "color": "#8A4A2E",
+      "habitability": 4,
+      "polygon": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "heights": [
+        44,
+        100
+      ]
+    }
+  },
+  {
+    "id": "now.biome.basalt.old",
+    "tool": "paint_biome",
+    "note": "Weathered outer basalt lobes",
+    "args": {
+      "frame": "act1",
+      "name": "Old Basalt",
+      "color": "#55483E",
+      "habitability": 1,
+      "polygon": [
+        [
+          0.52,
+          0.25
+        ],
+        [
+          0.58,
+          0.12
+        ],
+        [
+          0.7,
+          0.07
+        ],
+        [
+          0.78,
+          0.1
+        ],
+        [
+          0.86,
+          0.14
+        ],
+        [
+          0.84,
+          0.3
+        ],
+        [
+          0.7,
+          0.38
+        ],
+        [
+          0.6,
+          0.34
+        ]
+      ],
+      "heights": [
+        33,
+        100
+      ]
+    }
+  },
+  {
+    "id": "now.biome.basalt.recent",
+    "tool": "paint_biome",
+    "note": "Fresh charcoal flows nearest the active volcano, cone included",
+    "args": {
+      "frame": "act1",
+      "name": "Recent Basalt",
+      "color": "#2D2F2F",
+      "habitability": 0,
+      "polygon": [
+        [
+          0.74,
+          0
+        ],
+        [
+          0.95,
+          0
+        ],
+        [
+          0.96,
+          0.17
+        ],
+        [
+          0.93,
+          0.25
+        ],
+        [
+          0.85,
+          0.24
+        ],
+        [
+          0.8,
+          0.2
+        ],
+        [
+          0.74,
+          0.12
+        ]
+      ],
+      "heights": [
+        33,
+        100
+      ]
+    }
+  },
+  {
+    "id": "now.biome.washes",
+    "tool": "paint_biome",
+    "note": "Oxidised wash floors and fans: the main corridor south to the mineral pool and the gaps between the terrace benches",
+    "args": {
+      "frame": "act1",
+      "name": "Mineral Washes",
+      "color": "#B85D23",
+      "habitability": 2,
+      "polygon": [
+        [
+          0.49,
+          0.3
+        ],
+        [
+          0.58,
+          0.27
+        ],
+        [
+          0.6,
+          0.36
+        ],
+        [
+          0.6,
+          0.46
+        ],
+        [
+          0.73,
+          0.455
+        ],
+        [
+          0.85,
+          0.48
+        ],
+        [
+          0.85,
+          0.52
+        ],
+        [
+          0.73,
+          0.49
+        ],
+        [
+          0.6,
+          0.5
+        ],
+        [
+          0.63,
+          0.6
+        ],
+        [
+          0.6,
+          0.65
+        ],
+        [
+          0.55,
+          0.62
+        ],
+        [
+          0.49,
+          0.52
+        ],
+        [
+          0.47,
+          0.4
+        ]
+      ],
+      "heights": [
+        20,
+        34
+      ]
+    }
+  },
+  {
+    "id": "now.biome.terraces",
+    "tool": "paint_biome",
+    "note": "Ivory fossil-reef benches only; the gaps between them stay wash-coloured",
+    "args": {
+      "frame": "act1",
+      "name": "Fossil Terraces",
+      "color": "#E3D3A8",
+      "habitability": 2,
+      "polygon": [
+        [
+          0.6,
+          0.35
+        ],
+        [
+          0.85,
+          0.35
+        ],
+        [
+          0.85,
+          0.59
+        ],
+        [
+          0.62,
+          0.59
+        ]
+      ],
+      "heights": [
+        28,
+        100
+      ]
+    }
+  },
+  {
+    "id": "now.biome.salt",
+    "tool": "paint_biome",
+    "note": "Halite crust with a faint pink tint around the brine pools, down the east of the basin",
+    "args": {
+      "frame": "act1",
+      "name": "Salt Flats",
+      "color": "#EBCBCB",
+      "habitability": 0,
+      "polygon": [
+        [
+          0.85,
+          0.2
+        ],
+        [
+          0.95,
+          0.2
+        ],
+        [
+          0.95,
+          0.8
+        ],
+        [
+          0.9,
+          0.85
+        ],
+        [
+          0.85,
+          0.62
+        ],
+        [
+          0.88,
+          0.36
+        ]
+      ],
+      "heights": [
+        20,
+        27
+      ]
+    }
+  },
+  {
+    "id": "now.biome.gypsum",
+    "tool": "paint_biome",
+    "note": "Gypsum pavement east of the terraces",
+    "args": {
+      "frame": "act1",
+      "name": "Gypsum Pavement",
+      "color": "#CFCBBE",
+      "habitability": 1,
+      "polygon": [
+        [
+          0.82,
+          0.4
+        ],
+        [
+          0.88,
+          0.38
+        ],
+        [
+          0.9,
+          0.57
+        ],
+        [
+          0.83,
+          0.59
+        ]
+      ],
+      "heights": [
+        20,
+        27
+      ]
+    }
+  },
+  {
+    "id": "now.biome.dunes",
+    "tool": "paint_biome",
+    "note": "Small gypsum dune field just downwind (ENE) of the pavement",
+    "args": {
+      "frame": "act1",
+      "name": "Gypsum Dunes",
+      "color": "#F4F6F4",
+      "habitability": 0,
+      "polygon": [
+        [
+          0.885,
+          0.42
+        ],
+        [
+          0.94,
+          0.41
+        ],
+        [
+          0.945,
+          0.5
+        ],
+        [
+          0.89,
+          0.52
+        ]
+      ],
+      "heights": [
+        20,
+        27
+      ]
+    }
+  },
+  {
+    "id": "now.biome.acid",
+    "tool": "paint_biome",
+    "note": "Sulfur and oxidised crust of the acid field around its pools (amber, so the acid-green pools stand out)",
+    "args": {
+      "frame": "act1",
+      "name": "Acid Pits",
+      "color": "#D78E22",
+      "habitability": 0,
+      "polygon": [
+        [
+          0.61,
+          0.6
+        ],
+        [
+          0.8,
+          0.56
+        ],
+        [
+          0.93,
+          0.61
+        ],
+        [
+          0.93,
+          0.82
+        ],
+        [
+          0.76,
+          0.84
+        ],
+        [
+          0.61,
+          0.8
+        ]
+      ],
+      "heights": [
+        20,
+        27
+      ]
+    }
+  },
+  {
+    "id": "now.biome.dead-spring",
+    "tool": "paint_biome",
+    "note": "Grey dried-pool floor and dead scrub around the Dead Spring",
+    "args": {
+      "frame": "act1",
+      "name": "Dead Spring",
+      "color": "#B1B5A7",
+      "habitability": 2,
+      "polygon": [
+        [
+          0.33,
+          0.74
+        ],
+        [
+          0.43,
+          0.73
+        ],
+        [
+          0.5,
+          0.8
+        ],
+        [
+          0.49,
+          0.88
+        ],
+        [
+          0.4,
+          0.87
+        ],
+        [
+          0.33,
+          0.83
+        ]
+      ]
+    }
+  },
+  {
+    "id": "now.biome.oasis",
+    "tool": "paint_biome",
+    "note": "Green strip along the falls stream down to the Slums, the city's water",
+    "args": {
+      "frame": "act1",
+      "name": "Spring Oasis",
+      "color": "#6E8B3D",
+      "habitability": 60,
+      "polygon": [
+        [
+          0.17,
+          0.2
+        ],
+        [
+          0.22,
+          0.25
+        ],
+        [
+          0.26,
+          0.3
+        ],
+        [
+          0.27,
+          0.42
+        ],
+        [
+          0.25,
+          0.48
+        ],
+        [
+          0.2,
+          0.47
+        ],
+        [
+          0.2,
+          0.33
+        ],
+        [
+          0.15,
+          0.24
+        ]
+      ]
+    }
+  }
+]

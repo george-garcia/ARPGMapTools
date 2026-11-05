@@ -34,6 +34,12 @@ mineral pool, the Dead Spring and the summit lava lake) are sculpted as small pi
 with `add_route`. A cell is about 2.3 km across, so a pool needs a radius of about 2 km to show, and pools closer than a cell
 merge into one lake.
 
+Biomes: `finalize_terrain` and `set_climate` repaint every biome from climate, so Act I's zones are painted afterwards with
+`paint_biome`, in `eras/<era>/30-biomes.json`. Each paint goes over the ones before it, and `heights` lets an edge follow the
+terrain (the escarpment is every cell at 44 or more; terrace benches are 28 or more, so the gaps stay wash-coloured). The
+present day paints all eleven zones in the art-bible palette; the before era so far only keeps the bedrock zones (basalt,
+terraces) and greens the Spring and the falls.
+
 `eras/now/00-climate.json` applies the present-day drought with `set_climate`; the before era keeps the natural climate from `config.json`.
 
 `base/00-continent.json` holds the continent as a custom Azgaar heightmap template. Template steps draw random positions from the seed,

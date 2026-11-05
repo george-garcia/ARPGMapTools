@@ -10,8 +10,8 @@ Needs Node.js 22+ and git.
 npm install
 npm run setup    # fetches and builds the pinned Azgaar release, installs Playwright's Chromium
 npm run build    # compiles the MCP server
-npm run smoke    # optional: end-to-end check over MCP, about 40 seconds
-npm run world    # rebuilds the world map from the ops in world/ into world/build/now.map
+npm run smoke    # optional: end-to-end check over MCP, about 40 seconds (rebuilds first)
+npm run world    # compiles, then rebuilds the world map from the ops in world/ into world/build/now.map
 ```
 
 Open this folder in Claude Code and approve the `azgaar` server from `.mcp.json`. To watch the browser while it works, add `"--headed"` to the server's `args` in `.mcp.json`.
@@ -24,6 +24,7 @@ Open this folder in Claude Code and approve the `azgaar` server from `.mcp.json`
 | `sculpt` | Edits terrain heights inside a polygon: set, raise, lower, smooth or roughen, with a soft edge and optional natural outline noise |
 | `finalize_terrain` | Rebuilds coastlines, lakes, rivers and biomes from the edited heightmap, like Azgaar's heightmap editor |
 | `set_climate` | Changes precipitation and temperatures and re-derives rivers and biomes, keeping the terrain (used for the present-day drought) |
+| `paint_biome` | Paints land inside a polygon (optionally within a height range) with a biome, creating custom biomes by name |
 | `set_lakes` | Sets the subtype (freshwater, salt, dry, lava…), style group and name of the lakes inside a polygon |
 | `define_style_group` | Adds or updates a lake or route style group (fill, stroke, dashes…), checked against Azgaar's style schema and saved in the `.map` |
 | `remove_rivers` | Removes the generated (unlocked) rivers draining into a polygon |

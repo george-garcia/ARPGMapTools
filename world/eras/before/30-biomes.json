@@ -1,0 +1,211 @@
+[
+  {
+    "id": "before.biome.basalt.old",
+    "tool": "paint_biome",
+    "note": "Basalt lobes, already old before the catastrophe",
+    "args": {
+      "frame": "act1",
+      "name": "Old Basalt",
+      "color": "#55483E",
+      "habitability": 1,
+      "polygon": [
+        [
+          0.52,
+          0.25
+        ],
+        [
+          0.58,
+          0.12
+        ],
+        [
+          0.7,
+          0.07
+        ],
+        [
+          0.78,
+          0.1
+        ],
+        [
+          0.86,
+          0.14
+        ],
+        [
+          0.84,
+          0.3
+        ],
+        [
+          0.7,
+          0.38
+        ],
+        [
+          0.6,
+          0.34
+        ]
+      ],
+      "heights": [
+        33,
+        100
+      ]
+    }
+  },
+  {
+    "id": "before.biome.basalt.recent",
+    "tool": "paint_biome",
+    "note": "Volcanic flows by the volcano, which was already present",
+    "args": {
+      "frame": "act1",
+      "name": "Recent Basalt",
+      "color": "#2D2F2F",
+      "habitability": 0,
+      "polygon": [
+        [
+          0.74,
+          0
+        ],
+        [
+          0.95,
+          0
+        ],
+        [
+          0.96,
+          0.17
+        ],
+        [
+          0.93,
+          0.25
+        ],
+        [
+          0.85,
+          0.24
+        ],
+        [
+          0.8,
+          0.2
+        ],
+        [
+          0.74,
+          0.12
+        ]
+      ],
+      "heights": [
+        33,
+        100
+      ]
+    }
+  },
+  {
+    "id": "before.biome.terraces",
+    "tool": "paint_biome",
+    "note": "The fossil-reef benches are bedrock in every era",
+    "args": {
+      "frame": "act1",
+      "name": "Fossil Terraces",
+      "color": "#E3D3A8",
+      "habitability": 2,
+      "polygon": [
+        [
+          0.6,
+          0.35
+        ],
+        [
+          0.85,
+          0.35
+        ],
+        [
+          0.85,
+          0.59
+        ],
+        [
+          0.62,
+          0.59
+        ]
+      ],
+      "heights": [
+        28,
+        100
+      ]
+    }
+  },
+  {
+    "id": "before.biome.oasis",
+    "tool": "paint_biome",
+    "note": "The Spring: a living oasis around the freshwater lake",
+    "args": {
+      "frame": "act1",
+      "name": "Spring Oasis",
+      "color": "#6E8B3D",
+      "habitability": 60,
+      "polygon": [
+        [
+          0.3,
+          0.72
+        ],
+        [
+          0.44,
+          0.71
+        ],
+        [
+          0.52,
+          0.8
+        ],
+        [
+          0.5,
+          0.9
+        ],
+        [
+          0.38,
+          0.89
+        ],
+        [
+          0.3,
+          0.84
+        ]
+      ]
+    }
+  },
+  {
+    "id": "before.biome.oasis.falls",
+    "tool": "paint_biome",
+    "note": "Green strip along the falls stream",
+    "args": {
+      "frame": "act1",
+      "name": "Spring Oasis",
+      "color": "#6E8B3D",
+      "habitability": 60,
+      "polygon": [
+        [
+          0.17,
+          0.2
+        ],
+        [
+          0.22,
+          0.25
+        ],
+        [
+          0.26,
+          0.3
+        ],
+        [
+          0.27,
+          0.42
+        ],
+        [
+          0.25,
+          0.48
+        ],
+        [
+          0.2,
+          0.47
+        ],
+        [
+          0.2,
+          0.33
+        ],
+        [
+          0.15,
+          0.24
+        ]
+      ]
+    }
+  }
+]

@@ -348,6 +348,48 @@ export class AzgaarSession {
     );
   }
 
+  /**
+   * Paints the land cells inside `polygon` (map pixels) with a biome, creating it by name if it is new and
+   * updating its colour and habitability otherwise. `heights` limits painting to cells within [min, max]
+   */
+  async paintBiome(biome: { name: string; color?: string; habitability?: number }, polygon: Point[], heights?: [number, number]) {
+    const page = await this.open();
+    return page.evaluate(
+      ({ biome, polygon, heights }) => {
+        const { pack } = FMG;
+        const inside = (x: number, y: number) => {
+          let hit = false;
+          for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+            const [xi, yi] = polygon[i];
+            const [xj, yj] = polygon[j];
+            if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) hit = !hit;
+          }
+          return hit;
+        };
+        let id = pack.biomes.findIndex((b: any) => b && !b.removed && b.name === biome.name);
+        const created = id < 0;
+        if (created) {
+          if (!biome.color) throw new Error(`Biome "${biome.name}" is new; give it a color`);
+          id = FMG.Biomes.add(biome.name, biome.color, biome.habitability ?? 0);
+        } else {
+          if (biome.color) FMG.Biomes.recolor(id, biome.color);
+          if (biome.habitability !== undefined) FMG.Biomes.setHabitability(id, biome.habitability);
+        }
+        const [min, max] = heights ?? [20, 100];
+        const cells: number[] = [];
+        pack.cells.i.forEach((i: number) => {
+          const h = pack.cells.h[i];
+          if (h >= 20 && h >= min && h <= max && inside(pack.cells.p[i][0], pack.cells.p[i][1])) cells.push(i);
+        });
+        if (!cells.length) throw new Error(`No land cell inside the polygon${heights ? ` within heights ${min}-${max}` : ""}`);
+        FMG.Biomes.setCells(id, cells);
+        FMG.Layers.draw("biomes");
+        return { i: id, name: biome.name, created, color: pack.biomes[id].color, cells: cells.length };
+      },
+      { biome, polygon, heights }
+    );
+  }
+
   /** Sets subtype, style group and name on every lake with a cell centre inside `polygon` (map pixels) */
   async setLakes(polygon: Point[], change: { subtype?: string; group?: string; name?: string }) {
     const page = await this.open();

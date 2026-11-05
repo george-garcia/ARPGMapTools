@@ -172,6 +172,28 @@ server.registerTool(
 );
 
 server.registerTool(
+  "paint_biome",
+  {
+    title: "Paint a biome",
+    description:
+      "Paints the land cells inside a polygon with a biome. A new name creates a custom biome (color required); an existing one (custom or Azgaar's, e.g. 'Hot desert') is reused, and color/habitability, when given, update it. `heights` [min, max] limits painting to cells in that height range, so edges follow the terrain (e.g. [28, 100] for terrace benches). finalize_terrain and set_climate repaint every biome, so paint after them. With `frame`, points are frame-local 0-1; omit `polygon` to cover the whole frame.",
+    inputSchema: {
+      name: z.string().min(1),
+      color: z.string().optional().describe("Hex colour, e.g. '#D9D1B9'"),
+      habitability: z.number().min(0).optional().describe("Percent; drives rural population, 0 is uninhabitable"),
+      polygon: z.array(point).min(3).optional(),
+      frame: z.string().optional(),
+      heights: z.tuple([z.number(), z.number()]).optional()
+    }
+  },
+  ({ name, color, habitability, polygon, frame, heights }) =>
+    respond(async () => {
+      if (!polygon && !frame) throw new Error("Pass a polygon, a frame, or both");
+      return session.paintBiome({ name, color, habitability }, toMapPoints(polygon ?? wholeFrame, frame), heights as [number, number] | undefined);
+    })
+);
+
+server.registerTool(
   "set_lakes",
   {
     title: "Set lakes' subtype, look and name",

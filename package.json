@@ -11,8 +11,8 @@
     "setup": "node scripts/setup-azgaar.mjs",
     "build": "tsc -p tools/azgaar-mcp",
     "start": "node tools/azgaar-mcp/dist/index.js",
-    "smoke": "node scripts/smoke.mjs",
-    "world": "node scripts/build-world.mjs"
+    "smoke": "npm run build && node scripts/smoke.mjs",
+    "world": "npm run build && node scripts/build-world.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2",
