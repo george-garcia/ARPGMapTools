@@ -9,6 +9,7 @@ The world map's source of truth. Generated `.map` files and screenshots are buil
 | `base/` | Terrain ops shared by both eras (coastline, escarpment, rift, basalt, terraces) |
 | `eras/before/` | Pre-catastrophe water, biomes, settlements, routes and notes |
 | `eras/now/` | Present-day water, biomes, settlements, routes and notes |
+| `reference/act1-overview.jpg` | The canonical Act I regional overview (4K, map only). Passes from water onward trace and review against it; the terrain pass was traced from an earlier, smaller crop that agrees within one to two cells |
 | `build/` | Generated `before.map`, `now.map`, screenshots and the `run_js` log |
 
 ## Ops and builds
