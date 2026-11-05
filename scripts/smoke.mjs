@@ -38,8 +38,8 @@ try {
   const names = tools.map(t => t.name).sort();
   check(
     "tools registered",
-    names.length === 17 &&
-      ["set_climate", "sculpt", "finalize_terrain", "define_style_group", "set_lakes", "remove_rivers", "add_river", "add_route"].every(n =>
+    names.length === 18 &&
+      ["set_climate", "sculpt", "finalize_terrain", "define_style_group", "set_lakes", "remove_rivers", "add_river", "add_route", "paint_biome"].every(n =>
         names.includes(n)
       ),
     names.join(", ")
@@ -80,6 +80,12 @@ try {
   const route = await call("add_route", { frame: "act1", points: [[0.35, 0.6], [0.5, 0.65], [0.65, 0.6]], group: "smokeWash", name: "Smoke Wash" });
   check("add_route draws a line in a custom group", route.body.group === "smokeWash" && route.body.points === 3);
 
+  const painted = await call("paint_biome", { frame: "act1", polygon: square, name: "Smoke Basalt", color: "#2D2F2F", habitability: 0, heights: [60, 100] });
+  check("paint_biome creates a custom biome and paints land in the height range", painted.body.created && painted.body.cells > 20, JSON.stringify(painted.body));
+  const repainted = await call("paint_biome", { frame: "act1", polygon: pit, name: "Smoke Basalt", color: "#333333" });
+  const pitBiomes = await call("query_cells", { frame: "act1", polygon: pit });
+  check("paint_biome reuses a biome by name and skips water", !repainted.body.created && pitBiomes.body.cells > repainted.body.cells, `${repainted.body.cells} of ${pitBiomes.body.cells} cells`);
+
   const saved = await call("save_map", { path: "world/build/smoke/smoke-test.map" });
   check("save_map writes a .map file", saved.body.bytes > 1_000_000, `${(saved.body.bytes / 1e6).toFixed(1)} MB in ${saved.ms} ms`);
 
@@ -90,11 +96,13 @@ try {
   const persisted = await call("run_js", {
     code: `const lake = FMG.pack.features.find(f => f && f.name === "Smoke Pool");
       return { style: FMG.styles.lakes.groups.smokeAcid?.attrs.fill, lakeGroup: lake?.group, wash: FMG.styles.routes.groups.smokeWash?.attrs.stroke,
-        route: FMG.pack.routes.find(r => r.name === "Smoke Wash")?.group, river: FMG.pack.rivers.find(r => r.name === "Smoke Creek")?.lock };`
+        route: FMG.pack.routes.find(r => r.name === "Smoke Wash")?.group, river: FMG.pack.rivers.find(r => r.name === "Smoke Creek")?.lock,
+        biome: FMG.pack.biomes[${painted.body.i}]?.color, biomeCells: FMG.pack.cells.biome.filter(b => b === ${painted.body.i}).length > 20 };`
   });
   check(
-    "custom lake/route groups, lakes, rivers and routes survive save and open",
-    JSON.stringify(persisted.body) === JSON.stringify({ style: "#98B72C", lakeGroup: "smokeAcid", wash: "#9a3d17", route: "smokeWash", river: true }),
+    "custom lake/route groups, lakes, rivers, routes and biomes survive save and open",
+    JSON.stringify(persisted.body) ===
+      JSON.stringify({ style: "#98B72C", lakeGroup: "smokeAcid", wash: "#9a3d17", route: "smokeWash", river: true, biome: "#333333", biomeCells: true }),
     JSON.stringify(persisted.body)
   );
 
