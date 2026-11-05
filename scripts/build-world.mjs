@@ -60,7 +60,7 @@ try {
   console.log(await call("save_map", { path: `world/build/${era}.map` }));
   for (const [name, layers] of [
     ["heightmap", ["heightmap", "rivers", "lakes"]],
-    ["biomes", ["biomes", "rivers", "lakes", "routes"]]
+    ["biomes", ["biomes", "rivers", "lakes", "routes", "burgIcons", "labels", "markers"]]
   ]) {
     await call("screenshot", { name: `${era}-${name}`, layers });
     await call("screenshot", { name: `${era}-act1-${name}`, frame: "act1", layers });

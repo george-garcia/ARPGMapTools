@@ -24,6 +24,8 @@ Open this folder in Claude Code and approve the `azgaar` server from `.mcp.json`
 | `sculpt` | Edits terrain heights inside a polygon: set, raise, lower, smooth or roughen, with a soft edge and optional natural outline noise |
 | `finalize_terrain` | Rebuilds coastlines, lakes, rivers and biomes from the edited heightmap, like Azgaar's heightmap editor |
 | `set_climate` | Changes precipitation and temperatures and re-derives rivers and biomes, keeping the terrain (used for the present-day drought) |
+| `add_burg` | Founds a locked settlement with name, population, group, buildings (walls, citadel…) and a note; no auto-linked trail |
+| `add_marker` | Places a locked marker (a configured type such as ruins or volcanoes, or a custom one with a note) |
 | `paint_biome` | Paints land inside a polygon (optionally within a height range) with a biome, creating custom biomes by name |
 | `set_lakes` | Sets the subtype (freshwater, salt, dry, lava…), style group and name of the lakes inside a polygon |
 | `define_style_group` | Adds or updates a lake or route style group (fill, stroke, dashes…), checked against Azgaar's style schema and saved in the `.map` |

@@ -349,6 +349,60 @@ export class AzgaarSession {
   }
 
   /**
+   * Founds a locked burg at a map point with a name, population, group and buildings. Azgaar links a new burg to
+   * the nearest route with a trail; that trail is removed so routes stay hand-drawn
+   */
+  async addBurg(burg: {
+    point: Point;
+    name: string;
+    population?: number;
+    group?: string;
+    buildings?: Partial<Record<"citadel" | "plaza" | "shanty" | "temple" | "walls", boolean>>;
+    note?: string;
+  }) {
+    const page = await this.open();
+    return page.evaluate(burg => {
+      const { pack } = FMG;
+      const routesBefore = new Set(pack.routes.map((r: any) => r.i));
+      const id = FMG.Burgs.add(burg.point[0], burg.point[1]);
+      for (const route of pack.routes.filter((r: any) => !routesBefore.has(r.i))) FMG.Routes.remove(route.i);
+      FMG.Burgs.rename(id, burg.name);
+      if (burg.population !== undefined) FMG.Burgs.setPopulation(id, burg.population);
+      if (burg.group) FMG.Burgs.setGroup(id, burg.group);
+      for (const [building, present] of Object.entries(burg.buildings ?? {})) FMG.Burgs.setBuilding(id, building, Boolean(present));
+      FMG.Burgs.setLocked(id, true);
+      if (burg.note) FMG.Notes.write(`burg:${id}`, burg.note);
+      FMG.Layers.draw("burgIcons", "labels", "routes");
+      const b = pack.burgs[id];
+      const { scale, urbanization } = FMG.options.map.units.population;
+      return {
+        i: id,
+        name: b.name,
+        cell: b.cell,
+        group: b.group,
+        people: Math.round(b.population * scale * urbanization.rate),
+        buildings: Object.fromEntries(["citadel", "plaza", "shanty", "temple", "walls"].map(k => [k, Boolean(b[k])]))
+      };
+    }, burg);
+  }
+
+  /** Places a locked marker at a map point: a configured type (volcanoes, ruins…) or a custom one with a note */
+  async addMarker(marker: { point: Point; type: string; name?: string; note?: string; icon?: string }) {
+    const page = await this.open();
+    return page.evaluate(({ point, type, name, note, icon }) => {
+      const details: Record<string, string> = {};
+      if (name !== undefined) details.name = name;
+      if (note !== undefined) details.note = note;
+      if (icon !== undefined) details.icon = icon;
+      const id = FMG.Markers.place(point[0], point[1], type, details);
+      FMG.Markers.setLocked(id, true);
+      FMG.Layers.draw("markers");
+      const m = FMG.pack.markers.find((m: any) => m.i === id);
+      return { i: id, type: m.type, name: m.name, icon: m.icon, cell: m.cell, note: FMG.Notes.get({ type: "marker", id }) };
+    }, marker);
+  }
+
+  /**
    * Paints the land cells inside `polygon` (map pixels) with a biome, creating it by name if it is new and
    * updating its colour and habitability otherwise. `heights` limits painting to cells within [min, max]
    */
