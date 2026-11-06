@@ -40,6 +40,7 @@ Open this folder in Claude Code and approve the `azgaar` server from `.mcp.json`
 | `query_cells` | Heights, biomes, features and burgs inside a polygon, in map pixels or frame-local 0-1 coordinates |
 | `list` | Features, burgs, markers or routes, optionally only inside a frame |
 | `screenshot` | PNG of the whole map or a named frame, UI hidden, optional layer set; saved to `world/build/screenshots/` |
+| `export_gaea` | Exports a square region for Gaea 2: a 32-bit `.r32` heightfield, a colour map, grayscale masks (water, acid pools, rivers, roads, washes, each biome) and the Terrain Definition values; see `docs/gaea.md` |
 | `screenshot_3d` | 3D render: the whole map in Azgaar's own 3D view, or a frame exported (eroded heights plus the 2D map as texture) to `world/build/3d/` and rendered in the terrain viewer from overview, low or top cameras |
 | `run_js` | Dev-only escape hatch with `FMG` in scope; logged to `world/build/run-js.jsonl` |
 | `close_session` | Closes the browser |
@@ -64,3 +65,5 @@ Every `npm run world` also renders the map in 3D, for visualization only (nothin
 - `world/build/3d/<era>-act1-3d/`: the exported region (`meta.json`, `heights.bin`, `texture.png`). `npm run viewer -- <name>` serves it in the interactive viewer: drag to orbit, scroll to zoom.
 
 Rendering runs on the CPU in headless Chromium, so a build takes a few minutes longer than before.
+
+Builds also write a Gaea 2 handoff for Act I to `world/build/gaea/<era>-act1/`: heightfield, colour map and masks. `docs/gaea.md` explains how to set up the Gaea project.
