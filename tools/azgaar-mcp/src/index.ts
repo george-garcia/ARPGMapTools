@@ -427,6 +427,7 @@ server.registerTool(
         writeFileSync(resolvePath(file, true), image);
         return { paths: [resolvePath(file)] };
       }
+      session.assertViewerInstalled();
       const f = getFrame(frame);
       const box = { ...f, x: f.x - f.width * margin, y: f.y - f.height * margin, width: f.width * (1 + 2 * margin), height: f.height * (1 + 2 * margin) };
       const kmPerPx = loadConfig().units.distance.scale;
