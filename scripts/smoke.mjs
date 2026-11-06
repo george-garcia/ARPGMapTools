@@ -38,8 +38,8 @@ try {
   const names = tools.map(t => t.name).sort();
   check(
     "tools registered",
-    names.length === 22 &&
-      ["set_climate", "sculpt", "finalize_terrain", "define_style_group", "set_lakes", "remove_rivers", "add_river", "add_route", "paint_biome", "add_burg", "add_marker", "add_label", "screenshot_3d"].every(n =>
+    names.length === 23 &&
+      ["set_climate", "sculpt", "finalize_terrain", "define_style_group", "set_lakes", "remove_rivers", "add_river", "add_route", "paint_biome", "add_burg", "add_marker", "add_label", "screenshot_3d", "export_gaea"].every(n =>
         names.includes(n)
       ),
     names.join(", ")
@@ -163,6 +163,13 @@ try {
   const frame3d = await call("screenshot_3d", { name: "smoke-act1-3d", frame: "act1", cameras: ["overview", "top"], margin: 0.1 });
   const frameImages = frame3d.res.content.filter(c => c.type === "image").length;
   check("screenshot_3d exports a frame and renders it from each camera", frameImages === 2 && frame3d.body.maxMetres > 0, `${frame3d.body.grid}, ${frame3d.ms} ms`);
+  const gaea = await call("export_gaea", { name: "smoke-act1", frame: "act1", size: 256 });
+  const r32 = readFileSync(join(root, "world/build/gaea/smoke-act1/heightfield.r32"));
+  check(
+    "export_gaea writes a square r32 heightfield, masks and Terrain Definition values",
+    r32.length === 256 * 256 * 4 && gaea.body.masks.includes("mask-lakes-acid.png") && gaea.body.terrainDefinition.heightMetres > 0,
+    `${gaea.body.terrainDefinition.scaleMetres} m x ${gaea.body.terrainDefinition.heightMetres} m, ${gaea.body.masks.length} masks, ${gaea.ms} ms`
+  );
   const layersAfter3d = await call("run_js", { code: "return [document.getElementById('canvas3d') === null, FMG.Layers.isOn('states')];" });
   check("the 2D map is back after a 3D render", JSON.stringify(layersAfter3d.body) === "[true,true]", JSON.stringify(layersAfter3d.body));
 
