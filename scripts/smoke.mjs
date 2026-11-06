@@ -38,8 +38,8 @@ try {
   const names = tools.map(t => t.name).sort();
   check(
     "tools registered",
-    names.length === 21 &&
-      ["set_climate", "sculpt", "finalize_terrain", "define_style_group", "set_lakes", "remove_rivers", "add_river", "add_route", "paint_biome", "add_burg", "add_marker", "add_label"].every(n =>
+    names.length === 22 &&
+      ["set_climate", "sculpt", "finalize_terrain", "define_style_group", "set_lakes", "remove_rivers", "add_river", "add_route", "paint_biome", "add_burg", "add_marker", "add_label", "screenshot_3d"].every(n =>
         names.includes(n)
       ),
     names.join(", ")
@@ -157,6 +157,14 @@ try {
   check("full-map screenshot with chosen layers", full.res.content.some(c => c.type === "image"));
   const layersAfter = await call("run_js", { code: "return ['heightmap','states','burgIcons'].map(id => FMG.Layers.isOn(id));" });
   check("screenshot restores the previous layers", JSON.stringify(layersAfter.body) === "[false,true,true]", JSON.stringify(layersAfter.body));
+
+  const map3d = await call("screenshot_3d", { name: "smoke-3d" });
+  check("screenshot_3d renders Azgaar's 3D view of the map", map3d.res.content.some(c => c.type === "image"), `${map3d.ms} ms`);
+  const frame3d = await call("screenshot_3d", { name: "smoke-act1-3d", frame: "act1", cameras: ["overview", "top"], margin: 0.1 });
+  const frameImages = frame3d.res.content.filter(c => c.type === "image").length;
+  check("screenshot_3d exports a frame and renders it from each camera", frameImages === 2 && frame3d.body.maxMetres > 0, `${frame3d.body.grid}, ${frame3d.ms} ms`);
+  const layersAfter3d = await call("run_js", { code: "return [document.getElementById('canvas3d') === null, FMG.Layers.isOn('states')];" });
+  check("the 2D map is back after a 3D render", JSON.stringify(layersAfter3d.body) === "[true,true]", JSON.stringify(layersAfter3d.body));
 
   const js = await call("run_js", { code: "return FMG.VERSION;" });
   check("run_js reaches FMG", typeof js.body === "string", js.body);

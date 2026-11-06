@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Terrain Viewer</title>
+<!-- Renders one exported region (heights + map texture) from world/build/3d/<name>/. Open with ?data=<folder>;
+     ?capture=1 renders one still frame for the build and sets window.__ready. Dev visualization only. -->
+<script type="importmap">
+  { "imports": { "three": "/node_modules/three/build/three.module.js", "three/addons/": "/node_modules/three/examples/jsm/" } }
+</script>
+<style>
+  :root { --bg: #c9d3da; --fg: #1d1a16; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #1b1d20; --fg: #e9e4da; } }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); font: 13px/1.4 system-ui, sans-serif; overflow: hidden; }
+  canvas { display: block; }
+  #hud { position: fixed; left: 12px; bottom: 10px; opacity: 0.8; pointer-events: none; }
+  body.capture #hud { display: none; }
+</style>
+</head>
+<body>
+<div id="hud"></div>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+const params = new URLSearchParams(location.search);
+const base = (params.get("data") ?? ".").replace(/\/$/, "");
+const capture = params.get("capture") === "1";
+if (capture) document.body.classList.add("capture");
+
+const meta = await (await fetch(`${base}/meta.json`)).json();
+const heights = new Float32Array(await (await fetch(`${base}/heights.bin`)).arrayBuffer());
+const texture = await new THREE.TextureLoader().loadAsync(`${base}/texture.png`);
+texture.colorSpace = THREE.SRGBColorSpace;
+texture.anisotropy = 8;
+
+const { cols, rows, widthKm, heightKm } = meta;
+const exaggeration = Number(params.get("exaggeration") ?? meta.exaggeration ?? 2);
+const preset = params.get("camera") ?? meta.camera ?? "overview";
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: capture });
+renderer.setPixelRatio(capture ? 1 : Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const sky = new THREE.Color(meta.sky ?? "#c9d3da");
+scene.background = sky;
+scene.fog = new THREE.Fog(sky, widthKm * 1.4, widthKm * 3.2);
+
+// x east, y up, z south; row 0 of the heights is the map's top (north)
+const geometry = new THREE.PlaneGeometry(widthKm, heightKm, cols - 1, rows - 1);
+geometry.rotateX(-Math.PI / 2);
+const position = geometry.attributes.position;
+for (let i = 0; i < position.count; i++) position.setY(i, (heights[i] / 1000) * exaggeration);
+geometry.computeVertexNormals();
+
+// slope shading and ground grain on top of the flat map colours: steep ground darkens toward bare rock,
+// and two octaves of value noise break up the flat biome fills
+const hash = (x, y) => {
+  const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
+  return n - Math.floor(n);
+};
+const valueNoise = (x, y) => {
+  const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+  const u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+  const a = hash(xi, yi), b = hash(xi + 1, yi), c = hash(xi, yi + 1), d = hash(xi + 1, yi + 1);
+  return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+};
+const normal = geometry.attributes.normal;
+const colors = new Float32Array(position.count * 3);
+for (let i = 0; i < position.count; i++) {
+  const slope = 1 - normal.getY(i);
+  const x = position.getX(i), z = position.getZ(i);
+  const grain = 0.88 + 0.16 * (0.6 * valueNoise(x * 0.9, z * 0.9) + 0.4 * valueNoise(x * 3.7, z * 3.7));
+  const shade = (1 - Math.min(0.5, slope * 1.1)) * grain;
+  colors.set([shade, shade * 0.97, shade * 0.93], i * 3);
+}
+geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+const material = new THREE.MeshStandardMaterial({ map: texture, vertexColors: true, roughness: 0.95, metalness: 0 });
+const terrain = new THREE.Mesh(geometry, material);
+scene.add(terrain);
+
+scene.add(new THREE.HemisphereLight(0xe8eef4, 0x5a4a3a, 1.1));
+const sun = new THREE.DirectionalLight(0xfff0dc, 2.4);
+const [azimuth, elevation] = meta.sun ?? [115, 32]; // degrees: from the east-southeast, mid-afternoon height
+const az = THREE.MathUtils.degToRad(azimuth);
+const el = THREE.MathUtils.degToRad(elevation);
+sun.position.set(Math.sin(az) * Math.cos(el), Math.sin(el), -Math.cos(az) * Math.cos(el)).multiplyScalar(widthKm);
+scene.add(sun);
+
+const camera = new THREE.PerspectiveCamera(35, innerWidth / innerHeight, 0.1, widthKm * 10);
+const target = new THREE.Vector3(0, 0, 0);
+const fit = (span, fov) => span / 2 / Math.tan(THREE.MathUtils.degToRad(fov) / 2);
+const hfov = THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * camera.aspect));
+const frameKm = meta.frameKm ?? [widthKm, heightKm];
+if (preset === "top") {
+  camera.position.set(0, Math.max(fit(frameKm[0], hfov), fit(frameKm[1], camera.fov)) * 1.05, 0.001);
+} else {
+  // looking north from the south, like the regional overview; "low" sits closer to the ground
+  const pitch = THREE.MathUtils.degToRad(preset === "low" ? 24 : 40);
+  const distance = fit(frameKm[0], hfov) * (preset === "low" ? 0.95 : 1.05);
+  target.set(0, 0, preset === "low" ? -frameKm[1] * 0.08 : 0);
+  camera.position.set(0, Math.sin(pitch) * distance, target.z + Math.cos(pitch) * distance);
+}
+camera.lookAt(target);
+
+if (!capture) {
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.target.copy(target);
+  controls.maxPolarAngle = Math.PI / 2.05;
+  controls.enableDamping = true;
+  controls.addEventListener("change", () => renderer.render(scene, camera));
+  renderer.setAnimationLoop(() => controls.update() && renderer.render(scene, camera));
+  addEventListener("resize", () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+  });
+  document.getElementById("hud").textContent = `${meta.title ?? "Terrain"} · drag to orbit, scroll to zoom · heights ×${exaggeration}`;
+}
+renderer.render(scene, camera);
+window.__ready = true;
+</script>
+</body>
+</html>

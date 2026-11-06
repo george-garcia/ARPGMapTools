@@ -12,11 +12,13 @@
     "build": "tsc -p tools/azgaar-mcp",
     "start": "node tools/azgaar-mcp/dist/index.js",
     "smoke": "npm run build && node scripts/smoke.mjs",
-    "world": "npm run build && node scripts/build-world.mjs"
+    "world": "npm run build && node scripts/build-world.mjs",
+    "viewer": "npm run build && node scripts/view-3d.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.2",
     "playwright": "1.63.0",
+    "three": "0.186.1",
     "zod": "4.6.7"
   },
   "devDependencies": {

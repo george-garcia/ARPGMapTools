@@ -10,8 +10,9 @@ Needs Node.js 22+ and git.
 npm install
 npm run setup    # fetches and builds the pinned Azgaar release, installs Playwright's Chromium
 npm run build    # compiles the MCP server
-npm run smoke    # optional: end-to-end check over MCP, about 40 seconds (rebuilds first)
-npm run world    # compiles, then rebuilds the world map from the ops in world/ into world/build/now.map
+npm run smoke    # optional: end-to-end check over MCP, about 2 minutes (rebuilds first)
+npm run world    # compiles, then rebuilds the world map from the ops in world/ into world/build/now.map, with 2D and 3D screenshots
+npm run viewer   # opens the last build's Act I in the interactive 3D terrain viewer (prints a local URL)
 ```
 
 Open this folder in Claude Code and approve the `azgaar` server from `.mcp.json`. To watch the browser while it works, add `"--headed"` to the server's `args` in `.mcp.json`.
@@ -39,6 +40,7 @@ Open this folder in Claude Code and approve the `azgaar` server from `.mcp.json`
 | `query_cells` | Heights, biomes, features and burgs inside a polygon, in map pixels or frame-local 0-1 coordinates |
 | `list` | Features, burgs, markers or routes, optionally only inside a frame |
 | `screenshot` | PNG of the whole map or a named frame, UI hidden, optional layer set; saved to `world/build/screenshots/` |
+| `screenshot_3d` | 3D render: the whole map in Azgaar's own 3D view, or a frame exported (eroded heights plus the 2D map as texture) to `world/build/3d/` and rendered in the terrain viewer from overview, low or top cameras |
 | `run_js` | Dev-only escape hatch with `FMG` in scope; logged to `world/build/run-js.jsonl` |
 | `close_session` | Closes the browser |
 
@@ -52,3 +54,13 @@ The session keeps one browser page alive, so map state persists between calls. C
 
 - A 100K-point map takes about 5-15 seconds to generate and saves to 9-16 MB.
 - Saving, loading and saving again changes one record, `pack.cells.conf` (river confluence counts): Azgaar loads it into an 8-bit array, so counts above 255 wrap. Its desktop app does the same.
+
+## 3D views
+
+Every `npm run world` also renders the map in 3D, for visualization only (nothing here ships):
+
+- `world/build/screenshots/<era>-3d.png`: Azgaar's own 3D view of the continent, with its erosion-detail bake and satellite-style texture.
+- `world/build/screenshots/<era>-act1-3d-overview.png` and `-low.png`: Act I in the terrain viewer (`tools/azgaar-mcp/viewer/terrain.html`, three.js), from the south like the regional overview. The heights come from Azgaar's erosion bake (about 0.5 km per sample), the colours from the 2D map, with slope shading and ground grain added; heights are exaggerated 2x.
+- `world/build/3d/<era>-act1-3d/`: the exported region (`meta.json`, `heights.bin`, `texture.png`). `npm run viewer -- <name>` serves it in the interactive viewer: drag to orbit, scroll to zoom.
+
+Rendering runs on the CPU in headless Chromium, so a build takes a few minutes longer than before.
