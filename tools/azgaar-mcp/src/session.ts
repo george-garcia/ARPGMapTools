@@ -842,33 +842,10 @@ export class AzgaarSession {
     const page = await this.open();
     const cols = Math.round(box.width * opts.perPx) + 1;
     const rows = Math.round(box.height * opts.perPx) + 1;
-    let heights: number[];
+    let heights: Float32Array;
     try {
       await this.open3d(page, {}); // the same bake as render3dMap (2048 px across the map, about 0.5 km), so it is reused
-      heights = await page.evaluate(
-        async ({ box, cols, rows }) => {
-          const view = FMG.Controllers.View3d;
-          const exponent = FMG.options.map.units.height.exponent;
-          const out: number[] = new Array(cols * rows);
-          const jobs: Promise<void>[] = [];
-          for (let r = 0; r < rows; r++)
-            for (let c = 0; c < cols; c++) {
-              const x = box.x + (c / (cols - 1)) * box.width;
-              const y = box.y + (r / (rows - 1)) * box.height;
-              const i = r * cols + c;
-              // heightAt(x, y, 82) is the eroded generator height less 18
-              jobs.push(
-                view.heightAt(x, y, 82).then((v: number) => {
-                  const h = v + 18;
-                  out[i] = h >= 20 ? (h - 18) ** exponent : ((h - 20) / Math.max(h, 1)) * 50;
-                })
-              );
-            }
-          await Promise.all(jobs);
-          return out;
-        },
-        { box, cols, rows }
-      );
+      heights = await this.sampleHeights(page, box, cols, rows);
     } finally {
       await this.teardown3d(page);
     }
@@ -887,9 +864,149 @@ export class AzgaarSession {
       maxMetres: Math.round(heights.reduce((max, h) => Math.max(max, h), 0))
     };
     writeFileSync(join(full, "meta.json"), JSON.stringify(meta, null, 2));
-    writeFileSync(join(full, "heights.bin"), Buffer.from(new Float32Array(heights).buffer));
+    writeFileSync(join(full, "heights.bin"), Buffer.from(heights.buffer, heights.byteOffset, heights.byteLength));
     writeFileSync(join(full, "texture.png"), texture);
     return meta;
+  }
+
+  /** Heights in metres on a cols x rows grid over `box` (edges included), from the open 3D view's erosion bake */
+  private async sampleHeights(page: Page, box: FrameBox, cols: number, rows: number): Promise<Float32Array> {
+    // a large array crosses the Playwright boundary very slowly, so the heights come back as base64 float32 bytes
+    const base64: string = await page.evaluate(
+      async ({ box, cols, rows }) => {
+        const view = FMG.Controllers.View3d;
+        const exponent = FMG.options.map.units.height.exponent;
+        const out = new Float32Array(cols * rows);
+        // one row per batch: a million pending promises at once stalls the page
+        for (let r = 0; r < rows; r++) {
+          const y = box.y + (r / (rows - 1)) * box.height;
+          const row = await Promise.all(
+            Array.from({ length: cols }, (_, c) => view.heightAt(box.x + (c / (cols - 1)) * box.width, y, 82))
+          );
+          row.forEach((v: number, c: number) => {
+            const h = v + 18; // heightAt(x, y, 82) is the eroded generator height less 18
+            out[r * cols + c] = h >= 20 ? (h - 18) ** exponent : ((h - 20) / Math.max(h, 1)) * 50;
+          });
+        }
+        const bytes = new Uint8Array(out.buffer);
+        let binary = "";
+        for (let i = 0; i < bytes.length; i += 0x8000) binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+        return btoa(binary);
+      },
+      { box, cols, rows }
+    );
+    const buffer = Buffer.from(base64, "base64");
+    return new Float32Array(buffer.buffer, buffer.byteOffset, buffer.byteLength / 4);
+  }
+
+  /**
+   * Exports a square region for Gaea 2: a 32-bit .r32 heightfield (0-1, top row first) scaled to `heightMetres`, a
+   * colour map from the 2D map, and 8-bit grayscale PNG masks for water, acid pools, other lakes, rivers, roads,
+   * washes and every biome in the region. Writes them with gaea.json into `dir` (repository-relative)
+   */
+  async exportGaea(box: FrameBox, dir: string, size: number, kmPerPx: number, title: string) {
+    const page = await this.open();
+    let heights: Float32Array;
+    try {
+      await this.open3d(page, {});
+      heights = await this.sampleHeights(page, box, size, size);
+    } finally {
+      await this.teardown3d(page);
+    }
+    const masks: Record<string, string> = await page.evaluate(
+      ({ box, size }) => {
+        const { pack } = FMG;
+        const W = FMG.options.map.graph.width;
+        const H = FMG.options.map.graph.height;
+        const n = size * size;
+        const cellAt = new Int32Array(n);
+        for (let r = 0; r < size; r++)
+          for (let c = 0; c < size; c++) {
+            const x = Math.min(Math.max(box.x + ((c + 0.5) / size) * box.width, 0), W - 0.01);
+            const y = Math.min(Math.max(box.y + ((r + 0.5) / size) * box.height, 0), H - 0.01);
+            cellAt[r * size + c] = FMG.Pack.requireCell(x, y);
+          }
+        const canvasFor = () => {
+          const canvas = document.createElement("canvas");
+          canvas.width = canvas.height = size;
+          const ctx = canvas.getContext("2d")!;
+          ctx.fillStyle = "#000";
+          ctx.fillRect(0, 0, size, size);
+          return { canvas, ctx };
+        };
+        const fromCells = (test: (cell: number) => boolean) => {
+          const { canvas, ctx } = canvasFor();
+          const image = ctx.getImageData(0, 0, size, size);
+          for (let i = 0; i < n; i++)
+            if (test(cellAt[i])) image.data.set([255, 255, 255, 255], i * 4);
+          ctx.putImageData(image, 0, 0);
+          return canvas.toDataURL("image/png");
+        };
+        const lakeGroup = (cell: number) => {
+          const feature = pack.features[pack.cells.f[cell]];
+          return feature?.type === "lake" ? String(feature.group ?? "") : null;
+        };
+        const out: Record<string, string> = {
+          water: fromCells(cell => pack.cells.h[cell] < 20),
+          "lakes-acid": fromCells(cell => lakeGroup(cell)?.startsWith("acid") === true),
+          "lakes-other": fromCells(cell => {
+            const group = lakeGroup(cell);
+            return group !== null && !group.startsWith("acid");
+          }),
+          rivers: fromCells(cell => pack.cells.r[cell] > 0)
+        };
+        const lines = (groups: string[], width: number) => {
+          const { canvas, ctx } = canvasFor();
+          ctx.strokeStyle = "#fff";
+          ctx.lineWidth = width;
+          ctx.lineCap = ctx.lineJoin = "round";
+          for (const route of pack.routes) {
+            if (!groups.includes(route.group)) continue;
+            ctx.beginPath();
+            route.points.forEach(([x, y]: number[], k: number) => {
+              const px = ((x - box.x) / box.width) * size;
+              const py = ((y - box.y) / box.height) * size;
+              if (k) ctx.lineTo(px, py);
+              else ctx.moveTo(px, py);
+            });
+            ctx.stroke();
+          }
+          return canvas.toDataURL("image/png");
+        };
+        out.roads = lines(["main-road", "old-road", "roads", "trails"], Math.max(2, size / 400));
+        out.washes = lines(["washes"], Math.max(3, size / 300));
+        const present = new Set<number>();
+        for (let i = 0; i < n; i++) if (pack.cells.h[cellAt[i]] >= 20) present.add(pack.cells.biome[cellAt[i]]);
+        for (const id of present) {
+          const name = pack.biomes[id]?.name ?? `biome-${id}`;
+          const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+          out[`biome-${slug}`] = fromCells(cell => pack.cells.h[cell] >= 20 && pack.cells.biome[cell] === id);
+        }
+        return out;
+      },
+      { box, size }
+    );
+    const colour = await this.screenshot(box, ["biomes", "lakes", "rivers"]);
+    const full = resolvePath(dir);
+    mkdirSync(full, { recursive: true });
+    const maxMetres = Math.max(1, Math.ceil(heights.reduce((max, h) => Math.max(max, h), 0)));
+    const r32 = new Float32Array(heights.length);
+    heights.forEach((h, i) => (r32[i] = Math.min(1, Math.max(0, h / maxMetres))));
+    writeFileSync(join(full, "heightfield.r32"), Buffer.from(r32.buffer));
+    writeFileSync(join(full, "colormap.png"), colour);
+    for (const [name, url] of Object.entries(masks)) writeFileSync(join(full, `mask-${name}.png`), Buffer.from(url.split(",")[1], "base64"));
+    const info = {
+      title,
+      size: `${size}x${size}`,
+      terrainDefinition: { scaleMetres: Math.round(box.width * kmPerPx * 1000), heightMetres: maxMetres },
+      metresPerPixel: Math.round(((box.width * kmPerPx * 1000) / size) * 10) / 10,
+      heightfield: "heightfield.r32 (32-bit float, 0-1 = 0-heightMetres, top row first, little-endian)",
+      colormap: "colormap.png (the 2D map's biomes, lakes and rivers over the same square)",
+      masks: Object.keys(masks).map(name => `mask-${name}.png`),
+      box
+    };
+    writeFileSync(join(full, "gaea.json"), JSON.stringify(info, null, 2));
+    return { dir: full, ...info };
   }
 
   /** Renders an exported region in the terrain viewer from a camera preset (overview, low, top) */

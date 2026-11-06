@@ -454,6 +454,36 @@ server.registerTool(
 );
 
 server.registerTool(
+  "export_gaea",
+  {
+    title: "Export a region for Gaea",
+    description:
+      "Exports a square region for QuadSpinner Gaea 2 to world/build/gaea/<name>/: heightfield.r32 (32-bit float 0-1, from Azgaar's eroded 3D bake, in metres scaled to the region's highest point), colormap.png, 8-bit grayscale PNG masks (water, lakes-acid, lakes-other, rivers, roads, washes, one per biome) and gaea.json with the Terrain Definition values (Scale and Height in metres). With `frame`, the square is centred on the frame and is its longer side plus `margin` on each side; without, it covers the whole map. Dev visualization only.",
+    inputSchema: {
+      frame: z.string().optional(),
+      size: z.number().int().min(256).max(4096).default(1024).describe("Pixels per side"),
+      margin: z.number().min(0).max(1).default(0.14),
+      name: z.string().regex(/^[\w.-]+$/)
+    }
+  },
+  ({ frame, size, margin, name }) =>
+    respond(async () => {
+      const config = loadConfig();
+      const kmPerPx = config.units.distance.scale;
+      let box;
+      if (frame) {
+        const f = getFrame(frame);
+        const side = Math.max(f.width, f.height) * (1 + 2 * margin);
+        box = { ...f, x: f.x + f.width / 2 - side / 2, y: f.y + f.height / 2 - side / 2, width: side, height: side };
+      } else {
+        const side = Math.max(config.canvas.width, config.canvas.height);
+        box = { name: "map", x: config.canvas.width / 2 - side / 2, y: config.canvas.height / 2 - side / 2, width: side, height: side };
+      }
+      return session.exportGaea(box, `world/build/gaea/${name}`, size, kmPerPx, `${name}${frame ? ` (${frame})` : ""}`);
+    })
+);
+
+server.registerTool(
   "run_js",
   {
     title: "Run JavaScript in Azgaar (dev only)",

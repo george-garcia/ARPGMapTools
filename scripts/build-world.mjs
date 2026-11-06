@@ -68,7 +68,9 @@ try {
   // 3D: Azgaar's own view of the whole map, then Act I in the terrain viewer (data kept in world/build/3d/)
   await call("screenshot_3d", { name: `${era}-3d` });
   await call("screenshot_3d", { name: `${era}-act1-3d`, frame: "act1", cameras: ["overview", "low"] });
-  console.log(`Screenshots in world/build/screenshots/${era}-*.png; 3D data in world/build/3d/`);
+  // Gaea 2 handoff: a square Act I tile (heightfield, colour map, masks) to rebuild on the Windows desktop
+  await call("export_gaea", { name: `${era}-act1`, frame: "act1" });
+  console.log(`Screenshots in world/build/screenshots/${era}-*.png; 3D data in world/build/3d/; Gaea export in world/build/gaea/`);
 } finally {
   await client.close();
 }
