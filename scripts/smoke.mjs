@@ -17,9 +17,11 @@ const check = (label, ok, detail = "") => {
   console.log(`${ok ? "PASS" : "FAIL"}  ${label}${detail ? `  (${detail})` : ""}`);
   if (!ok) failures++;
 };
+// 3D renders and the Gaea export can take minutes on a desktop GPU; the MCP client default is 60 s
+const TOOL_TIMEOUT_MS = 15 * 60_000;
 async function call(name, args = {}) {
   const started = Date.now();
-  const res = await client.callTool({ name, arguments: args });
+  const res = await client.callTool({ name, arguments: args }, undefined, { timeout: TOOL_TIMEOUT_MS });
   const text = res.content.find(c => c.type === "text")?.text ?? "";
   if (res.isError) throw new Error(`${name} failed: ${text}`);
   let json;
