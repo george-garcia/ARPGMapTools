@@ -975,6 +975,24 @@ export class AzgaarSession {
         };
         out.roads = lines(["main-road", "old-road", "roads", "trails"], Math.max(2, size / 400));
         out.washes = lines(["washes"], Math.max(3, size / 300));
+        // two combined masks the saved Gaea graph reads, feathered a little so blends have no stair-steps:
+        // "gaea-protect" keeps standing water and the salt pan out of erosion; "gaea-colour" is where the
+        // 2D map's own colours replace the satellite colours (lakes, the acid ground, the salt and sulfur)
+        const biomeIds = (names: string[]) => new Set(pack.biomes.flatMap((b: any, id: number) => (names.includes(b?.name) ? [id] : [])));
+        const feathered = (test: (cell: number) => boolean) => {
+          const { canvas, ctx } = canvasFor();
+          const image = ctx.getImageData(0, 0, size, size);
+          for (let i = 0; i < n; i++) if (test(cellAt[i])) image.data.set([255, 255, 255, 255], i * 4);
+          ctx.putImageData(image, 0, 0);
+          const soft = canvasFor();
+          soft.ctx.filter = `blur(${Math.max(1, size / 512)}px)`;
+          soft.ctx.drawImage(canvas, 0, 0);
+          return soft.canvas.toDataURL("image/png");
+        };
+        const protect = biomeIds(["Salt Flats"]);
+        const ownColour = biomeIds(["Salt Flats", "Sulfur Crust", "Acid Pits", "Dead Spring"]);
+        out["gaea-protect"] = feathered(cell => pack.cells.h[cell] < 20 || lakeGroup(cell) !== null || protect.has(pack.cells.biome[cell]));
+        out["gaea-colour"] = feathered(cell => pack.cells.h[cell] < 20 || lakeGroup(cell) !== null || pack.cells.r[cell] > 0 || ownColour.has(pack.cells.biome[cell]));
         const present = new Set<number>();
         for (let i = 0; i < n; i++) if (pack.cells.h[cellAt[i]] >= 20) present.add(pack.cells.biome[cellAt[i]]);
         for (const id of present) {
@@ -986,7 +1004,23 @@ export class AzgaarSession {
       },
       { box, size }
     );
-    const colour = await this.screenshot(box, ["biomes", "lakes", "rivers"]);
+    // the screenshot comes back at the viewport's size; resample it to the heightfield's so every input lines up
+    const shot = await this.screenshot(box, ["biomes", "lakes", "rivers"]);
+    const colourUrl: string = await page.evaluate(
+      async ({ src, size }) => {
+        const image = new Image();
+        image.src = src;
+        await image.decode();
+        const canvas = document.createElement("canvas");
+        canvas.width = canvas.height = size;
+        const ctx = canvas.getContext("2d")!;
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(image, 0, 0, size, size);
+        return canvas.toDataURL("image/png");
+      },
+      { src: `data:image/png;base64,${shot.toString("base64")}`, size }
+    );
+    const colour = Buffer.from(colourUrl.split(",")[1], "base64");
     const full = resolvePath(dir);
     mkdirSync(full, { recursive: true });
     const maxMetres = Math.max(1, Math.ceil(heights.reduce((max, h) => Math.max(max, h), 0)));

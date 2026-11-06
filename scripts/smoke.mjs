@@ -165,9 +165,15 @@ try {
   check("screenshot_3d exports a frame and renders it from each camera", frameImages === 2 && frame3d.body.maxMetres > 0, `${frame3d.body.grid}, ${frame3d.ms} ms`);
   const gaea = await call("export_gaea", { name: "smoke-act1", frame: "act1", size: 256 });
   const r32 = readFileSync(join(root, "world/build/gaea/smoke-act1/heightfield.r32"));
+  const colourPng = readFileSync(join(root, "world/build/gaea/smoke-act1/colormap.png"));
+  const graphMasks = ["mask-lakes-acid.png", "mask-gaea-protect.png", "mask-gaea-colour.png"];
   check(
-    "export_gaea writes a square r32 heightfield, masks and Terrain Definition values",
-    r32.length === 256 * 256 * 4 && gaea.body.masks.includes("mask-lakes-acid.png") && gaea.body.terrainDefinition.heightMetres > 0,
+    "export_gaea writes a square r32 heightfield, a matching colour map, masks and Terrain Definition values",
+    r32.length === 256 * 256 * 4 &&
+      colourPng.readUInt32BE(16) === 256 &&
+      colourPng.readUInt32BE(20) === 256 &&
+      graphMasks.every(m => gaea.body.masks.includes(m)) &&
+      gaea.body.terrainDefinition.heightMetres > 0,
     `${gaea.body.terrainDefinition.scaleMetres} m x ${gaea.body.terrainDefinition.heightMetres} m, ${gaea.body.masks.length} masks, ${gaea.ms} ms`
   );
   const layersAfter3d = await call("run_js", { code: "return [document.getElementById('canvas3d') === null, FMG.Layers.isOn('states')];" });
