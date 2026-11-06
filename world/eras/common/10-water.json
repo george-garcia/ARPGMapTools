@@ -2,37 +2,45 @@
   {
     "id": "act1.river.falls",
     "tool": "add_river",
-    "note": "Stream off the escarpment: two falls down the slot to the Slums, its water source. The upper city's intake sits upstream; it ends at the Slums, used up",
+    "note": "Stream off the plateau: it rises well back on the highlands, passes the upper city (its intake) and drops down the falls slot to the Slums, the city's water source; it ends at the Slums, used up",
     "args": {
       "frame": "act1",
       "points": [
         [
-          0.15,
-          0.17
+          -0.25,
+          -0.12
         ],
         [
-          0.18,
-          0.21
+          -0.1,
+          0.0
         ],
         [
-          0.21,
-          0.27
+          0.05,
+          0.1
         ],
         [
-          0.235,
-          0.31
+          0.14,
+          0.18
         ],
         [
-          0.24,
-          0.38
-        ],
-        [
-          0.235,
-          0.44
+          0.2,
+          0.25
         ],
         [
           0.225,
-          0.47
+          0.31
+        ],
+        [
+          0.232,
+          0.37
+        ],
+        [
+          0.24,
+          0.41
+        ],
+        [
+          0.25,
+          0.44
         ]
       ],
       "name": "Slums Falls",
@@ -175,21 +183,6 @@
     }
   },
   {
-    "id": "act1.style.acid",
-    "tool": "define_style_group",
-    "note": "Acid pools: shallow-acid green with sulfur rims (Acid Pits art bible palette)",
-    "args": {
-      "layer": "lakes",
-      "group": "acid",
-      "attrs": {
-        "opacity": 0.95,
-        "fill": "#98B72C",
-        "stroke": "#E1BA29",
-        "stroke-width": 1
-      }
-    }
-  },
-  {
     "id": "act1.style.mineral",
     "tool": "define_style_group",
     "note": "Teal mineral pools with gypsum rims",
@@ -213,11 +206,11 @@
       "polygon": [
         [
           0.84,
-          0.2
+          0.18
         ],
         [
           0.97,
-          0.2
+          0.18
         ],
         [
           0.97,
@@ -230,38 +223,6 @@
       ],
       "subtype": "salt",
       "group": "brine"
-    }
-  },
-  {
-    "id": "act1.lakes.acid",
-    "tool": "set_lakes",
-    "note": "The Acid Pits' pools: blockers in the field",
-    "args": {
-      "frame": "act1",
-      "polygon": [
-        [
-          0.64,
-          0.62
-        ],
-        [
-          0.92,
-          0.6
-        ],
-        [
-          0.92,
-          0.84
-        ],
-        [
-          0.64,
-          0.84
-        ],
-        [
-          0.64,
-          0.7
-        ]
-      ],
-      "subtype": "salt",
-      "group": "acid"
     }
   },
   {

@@ -1,5 +1,259 @@
 [
   {
+    "id": "before.style.hot-spring",
+    "tool": "define_style_group",
+    "note": "Before the machine: clear blue hot springs ringed with white travertine",
+    "args": {
+      "layer": "lakes",
+      "group": "hot-spring",
+      "attrs": {
+        "opacity": 0.95,
+        "fill": "#35C3D6",
+        "stroke": "#F6F3EA",
+        "stroke-width": 1.2
+      }
+    }
+  },
+  {
+    "id": "before.style.hot-spring-deep",
+    "tool": "define_style_group",
+    "note": "Deeper hot-spring pools",
+    "args": {
+      "layer": "lakes",
+      "group": "hot-spring-deep",
+      "attrs": {
+        "opacity": 0.95,
+        "fill": "#1C8DBE",
+        "stroke": "#F6F3EA",
+        "stroke-width": 1.2
+      }
+    }
+  },
+  {
+    "id": "before.lakes.spring.a",
+    "tool": "set_lakes",
+    "note": "Hot spring a (an acid pool today)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.6799999999999999,
+          0.6849999999999999
+        ],
+        [
+          0.72,
+          0.6849999999999999
+        ],
+        [
+          0.72,
+          0.745
+        ],
+        [
+          0.6799999999999999,
+          0.745
+        ]
+      ],
+      "subtype": "freshwater",
+      "group": "hot-spring"
+    }
+  },
+  {
+    "id": "before.lakes.spring.b",
+    "tool": "set_lakes",
+    "note": "Hot spring b (an acid pool today)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.745,
+          0.62
+        ],
+        [
+          0.785,
+          0.62
+        ],
+        [
+          0.785,
+          0.68
+        ],
+        [
+          0.745,
+          0.68
+        ]
+      ],
+      "subtype": "freshwater",
+      "group": "hot-spring"
+    }
+  },
+  {
+    "id": "before.lakes.spring.c",
+    "tool": "set_lakes",
+    "note": "Hot spring c (an acid pool today)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.825,
+          0.6599999999999999
+        ],
+        [
+          0.865,
+          0.6599999999999999
+        ],
+        [
+          0.865,
+          0.72
+        ],
+        [
+          0.825,
+          0.72
+        ]
+      ],
+      "subtype": "freshwater",
+      "group": "hot-spring"
+    }
+  },
+  {
+    "id": "before.lakes.spring.d",
+    "tool": "set_lakes",
+    "note": "Hot spring d (an acid pool today)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.695,
+          0.765
+        ],
+        [
+          0.735,
+          0.765
+        ],
+        [
+          0.735,
+          0.8250000000000001
+        ],
+        [
+          0.695,
+          0.8250000000000001
+        ]
+      ],
+      "subtype": "freshwater",
+      "group": "hot-spring"
+    }
+  },
+  {
+    "id": "before.lakes.spring.e",
+    "tool": "set_lakes",
+    "note": "Hot spring e (an acid pool today)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.78,
+          0.77
+        ],
+        [
+          0.8200000000000001,
+          0.77
+        ],
+        [
+          0.8200000000000001,
+          0.8300000000000001
+        ],
+        [
+          0.78,
+          0.8300000000000001
+        ]
+      ],
+      "subtype": "freshwater",
+      "group": "hot-spring"
+    }
+  },
+  {
+    "id": "before.lakes.spring.f",
+    "tool": "set_lakes",
+    "note": "Hot spring f (an acid pool today)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.875,
+          0.74
+        ],
+        [
+          0.915,
+          0.74
+        ],
+        [
+          0.915,
+          0.8
+        ],
+        [
+          0.875,
+          0.8
+        ]
+      ],
+      "subtype": "freshwater",
+      "group": "hot-spring"
+    }
+  },
+  {
+    "id": "before.lakes.spring.h",
+    "tool": "set_lakes",
+    "note": "Hot spring h (an acid pool today)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.75,
+          0.695
+        ],
+        [
+          0.79,
+          0.695
+        ],
+        [
+          0.79,
+          0.755
+        ],
+        [
+          0.75,
+          0.755
+        ]
+      ],
+      "subtype": "freshwater",
+      "group": "hot-spring"
+    }
+  },
+  {
+    "id": "before.lakes.spring.i",
+    "tool": "set_lakes",
+    "note": "Hot spring i (an acid pool today)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.84,
+          0.82
+        ],
+        [
+          0.88,
+          0.82
+        ],
+        [
+          0.88,
+          0.88
+        ],
+        [
+          0.84,
+          0.88
+        ]
+      ],
+      "subtype": "freshwater",
+      "group": "hot-spring-deep"
+    }
+  },
+  {
     "id": "before.lakes.dead-spring",
     "tool": "set_lakes",
     "note": "Before: a living freshwater oasis",

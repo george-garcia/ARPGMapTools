@@ -1,8 +1,8 @@
-import { existsSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { type Browser, type BrowserContext, chromium, type Page } from "playwright";
 import { startStaticServer } from "./static-server.js";
-import { assertAzgaarBuilt, azgaarDist, type FrameBox, type Point, resolvePath, type WorldConfig } from "./world.js";
+import { assertAzgaarBuilt, azgaarDist, type FrameBox, type Point, repoRoot, resolvePath, type WorldConfig } from "./world.js";
 
 // Azgaar's Points slider stores a density step; this is its step-to-cell-count table (src/data/graph-density.ts)
 const DENSITY_BY_POINTS: Record<number, number> = {
@@ -44,6 +44,8 @@ export class AzgaarSession {
   private context?: BrowserContext;
   private page?: Page;
   private server?: { url: string; close: () => Promise<void> };
+  /** serves the repository to the terrain viewer (tools/azgaar-mcp/viewer) and its exported data */
+  private repoServer?: { url: string; close: () => Promise<void> };
   private queue: Promise<unknown> = Promise.resolve();
   private errors: string[] = [];
 
@@ -82,7 +84,10 @@ export class AzgaarSession {
     });
     await page.goto(`${this.server.url}index.html`);
     await page.waitForFunction(() => (window as any).FMG?.mapHistory?.length > 0, undefined, { timeout: MAP_TIMEOUT });
-    await page.addStyleTag({ content: "body.mcp-capture > *:not(#map) { visibility: hidden !important; }" });
+    await page.addStyleTag({
+      content:
+        "body.mcp-capture > *:not(#map) { visibility: hidden !important; } body.mcp-capture3d > *:not(#canvas3d) { visibility: hidden !important; }"
+    });
     this.page = page;
     return page;
   }
@@ -91,7 +96,8 @@ export class AzgaarSession {
     await this.context?.close().catch(() => undefined);
     await this.browser?.close().catch(() => undefined);
     await this.server?.close().catch(() => undefined);
-    this.page = this.context = this.browser = this.server = undefined;
+    await this.repoServer?.close().catch(() => undefined);
+    this.page = this.context = this.browser = this.server = this.repoServer = undefined;
   }
 
   /** Errors the page reported since the last call, cleared on read */
@@ -405,14 +411,15 @@ export class AzgaarSession {
   }
 
   /** Places a free text label at a map point in an "added" label group, with an optional note */
-  async addLabel(label: { point: Point; text: string; group?: string; note?: string }) {
+  async addLabel(label: { point: Point; text: string; group?: string; note?: string; size?: number }) {
     const page = await this.open();
-    return page.evaluate(({ point, text, group, note }) => {
+    return page.evaluate(({ point, text, group, note, size }) => {
       const id = FMG.AddedLabels.place(point[0], point[1], text, group);
       if (note) FMG.Notes.write(`addedLabel:${id}`, note);
+      if (size !== undefined) FMG.Labels.setLayout("added", id, { fontSize: size });
       FMG.Layers.draw("labels");
       const added = FMG.AddedLabels.get(id);
-      return { i: id, text: added.label.text, group: added.label.group, note: added.note };
+      return { i: id, text: added.label.text, group: added.label.group, note: added.note, ...(size !== undefined ? { size } : {}) };
     }, label);
   }
 
@@ -780,6 +787,125 @@ export class AzgaarSession {
       await page.evaluate(() => document.body.classList.remove("mcp-capture"));
       // an empty list means the active layers could not be read; leaving the capture's layers beats hiding all
       if (previousLayers?.length) await page.evaluate(ids => FMG.Layers.set(ids), previousLayers);
+    }
+  }
+
+  /**
+   * Opens Azgaar's own 3D view of the whole map with its erosion-detail bake and satellite texture (custom biome
+   * colours included). Resolves once the scene is built; `teardown3d` returns to the 2D map
+   */
+  private async open3d(page: Page, look: { scale?: number; detail?: number; satellite?: boolean }) {
+    await page.evaluate(async look => {
+      const o = FMG.options.app.threeD;
+      Object.assign(o, {
+        erosion: true,
+        satellite: look.satellite ?? true,
+        labels3d: false,
+        wireframe: false,
+        extendedWater: false,
+        rotateMesh: 0,
+        scale: look.scale ?? 50,
+        erosionDetail: look.detail ?? 1024,
+        resolutionScale: 4096
+      });
+      const view = FMG.Controllers.View3d;
+      await view.open("viewMesh");
+      for (let i = 0; i < 240 && !(await view.isCached()); i++) await new Promise(r => setTimeout(r, 500));
+      if (!(await view.isCached())) throw new Error("Azgaar's 3D erosion bake did not finish");
+    }, look);
+    await page.waitForTimeout(4000); // the satellite texture and water settle after the bake
+  }
+
+  private async teardown3d(page: Page) {
+    await page.evaluate(() => FMG.Controllers.View3d.enterStandard()).catch(() => undefined);
+  }
+
+  /** Azgaar's 3D view of the whole map, from its default isometric camera */
+  async render3dMap(look: { scale?: number } = {}): Promise<Buffer> {
+    const page = await this.open();
+    try {
+      await this.open3d(page, look);
+      await page.evaluate(() => document.body.classList.add("mcp-capture3d"));
+      return await page.screenshot({ type: "png", timeout: 180_000 });
+    } finally {
+      await page.evaluate(() => document.body.classList.remove("mcp-capture3d"));
+      await this.teardown3d(page);
+    }
+  }
+
+  /**
+   * Exports a region (map pixels) for the terrain viewer: eroded heights in metres from Azgaar's 3D bake, sampled
+   * `perPx` times per map pixel, and the 2D map of the same box as the texture. Writes meta.json, heights.bin and
+   * texture.png into `dir` (repository-relative) and returns the metadata
+   */
+  async exportRegion(box: FrameBox, dir: string, opts: { perPx: number; layers: string[]; kmPerPx: number; frameKm: [number, number]; title: string }) {
+    const page = await this.open();
+    const cols = Math.round(box.width * opts.perPx) + 1;
+    const rows = Math.round(box.height * opts.perPx) + 1;
+    let heights: number[];
+    try {
+      await this.open3d(page, {}); // the same bake as render3dMap (2048 px across the map, about 0.5 km), so it is reused
+      heights = await page.evaluate(
+        async ({ box, cols, rows }) => {
+          const view = FMG.Controllers.View3d;
+          const exponent = FMG.options.map.units.height.exponent;
+          const out: number[] = new Array(cols * rows);
+          const jobs: Promise<void>[] = [];
+          for (let r = 0; r < rows; r++)
+            for (let c = 0; c < cols; c++) {
+              const x = box.x + (c / (cols - 1)) * box.width;
+              const y = box.y + (r / (rows - 1)) * box.height;
+              const i = r * cols + c;
+              // heightAt(x, y, 82) is the eroded generator height less 18
+              jobs.push(
+                view.heightAt(x, y, 82).then((v: number) => {
+                  const h = v + 18;
+                  out[i] = h >= 20 ? (h - 18) ** exponent : ((h - 20) / Math.max(h, 1)) * 50;
+                })
+              );
+            }
+          await Promise.all(jobs);
+          return out;
+        },
+        { box, cols, rows }
+      );
+    } finally {
+      await this.teardown3d(page);
+    }
+    const texture = await this.screenshot(box, opts.layers);
+    const full = resolvePath(dir);
+    mkdirSync(full, { recursive: true });
+    const meta = {
+      title: opts.title,
+      cols,
+      rows,
+      widthKm: box.width * opts.kmPerPx,
+      heightKm: box.height * opts.kmPerPx,
+      frameKm: opts.frameKm,
+      box,
+      exaggeration: 2,
+      maxMetres: Math.round(heights.reduce((max, h) => Math.max(max, h), 0))
+    };
+    writeFileSync(join(full, "meta.json"), JSON.stringify(meta, null, 2));
+    writeFileSync(join(full, "heights.bin"), Buffer.from(new Float32Array(heights).buffer));
+    writeFileSync(join(full, "texture.png"), texture);
+    return meta;
+  }
+
+  /** Renders an exported region in the terrain viewer from a camera preset (overview, low, top) */
+  async renderRegion(dir: string, camera: string, exaggeration?: number): Promise<Buffer> {
+    await this.open();
+    this.repoServer ??= await startStaticServer(repoRoot);
+    const viewer = await this.context!.newPage();
+    try {
+      const query = new URLSearchParams({ data: `/${dir.replace(/^\/+/, "")}`, capture: "1", camera });
+      if (exaggeration) query.set("exaggeration", String(exaggeration));
+      await viewer.goto(`${this.repoServer.url}tools/azgaar-mcp/viewer/terrain.html?${query}`);
+      await viewer.waitForFunction(() => (window as any).__ready === true, undefined, { timeout: 120_000 });
+      await viewer.waitForTimeout(300);
+      return await viewer.screenshot({ type: "png", timeout: 180_000 });
+    } finally {
+      await viewer.close();
     }
   }
 

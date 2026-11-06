@@ -65,7 +65,10 @@ try {
     await call("screenshot", { name: `${era}-${name}`, layers });
     await call("screenshot", { name: `${era}-act1-${name}`, frame: "act1", layers });
   }
-  console.log(`Screenshots in world/build/screenshots/${era}-*.png`);
+  // 3D: Azgaar's own view of the whole map, then Act I in the terrain viewer (data kept in world/build/3d/)
+  await call("screenshot_3d", { name: `${era}-3d` });
+  await call("screenshot_3d", { name: `${era}-act1-3d`, frame: "act1", cameras: ["overview", "low"] });
+  console.log(`Screenshots in world/build/screenshots/${era}-*.png; 3D data in world/build/3d/`);
 } finally {
   await client.close();
 }

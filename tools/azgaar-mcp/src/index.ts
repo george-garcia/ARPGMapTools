@@ -211,10 +211,12 @@ server.registerTool(
       frame: z.string().optional(),
       text: z.string().min(1),
       group: z.string().optional(),
-      note: z.string().optional()
+      note: z.string().optional(),
+      size: z.number().min(30).max(300).optional().describe("This label's font size as a percentage of its group's (30-300)")
     }
   },
-  ({ point: p, frame, text, group, note }) => respond(() => session.addLabel({ point: toMapPoint(p, frame), text, group, note }))
+  ({ point: p, frame, text, group, note, size }) =>
+    respond(() => session.addLabel({ point: toMapPoint(p, frame), text, group, note, size }))
 );
 
 server.registerTool(
@@ -396,6 +398,57 @@ server.registerTool(
       return { path: resolvePath(file), bytes: image.length };
     });
     if (image && !result.isError) result.content.push({ type: "image", data: image.toString("base64"), mimeType: "image/png" } as never);
+    return result;
+  }
+);
+
+server.registerTool(
+  "screenshot_3d",
+  {
+    title: "3D render of the map or a frame",
+    description:
+      "Without `frame`: Azgaar's own 3D view of the whole map (erosion detail and satellite texture, default isometric camera). With `frame`: exports that frame plus `margin` (a fraction of its size on every side) as eroded heights and a 2D map texture to world/build/3d/<name>/, then renders it in the terrain viewer (tools/azgaar-mcp/viewer) from each camera: overview (from the south, like the regional overview), low (closer, nearer the ground) or top. Images are saved to world/build/screenshots/<name>[-<camera>].png and returned. Dev visualization only.",
+    inputSchema: {
+      frame: z.string().optional(),
+      cameras: z.array(z.enum(["overview", "low", "top"])).default(["overview"]),
+      margin: z.number().min(0).max(1).default(0.3),
+      exaggeration: z.number().positive().optional().describe("Vertical exaggeration in the terrain viewer (default 2)"),
+      layers: z.array(z.string()).default(["biomes", "lakes", "rivers", "routes", "burgIcons"]).describe("2D layers baked into the frame texture"),
+      name: z.string().regex(/^[\w.-]+$/)
+    }
+  },
+  async ({ frame, cameras, margin, exaggeration, layers, name }) => {
+    const images: Buffer[] = [];
+    const result = await respond(async () => {
+      if (!frame) {
+        const image = await session.render3dMap();
+        images.push(image);
+        const file = screenshotPath(name);
+        writeFileSync(resolvePath(file, true), image);
+        return { paths: [resolvePath(file)] };
+      }
+      const f = getFrame(frame);
+      const box = { ...f, x: f.x - f.width * margin, y: f.y - f.height * margin, width: f.width * (1 + 2 * margin), height: f.height * (1 + 2 * margin) };
+      const kmPerPx = loadConfig().units.distance.scale;
+      const dir = `world/build/3d/${name}`;
+      const meta = await session.exportRegion(box, dir, {
+        perPx: 3,
+        layers,
+        kmPerPx,
+        frameKm: [f.width * kmPerPx, f.height * kmPerPx],
+        title: `${name} (${frame})`
+      });
+      const paths: string[] = [];
+      for (const camera of cameras) {
+        const image = await session.renderRegion(dir, camera, exaggeration);
+        images.push(image);
+        const file = screenshotPath(`${name}-${camera}`);
+        writeFileSync(resolvePath(file, true), image);
+        paths.push(resolvePath(file));
+      }
+      return { paths, data: resolvePath(dir), grid: `${meta.cols}x${meta.rows}`, maxMetres: meta.maxMetres };
+    });
+    if (!result.isError) for (const image of images) result.content.push({ type: "image", data: image.toString("base64"), mimeType: "image/png" } as never);
     return result;
   }
 );

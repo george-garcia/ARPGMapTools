@@ -2,38 +2,173 @@
   {
     "id": "now.biome.basin-ground",
     "tool": "paint_biome",
-    "note": "Connecting basin ground is plain hot desert: clears the wetland and grassland specks that lake moisture leaves",
+    "note": "Connecting basin ground: tan gravel and alluvial fans, inside the basin only (outside, the continent keeps its own ground)",
     "args": {
       "frame": "act1",
-      "name": "Hot desert",
+      "name": "Gravel Flats",
       "polygon": [
         [
-          0,
-          0
+          0.1,
+          0.44
         ],
         [
-          1,
-          0
+          0.3,
+          0.385
         ],
         [
-          1,
-          1
+          0.35,
+          0.33
         ],
         [
-          0,
-          1
+          0.48,
+          0.29
+        ],
+        [
+          0.52,
+          0.12
+        ],
+        [
+          0.6,
+          0.04
+        ],
+        [
+          0.76,
+          0.02
+        ],
+        [
+          0.96,
+          0.1
+        ],
+        [
+          0.98,
+          0.4
+        ],
+        [
+          0.975,
+          0.72
+        ],
+        [
+          0.95,
+          0.9
+        ],
+        [
+          0.75,
+          0.92
+        ],
+        [
+          0.5,
+          0.93
+        ],
+        [
+          0.24,
+          0.93
+        ],
+        [
+          0.12,
+          0.86
+        ],
+        [
+          0.1,
+          0.62
         ]
       ],
       "heights": [
         20,
         43
+      ],
+      "color": "#CDB58C",
+      "habitability": 3
+    }
+  },
+  {
+    "id": "now.biome.rim-hills",
+    "tool": "paint_biome",
+    "note": "Duller brown rock on the east horst and south hills (older basement, not the escarpment's red beds); outer slopes keep the continent's ground",
+    "args": {
+      "frame": "act1",
+      "name": "Rim Hills",
+      "color": "#9E7752",
+      "habitability": 3,
+      "polygon": [
+        [
+          -0.06,
+          0.3
+        ],
+        [
+          0.2,
+          0.3
+        ],
+        [
+          0.33,
+          0.25
+        ],
+        [
+          0.45,
+          0.2
+        ],
+        [
+          0.5,
+          0.0
+        ],
+        [
+          0.62,
+          -0.04
+        ],
+        [
+          0.78,
+          -0.06
+        ],
+        [
+          1.0,
+          0.04
+        ],
+        [
+          1.03,
+          0.4
+        ],
+        [
+          1.03,
+          0.75
+        ],
+        [
+          1.0,
+          0.97
+        ],
+        [
+          0.75,
+          0.98
+        ],
+        [
+          0.5,
+          0.99
+        ],
+        [
+          0.22,
+          1.0
+        ],
+        [
+          0.08,
+          0.95
+        ],
+        [
+          0.05,
+          0.75
+        ],
+        [
+          -0.04,
+          0.65
+        ]
+      ],
+      "heights": [
+        44,
+        100
       ]
     }
   },
   {
     "id": "now.biome.escarpment",
     "tool": "paint_biome",
-    "note": "Red-brown rock of the escarpment, highlands and basin rims: every Act I cell at height 44 or more; later zones paint over it",
+    "note": "Red-brown rock of the rift escarpment along the west and north (height 44+), reaching a few km back onto the plateau; the plateau beyond keeps its own ground",
     "args": {
       "frame": "act1",
       "name": "Rift Escarpment",
@@ -41,20 +176,68 @@
       "habitability": 4,
       "polygon": [
         [
-          0,
-          0
+          -0.06,
+          0.3
         ],
         [
-          1,
-          0
+          0.2,
+          0.3
         ],
         [
-          1,
-          1
+          0.33,
+          0.25
         ],
         [
-          0,
-          1
+          0.45,
+          0.2
+        ],
+        [
+          0.5,
+          0.0
+        ],
+        [
+          0.62,
+          -0.04
+        ],
+        [
+          0.78,
+          -0.06
+        ],
+        [
+          0.86,
+          -0.02
+        ],
+        [
+          0.6,
+          0.12
+        ],
+        [
+          0.53,
+          0.33
+        ],
+        [
+          0.35,
+          0.39
+        ],
+        [
+          0.3,
+          0.43
+        ],
+        [
+          0.15,
+          0.46
+        ],
+        [
+          0.11,
+          0.7
+        ],
+        [
+          0.06,
+          0.78
+        ],
+        [
+          -0.04,
+          0.68
         ]
       ],
       "heights": [
@@ -266,7 +449,7 @@
   {
     "id": "now.biome.salt",
     "tool": "paint_biome",
-    "note": "Halite crust with a faint pink tint around the brine pools, down the east of the basin",
+    "note": "Halite crust with a faint pink tint: the whole pan, the lowest ground of the basin",
     "args": {
       "frame": "act1",
       "name": "Salt Flats",
@@ -274,33 +457,53 @@
       "habitability": 0,
       "polygon": [
         [
+          0.84,
+          0.18
+        ],
+        [
+          0.955,
+          0.16
+        ],
+        [
+          0.96,
+          0.5
+        ],
+        [
+          0.96,
+          0.86
+        ],
+        [
+          0.86,
+          0.9
+        ],
+        [
+          0.7,
+          0.89
+        ],
+        [
+          0.59,
+          0.86
+        ],
+        [
+          0.59,
+          0.72
+        ],
+        [
+          0.68,
+          0.63
+        ],
+        [
+          0.8,
+          0.575
+        ],
+        [
           0.85,
-          0.2
-        ],
-        [
-          0.95,
-          0.2
-        ],
-        [
-          0.95,
-          0.8
-        ],
-        [
-          0.9,
-          0.85
-        ],
-        [
-          0.85,
-          0.62
-        ],
-        [
-          0.88,
-          0.36
+          0.42
         ]
       ],
       "heights": [
         20,
-        27
+        23
       ]
     }
   },
@@ -315,20 +518,20 @@
       "habitability": 1,
       "polygon": [
         [
-          0.82,
-          0.4
+          0.785,
+          0.39
         ],
         [
-          0.88,
-          0.38
+          0.855,
+          0.37
         ],
         [
-          0.9,
-          0.57
+          0.865,
+          0.58
         ],
         [
-          0.83,
-          0.59
+          0.795,
+          0.6
         ]
       ],
       "heights": [
@@ -348,20 +551,20 @@
       "habitability": 0,
       "polygon": [
         [
-          0.885,
-          0.42
-        ],
-        [
-          0.94,
+          0.87,
           0.41
         ],
         [
-          0.945,
-          0.5
+          0.935,
+          0.4
         ],
         [
-          0.89,
+          0.94,
           0.52
+        ],
+        [
+          0.875,
+          0.53
         ]
       ],
       "heights": [
@@ -373,41 +576,178 @@
   {
     "id": "now.biome.acid",
     "tool": "paint_biome",
-    "note": "Sulfur and oxidised crust of the acid field around its pools (amber, so the acid-green pools stand out)",
+    "note": "Acid dome ground: oxidized burnt-orange crust ringing the pools (gameplay and theme first: the field reads from across the basin)",
     "args": {
       "frame": "act1",
       "name": "Acid Pits",
-      "color": "#D78E22",
+      "color": "#C8661E",
       "habitability": 0,
       "polygon": [
         [
-          0.61,
-          0.6
-        ],
-        [
-          0.8,
-          0.56
-        ],
-        [
           0.93,
-          0.61
+          0.735
         ],
         [
-          0.93,
-          0.82
+          0.92,
+          0.7884
         ],
         [
-          0.76,
-          0.84
+          0.8914,
+          0.8354
+        ],
+        [
+          0.8475,
+          0.8703
+        ],
+        [
+          0.7937,
+          0.8889
+        ],
+        [
+          0.7363,
+          0.8889
+        ],
+        [
+          0.6825,
+          0.8703
+        ],
+        [
+          0.6386,
+          0.8354
         ],
         [
           0.61,
-          0.8
+          0.7884
+        ],
+        [
+          0.6,
+          0.735
+        ],
+        [
+          0.61,
+          0.6816
+        ],
+        [
+          0.6386,
+          0.6346
+        ],
+        [
+          0.6825,
+          0.5997
+        ],
+        [
+          0.7363,
+          0.5811
+        ],
+        [
+          0.7937,
+          0.5811
+        ],
+        [
+          0.8475,
+          0.5997
+        ],
+        [
+          0.8914,
+          0.6346
+        ],
+        [
+          0.92,
+          0.6816
         ]
       ],
       "heights": [
         20,
-        27
+        30
+      ]
+    }
+  },
+  {
+    "id": "now.biome.sulfur",
+    "tool": "paint_biome",
+    "note": "Sulfur crust: bright yellow precipitate on the dome's crest between the pools (art bible G05)",
+    "args": {
+      "frame": "act1",
+      "name": "Sulfur Crust",
+      "color": "#F0CF2E",
+      "habitability": 0,
+      "polygon": [
+        [
+          0.87,
+          0.73
+        ],
+        [
+          0.864,
+          0.7631
+        ],
+        [
+          0.8466,
+          0.7923
+        ],
+        [
+          0.82,
+          0.8139
+        ],
+        [
+          0.7874,
+          0.8254
+        ],
+        [
+          0.7526,
+          0.8254
+        ],
+        [
+          0.72,
+          0.8139
+        ],
+        [
+          0.6934,
+          0.7923
+        ],
+        [
+          0.676,
+          0.7631
+        ],
+        [
+          0.67,
+          0.73
+        ],
+        [
+          0.676,
+          0.6969
+        ],
+        [
+          0.6934,
+          0.6677
+        ],
+        [
+          0.72,
+          0.6461
+        ],
+        [
+          0.7526,
+          0.6346
+        ],
+        [
+          0.7874,
+          0.6346
+        ],
+        [
+          0.82,
+          0.6461
+        ],
+        [
+          0.8466,
+          0.6677
+        ],
+        [
+          0.864,
+          0.6969
+        ]
+      ],
+      "heights": [
+        20,
+        30
       ]
     }
   },
@@ -451,7 +791,7 @@
   {
     "id": "now.biome.oasis",
     "tool": "paint_biome",
-    "note": "Green strip along the falls stream down to the Slums, the city's water",
+    "note": "Green strip along the falls stream past the upper city down to the Slums",
     "args": {
       "frame": "act1",
       "name": "Spring Oasis",
@@ -459,11 +799,11 @@
       "habitability": 60,
       "polygon": [
         [
-          0.17,
-          0.2
+          0.16,
+          0.21
         ],
         [
-          0.22,
+          0.215,
           0.25
         ],
         [
@@ -471,24 +811,28 @@
           0.3
         ],
         [
-          0.27,
+          0.255,
           0.42
         ],
         [
-          0.25,
-          0.48
+          0.29,
+          0.46
         ],
         [
-          0.2,
-          0.47
+          0.25,
+          0.485
+        ],
+        [
+          0.21,
+          0.45
         ],
         [
           0.2,
           0.33
         ],
         [
-          0.15,
-          0.24
+          0.14,
+          0.25
         ]
       ]
     }
