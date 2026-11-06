@@ -58,7 +58,7 @@
         0.93
       ],
       "text": "Rift Basin",
-      "note": "<p>[placeholder] \"Rift Basin\" is the overview's title, not an approved name.</p><p><b>Act I region.</b> A closed (endorheic) rift basin modelled on the Danakil Depression / Dallol, about 100 km rim to rim. Escarpment and highlands to the west and north-west; the city's Slums and upper city on a terrace at its foot; mineral washes and the Ruined Outpost mid-basin; basalt to the north under an active volcano; fossil reef terraces and gypsum stepping east to the salt flats and brine pools; localized acid pits at the south of the floor; the Dead Spring to the south.</p><p><b>Locked:</b> zone 01 is the caravan escape tutorial (combat); zone 02 is the Slums, the safe quest hub (no combat). Anchors: Slums, upper city (4-6 combat maps for the finale), Acid Pits, destroyed ruins, captive-caravan intro.</p><p><b>Provisional:</b> about 15-20 playable maps. The working 19-section scaffold groups them as 01 caravan escape, 02 Slums hub, 03-04 ruined road and ruins, 05-06 iron-stained washes, 07-08 basalt, 09-10 fossil terraces and gypsum, 11-12 salt flat and brine margin, 13-14 acid pools, 15-19 upper-city ascent to the final fight. Order, names and routes between zones are undecided; each zone is an ARPG tileset, so the map draws no zone-to-zone paths.</p><p>Story bible: <a href=\"https://app.notion.com/p/405b47e923df81698c6df73db88565a3\">Act I</a> \u00b7 <a href=\"https://app.notion.com/p/40db47e923df8163b21ff76a975870e8\">Geological blueprint</a></p>"
+      "note": "<p>[placeholder] \"Rift Basin\" is the overview's title, not an approved name.</p><p><b>Act I region.</b> A closed (endorheic) rift basin modelled on the Danakil Depression / Dallol, about 100 km rim to rim. Escarpment and highlands to the west and north-west; the city's upper city on a shelf in the escarpment directly above its Slums, at the foot of the falls; mineral washes and the Ruined Outpost mid-basin; basalt to the north under an active volcano; fossil reef terraces and gypsum stepping east to the salt flats and brine pools; localized acid pits at the south of the floor; the Dead Spring to the south.</p><p><b>Locked:</b> zone 01 is the caravan escape tutorial (combat); zone 02 is the Slums, the safe quest hub (no combat). Anchors: Slums, upper city (4-6 combat maps for the finale), Acid Pits, destroyed ruins, captive-caravan intro.</p><p><b>Provisional:</b> about 15-20 playable maps. The working 19-section scaffold groups them as 01 caravan escape, 02 Slums hub, 03-04 ruined road and ruins, 05-06 iron-stained washes, 07-08 basalt, 09-10 fossil terraces and gypsum, 11-12 salt flat and brine margin, 13-14 acid pools, 15-19 upper-city ascent to the final fight. Order, names and routes between zones are undecided; each zone is an ARPG tileset, so the map draws no zone-to-zone paths.</p><p>Story bible: <a href=\"https://app.notion.com/p/405b47e923df81698c6df73db88565a3\">Act I</a> \u00b7 <a href=\"https://app.notion.com/p/40db47e923df8163b21ff76a975870e8\">Geological blueprint</a></p>"
     }
   },
   {
@@ -134,15 +134,16 @@
   {
     "id": "now.label.acid",
     "tool": "add_label",
-    "note": "Localized acid hydrothermal field",
+    "note": "The Acid Pits label, enlarged: the act's signature hazard should read first",
     "args": {
       "frame": "act1",
       "point": [
         0.77,
-        0.83
+        0.875
       ],
       "text": "Acid Pits",
-      "note": "<p>[placeholder] Name from the regional overview, not approved.</p>"
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p>",
+      "size": 170
     }
   },
   {
@@ -225,8 +226,8 @@
     "args": {
       "frame": "act1",
       "point": [
-        0.72,
-        0.69
+        0.665,
+        0.705
       ],
       "type": "acid pits",
       "name": "Acid Pits",

@@ -11,7 +11,7 @@ The world map's source of truth. Generated `.map` files and screenshots are buil
 | `eras/before/` | Pre-catastrophe water, biomes, settlements, routes and notes |
 | `eras/now/` | Present-day water, biomes, settlements, routes and notes |
 | `reference/act1-overview.jpg` | The canonical Act I regional overview (4K, map only). Passes from water onward trace and review against it; the terrain pass was traced from an earlier, smaller crop that agrees within one to two cells |
-| `build/` | Generated `before.map`, `now.map`, screenshots and the `run_js` log |
+| `build/` | Generated `before.map`, `now.map`, 2D and 3D screenshots, 3D region exports (`build/3d/`) and the `run_js` log |
 
 ## Ops and builds
 
@@ -25,7 +25,13 @@ npm run world          # rebuilds world/build/now.map and its screenshots
 npm run world before   # the pre-catastrophe map
 ```
 
-`base/10-act1-terrain.json` sculpts Act I's rift basin into the continent and ends with `finalize_terrain`. Later ops in a file overwrite earlier ones where they overlap, so lay broad ground first and the features that must survive (rims, floors) after.
+`base/10-act1-terrain.json` sculpts Act I's rift basin into the continent and ends with `finalize_terrain`. It works outward-in:
+rift shoulders and the highland plateau are raised over the existing continent (so they keep natural relief and fade out, with
+no frame-shaped edges), then the escarpment lip and the irregular rims, then the basin floor is carved, then the features inside
+it. Later ops overwrite earlier ones where they overlap. Frame-local coordinates may run outside 0-1 to reach beyond the frame.
+
+The basin drains to the salt pan, its lowest land (height 21) with the brine pools in it; the acid field sits on a low dome (24-26)
+at the pan's southern edge, with its pools as small craters.
 
 Water: lakes form wherever `finalize_terrain` finds enclosed ground below height 20, so Act I's pools (brine, acid, the teal
 mineral pool, the Dead Spring and the summit lava lake) are sculpted as small pits at the end of `base/10-act1-terrain.json`.

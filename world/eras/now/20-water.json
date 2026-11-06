@@ -1,5 +1,317 @@
 [
   {
+    "id": "now.style.acid",
+    "tool": "define_style_group",
+    "note": "Shallow acid: vivid acid green with sulfur rims",
+    "args": {
+      "layer": "lakes",
+      "group": "acid",
+      "attrs": {
+        "opacity": 1,
+        "fill": "#A8CF2A",
+        "stroke": "#F2C21B",
+        "stroke-width": 1.2
+      }
+    }
+  },
+  {
+    "id": "now.style.acid-deep",
+    "tool": "define_style_group",
+    "note": "Deep acid brine: dark olive",
+    "args": {
+      "layer": "lakes",
+      "group": "acid-deep",
+      "attrs": {
+        "opacity": 1,
+        "fill": "#2F5A2E",
+        "stroke": "#E1BA29",
+        "stroke-width": 1.2
+      }
+    }
+  },
+  {
+    "id": "now.style.acid-sulfur",
+    "tool": "define_style_group",
+    "note": "Sulfur-saturated pools: yellow-green with oxidized orange rims",
+    "args": {
+      "layer": "lakes",
+      "group": "acid-sulfur",
+      "attrs": {
+        "opacity": 1,
+        "fill": "#D8D52B",
+        "stroke": "#F08A1C",
+        "stroke-width": 1.2
+      }
+    }
+  },
+  {
+    "id": "now.style.acid-teal",
+    "tool": "define_style_group",
+    "note": "Mineral-rich acid: turquoise",
+    "args": {
+      "layer": "lakes",
+      "group": "acid-teal",
+      "attrs": {
+        "opacity": 1,
+        "fill": "#1FB7A0",
+        "stroke": "#E1BA29",
+        "stroke-width": 1.2
+      }
+    }
+  },
+  {
+    "id": "now.lakes.acid.a",
+    "tool": "set_lakes",
+    "note": "Acid pool a: acid",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.6799999999999999,
+          0.6849999999999999
+        ],
+        [
+          0.72,
+          0.6849999999999999
+        ],
+        [
+          0.72,
+          0.745
+        ],
+        [
+          0.6799999999999999,
+          0.745
+        ]
+      ],
+      "subtype": "salt",
+      "group": "acid"
+    }
+  },
+  {
+    "id": "now.lakes.acid.b",
+    "tool": "set_lakes",
+    "note": "Acid pool b: acid-sulfur",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.745,
+          0.62
+        ],
+        [
+          0.785,
+          0.62
+        ],
+        [
+          0.785,
+          0.68
+        ],
+        [
+          0.745,
+          0.68
+        ]
+      ],
+      "subtype": "salt",
+      "group": "acid-sulfur"
+    }
+  },
+  {
+    "id": "now.lakes.acid.c",
+    "tool": "set_lakes",
+    "note": "Acid pool c: acid-teal",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.825,
+          0.6599999999999999
+        ],
+        [
+          0.865,
+          0.6599999999999999
+        ],
+        [
+          0.865,
+          0.72
+        ],
+        [
+          0.825,
+          0.72
+        ]
+      ],
+      "subtype": "salt",
+      "group": "acid-teal"
+    }
+  },
+  {
+    "id": "now.lakes.acid.d",
+    "tool": "set_lakes",
+    "note": "Acid pool d: acid",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.695,
+          0.765
+        ],
+        [
+          0.735,
+          0.765
+        ],
+        [
+          0.735,
+          0.8250000000000001
+        ],
+        [
+          0.695,
+          0.8250000000000001
+        ]
+      ],
+      "subtype": "salt",
+      "group": "acid"
+    }
+  },
+  {
+    "id": "now.lakes.acid.e",
+    "tool": "set_lakes",
+    "note": "Acid pool e: acid",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.78,
+          0.77
+        ],
+        [
+          0.8200000000000001,
+          0.77
+        ],
+        [
+          0.8200000000000001,
+          0.8300000000000001
+        ],
+        [
+          0.78,
+          0.8300000000000001
+        ]
+      ],
+      "subtype": "salt",
+      "group": "acid"
+    }
+  },
+  {
+    "id": "now.lakes.acid.f",
+    "tool": "set_lakes",
+    "note": "Acid pool f: acid-sulfur",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.875,
+          0.74
+        ],
+        [
+          0.915,
+          0.74
+        ],
+        [
+          0.915,
+          0.8
+        ],
+        [
+          0.875,
+          0.8
+        ]
+      ],
+      "subtype": "salt",
+      "group": "acid-sulfur"
+    }
+  },
+  {
+    "id": "now.lakes.acid.h",
+    "tool": "set_lakes",
+    "note": "Acid pool h: acid",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.75,
+          0.695
+        ],
+        [
+          0.79,
+          0.695
+        ],
+        [
+          0.79,
+          0.755
+        ],
+        [
+          0.75,
+          0.755
+        ]
+      ],
+      "subtype": "salt",
+      "group": "acid"
+    }
+  },
+  {
+    "id": "now.lakes.acid.i",
+    "tool": "set_lakes",
+    "note": "Acid pool i: acid-deep",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.84,
+          0.82
+        ],
+        [
+          0.88,
+          0.82
+        ],
+        [
+          0.88,
+          0.88
+        ],
+        [
+          0.84,
+          0.88
+        ]
+      ],
+      "subtype": "salt",
+      "group": "acid-deep"
+    }
+  },
+  {
+    "id": "now.lakes.mineral",
+    "tool": "set_lakes",
+    "note": "The teal mineral pool at the end of the washes keeps its colour after the acid pass",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.6,
+          0.6
+        ],
+        [
+          0.65,
+          0.6
+        ],
+        [
+          0.65,
+          0.64
+        ],
+        [
+          0.6,
+          0.64
+        ]
+      ],
+      "subtype": "salt",
+      "group": "mineral"
+    }
+  },
+  {
     "id": "now.lakes.dead-spring",
     "tool": "set_lakes",
     "note": "Present day: the oasis is dead; only stagnant mineral pools remain (teal on the overview)",

@@ -2,12 +2,12 @@
   {
     "id": "now.burg.upper-camp",
     "tool": "add_burg",
-    "note": "The upper city on its shelf above the falls: nobles and wealthier civilians, walled with a citadel. Name and population are placeholders",
+    "note": "The upper city on its shelf just east of the falls, directly overlooking its Slums. Name and population are placeholders",
     "args": {
       "frame": "act1",
       "point": [
-        0.43,
-        0.2
+        0.29,
+        0.345
       ],
       "name": "Slaver Upper Camp",
       "population": 6000,
@@ -19,18 +19,18 @@
         "temple": true,
         "shanty": false
       },
-      "note": "<p>[placeholder] Name from the regional overview, not approved.</p><p>Upper city of Act I's medium city: nobles and wealthier civilians. Walled, with a citadel. Its water intake is on the falls stream upstream of the Slums.</p><p>Population: placeholder; about 15,000 across the city with the Slums.</p>"
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p><p>Upper city of Act I's medium city: nobles and wealthier civilians, walled, with a citadel. It sits on a bench cut into the escarpment directly above its Slums, and draws its water from the falls stream upstream of them.</p><p>Population: placeholder; about 15,000 across the city with the Slums.</p>"
     }
   },
   {
     "id": "now.burg.slums",
     "tool": "add_burg",
-    "note": "The Slums at the foot of the falls, Act I's quest hub: the lower half of the same city. Placeholder name and population",
+    "note": "The Slums: the poor lower quarter of the same city, at the foot of the falls below the upper city. Act I's quest hub",
     "args": {
       "frame": "act1",
       "point": [
-        0.205,
-        0.49
+        0.255,
+        0.445
       ],
       "name": "Slums",
       "population": 9000,
@@ -42,7 +42,7 @@
         "temple": false,
         "shanty": true
       },
-      "note": "<p>[placeholder] Name from the regional overview, not approved.</p><p>Act I's quest hub. The poor lower city below the falls, which are its water source (wells and cisterns as backup). The main road from the Caravan Approach passes through on its way up to the Upper Camp.</p><p>Population: placeholder share of the city's 15,000.</p>"
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p><p>The poor slums of the slaver city, at the foot of the escarpment directly below the upper city, and Act I's quest hub. Their people are free citizens: slavers do not take people from the city, only escaped slaves, the wanted and fugitives. The falls above are their water source, with wells and cisterns as backup.</p><p>Population: placeholder share of the city's 15,000.</p>"
     }
   },
   {
