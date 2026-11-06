@@ -15,6 +15,8 @@ npm run world    # compiles, then rebuilds the world map from the ops in world/ 
 npm run viewer   # opens the last build's Act I in the interactive 3D terrain viewer (prints a local URL)
 ```
 
+After a pull that changes `package.json` (a new dependency such as `three` for the 3D views), run `npm install` again before `npm run smoke` or `npm run world`.
+
 Open this folder in Claude Code and approve the `azgaar` server from `.mcp.json`. To watch the browser while it works, add `"--headed"` to the server's `args` in `.mcp.json`.
 
 ## Tools

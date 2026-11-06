@@ -1043,16 +1043,29 @@ export class AzgaarSession {
     return { dir: full, ...info };
   }
 
+  /** The viewer loads three.js from the repo's node_modules; without it the page never becomes ready */
+  assertViewerInstalled(): void {
+    if (!existsSync(join(repoRoot, "node_modules/three/build/three.module.js")))
+      throw new Error("three.js is not installed (node_modules/three is missing). Run `npm install`, then try again.");
+  }
+
   /** Renders an exported region in the terrain viewer from a camera preset (overview, low, top) */
   async renderRegion(dir: string, camera: string, exaggeration?: number): Promise<Buffer> {
+    this.assertViewerInstalled();
     await this.open();
     this.repoServer ??= await startStaticServer(repoRoot);
     const viewer = await this.context!.newPage();
+    const problems: string[] = [];
+    viewer.on("pageerror", e => problems.push(e.message));
+    viewer.on("console", m => m.type() === "error" && problems.push(m.text()));
+    viewer.on("response", r => r.status() >= 400 && problems.push(`${r.status()} ${new URL(r.url()).pathname}`));
     try {
       const query = new URLSearchParams({ data: `/${dir.replace(/^\/+/, "")}`, capture: "1", camera });
       if (exaggeration) query.set("exaggeration", String(exaggeration));
       await viewer.goto(`${this.repoServer.url}tools/azgaar-mcp/viewer/terrain.html?${query}`);
-      await viewer.waitForFunction(() => (window as any).__ready === true, undefined, { timeout: 120_000 });
+      await viewer.waitForFunction(() => (window as any).__ready === true, undefined, { timeout: 120_000 }).catch(error => {
+        throw new Error(problems.length ? `The terrain viewer failed: ${[...new Set(problems)].slice(0, 5).join("; ")}` : String(error));
+      });
       await viewer.waitForTimeout(300);
       return await viewer.screenshot({ type: "png", timeout: 180_000 });
     } finally {
