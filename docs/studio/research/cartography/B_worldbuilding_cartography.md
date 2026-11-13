@@ -436,3 +436,8 @@ was not attempted, so nothing here is sourced to him.
    ("the Gypsum Steps"), or a mix by culture?
 8. **The mineral washes:** draw them as seasonal water (dashed blue, river-like), or keep them as a route class with a
    legend entry?
+
+## Errata (provenance check, 13 Nov 2026)
+
+- B8 overstates Turner [6] on small islands: he calls them unrealistic but says they make "an interesting map". The clean-shore rule rests on O'Leary [5].
+- P7: the quote about resizing areas that felt too big or too small is Kuba Szamałek's in the cited article, not Tost's; Tost's own statement (content dictated the world's size) still supports the rule.

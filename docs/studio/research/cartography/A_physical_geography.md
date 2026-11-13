@@ -145,7 +145,7 @@ with no outlet is a red flag. In the before era, check whether the lake overflow
 *Check:* `query_cells` over the frame. The lowest land (h≥20) should be in the pan (h21 in Act I). The pools are water
 (h17–18) inside it.
 
-**A2.6 The pan sits close to the deepest subsidence, pushed off it by fans.** Lakes and playas form "as close to the
+**A2.6 The pan sits close to the deepest subsidence, as close as the small footwall fans allow.** *(Corrected 13 Nov 2026 by the provenance check: footwall fans are the small ones.)* Lakes and playas form "as close to the
 locus of maximum subsidence as the footwall-sourced fans will allow" [SCIENCE 8]. In the Danakil, salt thickens
 eastward away from the western margin [SCIENCE 18].
 *Check:* Act I's pan sits east, away from the western escarpment. That is plausible if the western fans are large
@@ -513,3 +513,7 @@ seasonal water go in labels, notes and dashed styles. [SOURCE 46]
 45. Klinkenberg (2004), "Rules of thumb for spatial data" (UBC Geography). https://ibis.geog.ubc.ca/~brian/rules_of_thumb
 46. Azgaar Fantasy Map Generator v1.156.0 source in `tools/azgaar/source/src/model/physical/` (`lakes.ts`, `features-generator.ts`, `river-generator.ts`, `precipitation-generator.ts`, `temperature-generator.ts`, `biomes-generator.ts`) and `model/options/options-model.ts`. 46a: Smithsonian GVP, Alid. https://volcano.si.edu/volcano.cfm?vn=221040
 47. This repo: `world/README.md`, `world/config.json`, `world/base/10-act1-terrain.json`, `tools/azgaar-mcp/src/index.ts` and `session.ts`, and `world/build/screenshots/{now,before}-act1-*.png`.
+
+## Errata (provenance check, 13 Nov 2026)
+
+- A2.6: the title said the pan is "pushed off" the deepest subsidence by fans; Leeder & Gawthorpe [8] say playas form as close to it "as the footwall-sourced fans will allow", and footwall fans are small. Title corrected; the Act I check still holds if the east rim is a faulted horst or the hanging-wall fans are large.

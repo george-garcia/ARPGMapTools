@@ -55,7 +55,7 @@ for (const link of act.links ?? []) {
   if (!["decided", "proposed", "open"].includes(link.status)) problems.push(`link ${link.from} -> ${link.to}: status must be decided, proposed or open`);
   const east = (b.anchor[0] - a.anchor[0]) * widthKm;
   const north = (a.anchor[1] - b.anchor[1]) * heightKm;
-  const bearing = (Math.round(((Math.atan2(east, north) * 180) / Math.PI + 360) * 10) / 10) % 360;
+  const bearing = Math.round(((((Math.atan2(east, north) * 180) / Math.PI + 360) % 360) * 10)) / 10 % 360;
   const km = Math.round(Math.hypot(east, north));
   rows.push({ ...link, fromName: a.name, toName: b.name, bearing, back: Math.round(((bearing + 180) % 360) * 10) / 10, compass: compass(bearing), backCompass: compass((bearing + 180) % 360), km });
 }

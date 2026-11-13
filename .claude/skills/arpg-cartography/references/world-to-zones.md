@@ -7,14 +7,14 @@ in the ARPG repo, never copy them.
 
 ## What an act map is
 
-- **H1. An ARPG act map is an abstract node-and-line map over a painted region, not a scale map.** *OBSERVED W1–W2.*
+- **H1. A PoE-style act map (our model) is an abstract node-and-line map over a painted region, not a scale map.** *OBSERVED W1–W2.*
   The cartographer hands over directions, adjacency, landform order and per-zone facts — never kilometres, walking
   times, zone sizes or layouts. *W34–W37; PROJECT P5.*
 - **H2. Zones are not a literal scale of the map.** PoE2 main routes are ~250–350 m; our act is ~100 km; one zone stands
   for a stretch 15–25 times longer than its walk, and one map cell is ~8 zone routes long. Nothing at zone scale can be
   placed from the map. *OBSERVED/INFERRED W34–W37; SOURCE M4.*
 - **H3. Keep one fixed act map and one bearing per connection;** variety lives in the zone layouts (level design T8),
-  not in the act's geography. *DEV W4.*
+  not in the act's geography. *DEV W4 (GGG fixed PoE2's act maps); INFERRED W3–W4 (the rule).*
 
 ## Directions (level design T6)
 
@@ -32,7 +32,7 @@ in the ARPG repo, never copy them.
 
 | Check | Rule | Why |
 |---|---|---|
-| **H7.** A two-link zone's entrance and exit bearings differ by ≥ 90° | level design T6; *OBSERVED W15* (D2/PoE2 exits never share the entrance's border) | Otherwise the zone's entrance and exit sit on the same side |
+| **H7.** A two-link zone's entrance and exit bearings differ by ≥ 90° | level design T6; *OBSERVED W15* (D2 exits never share the entrance's border; PoE2 COMMUNITY); the 90° threshold INFERRED | Otherwise the zone's entrance and exit sit on the same side |
 | **H8.** A hub's connections are ≥ 45° apart | *OBSERVED W11* | Players read each exit as a different direction |
 | **H9.** A successor bearing in 180–270° is **down-screen** | level design T7; *PROJECT camera, W16* (up-screen is north-east) | The camera shows far more ahead (north-east) than behind |
 | **H10.** Tall landforms on a zone's south or west side are **camera-side** | level design N9; *W17* | Tall masses must sit north and east of the walk, or be cut/faded |

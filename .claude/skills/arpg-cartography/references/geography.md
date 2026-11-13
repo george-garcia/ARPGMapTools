@@ -31,8 +31,8 @@ Each rule: the instruction, its origin, what the mistake looks like, and the che
   where it soaks into a fan, said in a note). *SCIENCE A2.3.* Check: every river's mouth on the screenshot; `list features`.
 - **G9. A closed lake exists only where evaporation beats inflow, and it is salty.** A fresh lake with no outlet is
   wrong. *SCIENCE A2.4.* Check: `list kind:"features"` subtypes; any freshwater lake without an outlet is a finding.
-- **G10. The lowest ground of a closed basin is its playa or salt pan,** close to the deepest subsidence but pushed off it
-  by the big fans. *SCIENCE A2.5–A2.6; PROJECT P19.* Check: no land cell below the pan; no lake surface below the pan's
+- **G10. The lowest ground of a closed basin is its playa or salt pan,** as close to the deepest subsidence as the small fans
+  off the master (footwall) scarp allow. *SCIENCE A2.5–A2.6; PROJECT P19.* Check: no land cell below the pan; no lake surface below the pan's
   pools (TG1 for surfaces).
 - **G11. A desert basin's perennial water comes from outside it** (exotic streams from a wetter highland); most channels
   are dry washes that flood in bursts. *SCIENCE A2.7–A2.8.* Check: each permanent river has its source on the plateau.
@@ -48,7 +48,7 @@ Each rule: the instruction, its origin, what the mistake looks like, and the che
 ## 3. Arid ground, downslope
 
 - **G16. The downslope order runs coarse to fine, steep to flat:** escarpment → gorge → alluvial fans (merging into a
-  bajada) → gravel plain → mudflat → gypsum → halite pan. *SCIENCE A3.1–A3.2.* Mistake: salt at the foot of the cliff,
+  bajada) → gravel plain → mudflat → gypsum → halite pan. *SCIENCE A3.1–A3.2, A3.4.* Mistake: salt at the foot of the cliff,
   gravel in the pan's centre. Check: biome paint order along a transect from the escarpment to the pan.
 - **G17. Fans are sized by the drainage behind them and the tilt:** small steep fans off a master scarp, big fans off the
   gentle side. *SCIENCE A3.3.*

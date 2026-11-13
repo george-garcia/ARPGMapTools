@@ -60,7 +60,7 @@ Load for every step that writes an op or reads the map. Evidence and full tables
 *SOURCE D §1a, §1b.* And:
 - **M7. Only lakes are sinks.** For any "water ends here", put a lake there or draw a locked river to it with generated
   rivers removed. Don't rely on generated rivers to tell the story: in the before era today they end in the acid dome,
-  not the pan, and a stray river enters from the south-west. *SOURCE + OBSERVED D §2.2.*
+  not the pan, and a stray river enters from the south-west. *SOURCE D §2.1; OBSERVED D §2.2.*
 - **M8. A lake's look is subtype + group;** set both after the climate. Judge acid colours on the 2D map, the terrain
   viewer and Gaea: Azgaar's own 3D view colours lakes by subtype only (the acid pools render teal there). *SOURCE D §2.10.*
 - **M9. Gaea mask names are an interface.** `export_gaea` hard-codes the biome names "Salt Flats", "Sulfur Crust",

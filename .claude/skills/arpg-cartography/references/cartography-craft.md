@@ -44,7 +44,8 @@ rules they lean on are in `geography.md`.
 ## 3. Geography for play
 
 - **K17. Triangles at three scales:** big landmarks, medium relief that hides the next thing, small shapes that set the
-  path. *DEV, second-hand B P1.* One big landmark per act, visible from most of its zones; medium relief between zones.
+  tempo. *DEV, second-hand B P1.* Application (INFERRED): one big landmark per act, visible from most of its zones; medium
+  relief between zones.
 - **K18. Spread points of interest unevenly ("gravity") and reveal them in sequence** — one feature leads to the next.
   *DEV, second-hand B P2–P3.*
 - **K19. Something calls every ~30 seconds;** tall flags (smoke, plumes, a lone tower) work at range. *DEV B P4.* For the
@@ -63,7 +64,7 @@ rules they lean on are in `geography.md`.
 - **K25. Adapt real places, don't copy them;** start from a mostly believable base and add the exotic on top. *DEV
   B X1–X2.* Dallol is the analogue, not the blueprint.
 - **K26. Depart from reality where readability or play needs it, and nowhere else** — even Azgaar bends physics for
-  colour. *DEV/DEV-practitioner B X3–X4; PROJECT P8.*
+  colour. *DEV B X4; COMMUNITY (one practitioner) B X3; PROJECT P8.*
 - **K27. Say what was bent:** every op that departs from a G- or K-rule carries a note naming its reason (gameplay, look,
   story), so "what did we fake and why" is one list. *INFERRED B X7.*
 - **K28. Keep a place's soul when you change it;** compress, but keep the landmarks people remember. *DEV B X5–X6.*
