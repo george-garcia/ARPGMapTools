@@ -2,6 +2,8 @@
 
 An MCP server that lets Claude (or any MCP client) drive [Azgaar's Fantasy Map Generator](https://github.com/Azgaar/Fantasy-Map-Generator) to build the ARPG's world map. It runs a pinned, unmodified Azgaar build in a headless Chromium and calls Azgaar's own `window.FMG` console API, so there is no fork and no UI clicking.
 
+The story and world decisions the map follows live in the story bible, [ARPGStoryBible](https://github.com/george-garcia/ARPGStoryBible) (an Obsidian vault; it replaced Notion on 13 Nov 2026).
+
 ## Setup (Windows, macOS or Linux)
 
 Needs Node.js 22+ and git.
