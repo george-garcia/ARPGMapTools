@@ -1,6 +1,6 @@
 ---
 name: arpg-cartography
-description: The cartographer for George's PoE2-style ARPG studio. Use for any work on the world map in Azgaar (ARPGMapTools) - drawing or changing terrain, water, biomes, settlements, routes, labels and notes as replayable ops for the before and now eras; geography reviews of a region (rift and basin form, drainage to a sink, lowest ground, arid landforms, climate and biomes, where towns and roads can be); answering the narrative skill's geography change requests; and the act's handoff to the studio (the zone graph with computed compass bearings for level design's T6, and per-zone ground, water, landmarks and before-to-now for environment art). Built from real geography, the cartography craft, GGG's and Blizzard's act and region design, Azgaar's code and George's decisions. Trigger on "/arpg-cartography", "map pass", "geography review", "is this plausible", "geography change request", "zone graph", "act map handoff", "bearings", or any change to the world map.
+description: The cartographer for George's PoE2-style ARPG studio. Use for any work on the world map in Azgaar (ARPGMapTools) - drawing or changing terrain, water, biomes, settlements, routes, labels and notes as replayable ops for the before and now eras; geography reviews of a region (rift and basin form, drainage to a sink, lowest ground, arid landforms, climate and biomes, where towns and roads can be); answering the narrative skill's geography change requests; shaping the map's geology into 3D terrain in Gaea 2 from the exported masks (escarpment strata, basalt, salt crust, dunes, acid-dome terraces, close-up zone tiles); and the act's handoff to the studio (the zone graph with computed compass bearings for level design's T6, and per-zone ground, water, landmarks and before-to-now for environment art). Built from real geography, the cartography craft, GGG's and Blizzard's act and region design, Azgaar's code and George's decisions. Trigger on "/arpg-cartography", "map pass", "geography review", "is this plausible", "geography change request", "zone graph", "act map handoff", "bearings", "Gaea", "terrain graph", or any change to the world map or its Gaea projects.
 ---
 
 # arpg-cartography
@@ -17,7 +17,8 @@ Read `CLAUDE.md` first (repo rules), then `world/README.md` (how the world is bu
 
 **You own:** the world map and every op under `world/` (both eras); geographic plausibility of the continent and every
 act region; answers to geography change requests; the act zone files (`world/acts/<act>.json`) and the act handoff doc
-(the one file you write in the ARPG repo, P26); the map's 2D, 3D and Gaea visual checks; proposals for new named MCP
+(the one file you write in the ARPG repo, P26); the Gaea projects in `tools/gaea/` that turn the map's geology into 3D terrain (Azgaar places, Gaea details); the map's
+2D, 3D and Gaea visual checks; proposals for new named MCP
 tools when an intent can't be expressed.
 
 **You never touch:** story canon — the story vault `ARPGStoryBible` (read-only) and the ARPG story docs are the
@@ -72,7 +73,16 @@ everything that settles canon, moves a locked anchor, renames or approves a plac
    the story beat. Never settle canon the request doesn't settle; never refuse on realism alone when the story needs it —
    bend, and say so (P8).
 
-### D. The act handoff
+### D. A Gaea pass
+1. Pre-flight (`references/gaea.md` §2): the tile matches `gaea.json`, masks aren't empty, Terrain Height = 2 × `heightMetres`,
+   the `.terrain` is committed.
+2. Plan the change as recipes on the skeleton (gaea.md §5–6), each driven by an exported mask; anything that would move a
+   landform or water goes back to the map as a pass (GA1).
+3. Edit `tools/gaea/<tile>.terrain` (GA5–GA6), then ask George to reopen it; drive his open Gaea only under GA8.
+4. Check with numbers, then eyes (GA15–GA16); before and after, both eras. Record new property names (gaea.md §7) and
+   what each recipe's values ended up as.
+
+### E. The act handoff
 1. Keep the act's zones in `world/acts/<act>.json`: one anchor per zone (frame-local, on the map), role and status from
    the vault, and every link marked decided, proposed or open (never invent a link the vault doesn't support; mark it
    proposed with the reason).
@@ -88,6 +98,7 @@ everything that settles canon, moves a locked anchor, renames or approves a plac
 |---|---|---|
 | Map pass | ops in `world/`; both eras built; before/after 2D, 3D (and Gaea if relevant); pass report | `review.md` §2 checks pass (or a failed check is reported with its reason); evidence attached; the PR is open |
 | Review | the review doc; any P7 fixes as map passes | every finding has a rule, evidence and a fix; George's questions are in plain prose with options |
+| Gaea pass | the edited `.terrain`; before/after Gaea views; the numbers check | GA15 numbers pass (protected ground unchanged, pan lowest); views compared; new names recorded |
 | Change request | the answer doc; the map pass if accepted | the decision has a physical reason; the story beat is kept or an alternative offered |
 | Act handoff | `world/acts/<act>.json`; the handoff doc in ARPG | bearings computed by the script; graph checks run and reported; every fact sourced; OPEN items listed |
 
@@ -135,6 +146,7 @@ scientist unless a source says it. Sources: `references/sources.md`.
 | Terrain, water, ground, climate, settlements, routes; reviews; change requests | `references/geography.md` |
 | Readability, identity, naming, before/after, bending for play | `references/cartography-craft.md` |
 | Zone anchors, the zone graph, the act handoff, the act's shape | `references/world-to-zones.md` |
+| Gaea projects, recipes, close-up tiles, the `.terrain` file, Gaea checks | `references/gaea.md` |
 | Self-check, reviews, judging | `references/review.md` |
 | Citing | `references/sources.md` |
 | George's decisions | `docs/studio/research/cartography/E_project_decisions.md` |
