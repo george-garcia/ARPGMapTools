@@ -31,6 +31,11 @@ Walk it in this order; each line names its rule. Gather evidence with reads (`qu
 
 **Readability and identity** (`cartography-craft.md`)
 - [ ] Each zone's region reads as its own landform and ground, not one repeated texture; the act's signature (the acid pits) dominates.
+- [ ] **Colours separate:** list the biome hex colours of neighbouring regions and of the signature; near-identical hues (e.g. washes #B85D23 next to acid ground #C8661E) are a finding (K11, K16).
+- [ ] **Area shares match the story's weight:** count cells per biome in the frame (`query_cells`); an anchor the vault praises (the salt flats) must not shrink to a sliver while another floods the floor (K16, P20).
+- [ ] **Landmark forms read:** profile each landmark (volcano cone, escarpment, dome) with height reads; a cone that is a flat table, or a one-cell shaft, is a finding (G4, G34).
+- [ ] **Every drawn river and wash runs downhill:** read the heights along each `add_river` and wash route, point by point (azgaar-ops: `add_river` doesn't check) (G7, K1).
+- [ ] **Era geology agrees:** compare the two eras cell by cell over rock and salt (biome per cell); bedrock and evaporites painted as grassland or forest in the before era break the shared base (K30, P14).
 - [ ] Labels name landforms at a readable size; placeholders are tagged (P12); notes carry what the map can't show (G37).
 - [ ] Exaggerations are labelled (G36).
 

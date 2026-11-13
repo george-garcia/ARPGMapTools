@@ -1,0 +1,33 @@
+{
+  "act": "Act I",
+  "frame": "act1",
+  "note": "Cartographer's act zone file (test-mode copy of world/acts/act1.json). Anchors are frame-local 0-1 on the 2026-11-06 build (world/build/now.map). Zone numbers other than 01 and 02 are not decided; ids are descriptive. Statuses: decided = the vault settles the connection; proposed = the vault says 'likely', or the cartographer proposes it from adjacency on the map (reason in 'source'); open = undecided.",
+  "zones": [
+    { "id": "z01", "name": "Caravan Approach [placeholder]", "role": "01 caravan escape, combat tutorial", "anchor": [0.06, 0.80], "status": "locked", "note": "op now.marker.caravan" },
+    { "id": "z02", "name": "Slums [placeholder]", "role": "02 safe quest hub, no combat", "anchor": [0.255, 0.445], "status": "locked", "note": "op now.burg.slums" },
+    { "id": "outpost", "name": "Ruined Outpost [placeholder]", "role": "destroyed ruin with old robot scrap (anchor category)", "anchor": [0.41, 0.51], "status": "anchor locked, position provisional", "note": "op now.marker.ruined-outpost" },
+    { "id": "washes", "name": "Mineral Washes [placeholder]", "role": "traversal / combat (scaffold 05-06)", "anchor": [0.56, 0.45], "status": "provisional", "note": "centroid of the Mineral Washes paint (0.576, 0.46), next to op now.label.washes (0.56, 0.43)" },
+    { "id": "deadspring", "name": "Dead Spring [placeholder]", "role": "combat; likely after the Outpost return", "anchor": [0.40, 0.80], "status": "provisional", "note": "pools' centre (lake features 84 and 89); op now.marker.dead-spring sits 9 km west at (0.31, 0.80)" },
+    { "id": "acid", "name": "Acid Pits [placeholder]", "role": "signature hazard zone (anchor category; scaffold 13-14)", "anchor": [0.76, 0.73], "status": "anchor locked, position provisional", "note": "centroid of Acid Pits + Sulfur Crust paint; op now.marker.acid sits at the dome's west edge (0.665, 0.705)" },
+    { "id": "salt", "name": "Salt Flats [placeholder]", "role": "traversal / combat (scaffold 11-12)", "anchor": [0.89, 0.52], "status": "provisional", "note": "centroid of Salt Flats paint (0.885, 0.513)" },
+    { "id": "terraces", "name": "Fossil Terraces [placeholder]", "role": "traversal / combat (scaffold 09-10)", "anchor": [0.72, 0.44], "status": "provisional", "note": "op now.label.terraces (0.72, 0.42); paint centroid (0.688, 0.435)" },
+    { "id": "basalt", "name": "Basalt Fields [placeholder]", "role": "traversal / combat (scaffold 07-08)", "anchor": [0.69, 0.20], "status": "provisional", "note": "centroid of Old Basalt paint (0.692, 0.222); op now.label.basalt (0.68, 0.15)" },
+    { "id": "volcano", "name": "Active volcano (unnamed)", "role": "maybe a zone (TASKS); not in the vault scaffold", "anchor": [0.84, 0.08], "status": "open", "note": "op now.marker.volcano (0.84, 0.10); crater at (0.84, 0.07)" },
+    { "id": "uppercity", "name": "Upper city [placeholder: Slaver Upper Camp]", "role": "finale cluster: 4-6 combat maps, Act I boss", "anchor": [0.29, 0.345], "status": "locked (role), layout open", "note": "op now.burg.upper-camp; the shelf is about 9 x 6 km" },
+    { "id": "exit", "name": "Escarpment top: act exit toward Act II", "role": "the act's exit (change request of 2026-11-13, answered 'accept with changes')", "anchor": [0.305, 0.20], "status": "proposed", "note": "top of the ramp through the escarpment lip north of the shelf; proposed op now.road.main.escarpment" }
+  ],
+  "links": [
+    { "from": "z01", "to": "z02", "status": "decided", "via": "main road: pass mouth, across the Slums terrace (op now.road.main.approach)", "source": "vault Act I 2026-11-02 LOCKED hub order; P23" },
+    { "from": "z02", "to": "outpost", "status": "proposed", "via": "old caravan road east off the terrace (op now.road.old.1-2)", "source": "vault README 2026-11-05 'likely start ... slums -> ruined outpost -> back to the slums'" },
+    { "from": "z02", "to": "deadspring", "status": "proposed", "via": "down the terrace's south-east edge onto the basin floor; no route drawn", "source": "vault README 2026-11-05 'likely start ... back to the slums -> dead spring'" },
+    { "from": "deadspring", "to": "acid", "status": "proposed", "via": "east across the gravel floor to the dome's west foot", "source": "vault README 2026-11-05 'likely start ... dead spring -> acid pits, then unknown'" },
+    { "from": "outpost", "to": "washes", "status": "proposed", "via": "old caravan road's last trace (op now.road.old.3)", "source": "cartographer: adjacency on the map; not in the vault" },
+    { "from": "washes", "to": "basalt", "status": "proposed", "via": "up the main wash to its head at the basalt edge (op act1.wash.main)", "source": "cartographer: adjacency on the map; not in the vault" },
+    { "from": "washes", "to": "terraces", "status": "proposed", "via": "wash branch through the terrace gap (op act1.wash.terraces)", "source": "cartographer: adjacency; vault 2026-11-03 'fossil terraces and gypsum stepping down to the east'" },
+    { "from": "terraces", "to": "salt", "status": "proposed", "via": "down the gypsum pavement onto the pan", "source": "cartographer: landform order (vault 2026-11-03 map decisions)" },
+    { "from": "salt", "to": "acid", "status": "proposed", "via": "south across the pan onto the dome", "source": "cartographer: P19 (acid dome at the pan's southern edge)" },
+    { "from": "basalt", "to": "volcano", "status": "open", "via": "up the young flows to the cone", "source": "volcano as a zone is 'maybe' (TASKS); not in the vault" },
+    { "from": "z02", "to": "uppercity", "status": "decided", "via": "OPEN: the leader's 'abandoned route' into an abandoned district (not the main-road switchback)", "source": "vault Act I spine 2026-11-13 (confirmed progression; staging provisional)" },
+    { "from": "uppercity", "to": "exit", "status": "proposed", "via": "main road north through the escarpment ramp (CR answer)", "source": "vault spine 2026-11-13 'secure passage beyond into Act II'; direction pending George" }
+  ]
+}

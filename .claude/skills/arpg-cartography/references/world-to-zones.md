@@ -76,7 +76,14 @@ Template: `templates/act-handoff.md`. Where it lives in ARPG is George's call (p
   direction, height step, crossing landform, decided/OPEN), openness (map-type hint for level design), edges by side
   with the camera-side flag, ground and rock in order of extent, water (kind, source, flow, sink, seasonal, hazardous),
   climate and air, landmarks in and seen from it, before → now with each cause, story pointers into the vault, open
-  items. *R4, R9; W38–W40.*
+  items. *R4, R9; W38–W40.* For environment art add, per zone: the map's palette (biome hex colours), a real-world
+  analogue to search for the hook photo (Z2: e.g. Dallol's travertine terraces, Afar salt polygons, White Sands), the sun
+  (latitude, so its height and the light's direction) and the skyline angles of what it sees. *INFERRED from the
+  round-1 test (the baseline's strongest section).*
+- **H25. Write for readers without this skill:** in anything the studio reads, state each rule in words; our own rule
+  IDs (G, K, H, M) only in parentheses with the reference path. The consumers' own IDs (T6, N9, Z1) are fine. Facts
+  that rest on Azgaar's generated content (unlocked rivers, random names) are marked so and OPEN, never used as story
+  causes. *INFERRED from the round-1 test.*
 - **H23. Every fact names its source** — a vault decision, a P-ID, a map op id, or INFERRED. Anything not settled is
   **OPEN** with its question for George; the handoff never invents lore. *Environment art Z5; W41.*
 - **H24. What the consumers need, by rule** (W39–W40): level design — T4–T7 exit placement and bearings, T15/N1 the

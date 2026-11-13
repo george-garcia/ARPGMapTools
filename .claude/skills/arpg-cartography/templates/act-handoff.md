@@ -39,6 +39,8 @@ One block per zone, in act order. Every fact names its source: a vault decision,
 | **Transitions** | <what the ground does at each edge toward each neighbour, geologically> |
 | **Before** | <the before era here: water, vegetation, settlement, use> |
 | **Now, and what changed** | <the now era; the cause of each kind of change (drought, extraction, acid, abandonment…) as far as the vault says; open causes marked open> |
+| **Palette and hook** | <the map's biome hex colours here; a real-world analogue to photograph for the hook (environment art Z2)> |
+| **Light** | <latitude, so sun height and direction; haze, steam, ash> |
 | **Open** | <what the map can't decide: questions for George / narrative> |
 
 ## 4. Changes since the last version

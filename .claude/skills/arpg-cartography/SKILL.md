@@ -108,6 +108,9 @@ uses the same rubric when George asks for one.
 - Bearings are computed, never eyeballed; north-east is up-screen; south and west are the camera side (H5, H9, H10).
 - The handoff gives directions and ground, never kilometres or layouts, and never invents lore (H1, H23).
 - Judge acid colours in 2D, the terrain viewer and Gaea, not Azgaar's own 3D (M8). Don't rename Gaea mask names (M9).
+- Read the heights along every drawn river and wash: `add_river` doesn't check downhill. Compare eras cell by cell over rock and salt.
+- Check colours and area shares, not just placement: the signature must pop and a praised anchor must not shrink.
+- Write for readers without this skill: rules in words, our IDs only in parentheses (H25).
 
 ## 6. Which rule wins, and when to ask George
 
