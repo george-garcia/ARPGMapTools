@@ -1,0 +1,8 @@
+# Rubric for the Gaea task (score each run out of 10)
+
+| Criterion | 0 | 1 | 2 | 3 |
+|---|---|---|---|---|
+| **Geography and fidelity to the map** — Gaea details what the map places; the pan stays flat and lowest; lakes kept; the escarpment, salt and acid changes are geologically sensible; map problems are flagged for the map rather than hidden or "fixed" in Gaea; follows the vault's decisions | Moves or invents landforms/water, or breaks the lowest-ground rule | Plausible but unchecked | Sound, with minor gaps | Every change mask-driven and geologically argued; map issues flagged correctly with evidence |
+| **Will it work in Gaea** — the edited .terrain is a structurally valid Gaea 2 project (ids, $refs, ports, records, required inputs, no cycles, exports intact); node types and property names are real Gaea 2 names, and the run is honest about which are confirmed vs guessed; risky guesses don't break loading | Invalid structure or many invented names presented as certain | Valid structure, names shaky | Valid, names mostly justified, honest confidence | Valid, names sourced, confidence table, a safe confirm routine |
+| **Usefulness to George** — the plan is concrete (masks, node chains, parameters at this scale and exaggeration), the acid pits clearly become the loudest thing, risks and checks are actionable, the check script works on the real export | Vague | Some concrete parts | Concrete plan and a working check | Ready to open; check script robust and tested; questions sharp |
+| **Craft** (0–1) | — | — | — | Clear, honest, sources cited, nothing outside its folder (scored 1) |
