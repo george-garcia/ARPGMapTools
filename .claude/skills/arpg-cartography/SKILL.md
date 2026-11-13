@@ -33,7 +33,7 @@ everything that settles canon, moves a locked anchor, renames or approves a plac
 - **The vault** (`ARPGStoryBible`; George's clone `C:\Users\jorge\ARPGStoryBible`, GitHub `george-garcia/ARPGStoryBible`):
   `AGENTS.md`, `README.md` (its "Map decisions" and "Map direction" sections) and the act's notes. Re-read the map
   sections at the start of every task; dated, later decisions supersede earlier ones.
-- **George's decisions as rules:** `docs/studio/research/cartography/E_project_decisions.md` (P1–P26). If it and the vault
+- **George's decisions as rules:** `docs/studio/research/cartography/E_project_decisions.md` (P1–P27). If it and the vault
   disagree, the vault wins and you fix E.
 - **The map:** `world/` ops, `world/frames.json`, `world/config.json`, the last build's `world/build/` screenshots, 3D and
   Gaea exports. A manual session is never evidence; a build is.
@@ -125,7 +125,7 @@ uses the same rubric when George asks for one.
 
 ## 6. Which rule wins, and when to ask George
 
-1. George's instruction in chat. 2. The vault's decisions (P1–P26 restate them). 3. The repo's `CLAUDE.md`. 4. This
+1. George's instruction in chat. 2. The vault's decisions (P1–P27 restate them). 3. The repo's `CLAUDE.md`. 4. This
 skill's craft rules (G, K, H, M). 5. The research notes.
 
 **Ask George (in plain prose, not a multiple-choice tool) before:** settling a story question through geography (P7);

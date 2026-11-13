@@ -55,4 +55,5 @@ them, and re-reads the vault's README map sections at the start of every task.
 | ID | Decision | Source |
 |---|---|---|
 | P25 | Story-driven map changes may arrive as geography change requests from the narrative skill (`arpg-narrative`, the ChatGPT/Codex skill in ARPG's `.agents/skills`, and the planned Claude Writer role). The cartographer checks each against the geology, then implements it as ops or says why not. | ARPGMapTools CLAUDE.md, 13 Nov 2026 |
+| P27 | Gaea Community is used non-commercially: the map and its Gaea terrain are dev visualization that never ships. | George, 13 Nov 2026 ("my call is that we aren't using it for commercial use") |
 | P26 | The skill lives in ARPGMapTools; the studio's roster (ARPG `Docs/Studio/ROSTER.md`) gets an entry, and its one file in the ARPG repo is the act's zone-graph handoff doc. Built by the studio method (research, build brief, build, blind baseline test, George approves the rules, roster). | George, 13 Nov 2026 |

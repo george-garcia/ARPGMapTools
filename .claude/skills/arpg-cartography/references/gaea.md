@@ -49,7 +49,7 @@ geology in `geography.md`: tune them in Gaea, and record what worked in §8. Rul
 - **GA9. Community edition limits:** builds max out at 1024²; no Regions, no automation, variables or macros (those are
   Professional / Indie). Whether `Gaea.Swarm.exe --Filename` builds a Community file is untested: don't depend on the
   command line. **Licence:** Community is for non-commercial use (EULA §1.4.1; the FAQ: commercial use isn't allowed);
-  whether pre-production for a game he intends to sell counts is **George's call** (open question). *DEV F5.5–F5.7.*
+  George's call (13 Nov 2026, P27): our use is non-commercial — dev visualization that never ships. *DEV F5.5–F5.7; PROJECT P27.*
 - **GA10. Pin Gaea 2.3.1.0** like Azgaar (P4); the project records its version. Builds go to a predictable folder
   ("maintain a static folder with the latest copy"; copy the `.terrain` into the build). *DEV F5.9–F5.10.*
 - **GA11. Eras:** one project per era, or one scripted path switch; paths are absolute today
