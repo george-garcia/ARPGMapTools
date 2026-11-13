@@ -11,3 +11,4 @@
   and era-geology checks in `review.md`; environment-art fields in the handoff (palette, real-world hook analogue, light)
   and H25 (rules in words for the studio); clean bearing rounding in `zone_graph.mjs`.
 - **Provenance:** `../../research/cartography/provenance-check.md` (20 rules: 12 pass, 8 fixed).
+- **Round 2 (Gaea):** `../round-2/README.md` (skill 9.0 vs baseline 6.5).

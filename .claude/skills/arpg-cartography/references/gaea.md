@@ -37,7 +37,14 @@ geology in `geography.md`: tune them in Gaea, and record what worked in §8. Rul
   omitted.** Keep `$id`s unique (renumber after inserting), keep each node's `Version`, set enums by their exact text,
   keep the terrain `Ratio` = Height / Width. *OBSERVED/DEV F5.1, F5.3.*
 - **GA6. Learn a property name by saving it:** change the one value in the UI, save, diff against git, record the name in
-  §7. UI labels are not file names; documented names are candidates until a save confirms them. *PROJECT F5.2.*
+  §7. UI labels are not file names; documented names are candidates until a save confirms them. *PROJECT F5.2.* After a
+  JSON edit, ask George to open the copy and **Save As without changing anything**, then diff: a property that vanished
+  was a wrong name or a default value. *INFERRED, round 2.*
+- **GA6b. Write only what you can justify, safest first:** names confirmed by George's saves (§7) first; then names seen
+  in real Gaea 2 saves on GitHub; then names from QuadSpinner's `Gaea2-Docs` property lists or a schema read out of the
+  node library (e.g. the `gaea2-mcp` project) — each marked in the plan with its confidence and link. **Leave unconfirmed
+  Float2, Color, gradient and list values unset** (a wrong shape can stop the file loading) and never write an enum as
+  a number. *OBSERVED round 2; COMMUNITY reports.*
 - **GA7. The working loop is edit the JSON → George reopens (Ctrl+O) → File nodes re-read their inputs** (F5 refreshes a
   node; right-click for "Refresh all nodes"). UI clicking is for learning names and looking, not for building graphs.
   *PROJECT F5.4.*
@@ -75,9 +82,12 @@ geology in `geography.md`: tune them in Gaea, and record what worked in §8. Rul
 
 1. Inputs: `File` heights; `File` per mask used.
 2. Clean the heights lightly (Blur 1 px or Denoise) so facets don't drive gullies. *F1.9.*
+2b. **Structural branches before erosion:** fault benches and strata on the escarpment (Terraces / Stratify under its
+   mask) go in here, so erosion breaks the ledges up the way weathering does; surface detail comes after erosion.
+   *INFERRED from round 2 (the baseline did this well); DEV F2.7 for surface-after.*
 3. One macro **Erosion2**: large Erosion Scale, short Duration, low Downcutting; its **Precipitation** input fed with the
    inverse of `gaea-protect`, so no rain starts on the pan or lakes. *DEV F2.3, F2.5.*
-4. Landform branches in drawing order (escarpment → basalt → fans and washes → terraces and gypsum → pan → acid dome →
+4. Landform branches in drawing order (basalt → fans and washes → terraces and gypsum → pan → acid dome →
    volcano → city and roads), each as `effect → Mask node (second input = the branch input) with its prepared mask`.
    Prefer Mask nodes to mask ports. Use Surface nodes, not more erosion, to add detail. *DEV F2.6–F2.7.*
 5. A light Thermal2 and small-scale Erosion2 to unify.
@@ -125,12 +135,20 @@ names from config. *F rec. 9.*
 
 Add a row for every new name, with the date (GA6).
 
+**Candidates, not yet confirmed by George's save** (seen in real Gaea 2 saves or schemas during round 2; confirm before
+relying on them): the Mask node's second input is `In2`; Slope's range is saved as `{X, Y}` in degrees while Height's
+range is 0–1; Combine's Output is saved as `Clamp`; Terraces' step count as `NumTerraces`.
+
 ## 8. Checks
 
-- **GA15. Numbers first:** after a build, load the exported Heights EXR and the input `heightfield.r32` (both 0–1, 1024²)
-  and compute per mask: |Δh| inside the shrunk protect mask (≈ 0), height spread inside each shrunk lake (≈ 0), the pan
+- **GA15. Numbers first:** run `scripts/gaea_check_heights.py --export world/build/gaea/<era>-act1 --built <Heights
+  output> --terrain tools/gaea/<tile>.terrain [--colour <Colour output>]` (exit 0 pass, 1 fail, 2 unreadable). It compares
+  the build **with the export** (so today's map faults don't bury new damage), and computes per mask: |Δh| inside the shrunk protect mask (≈ 0), height spread inside each shrunk lake (≈ 0), the pan
   minimum (still the lowest land, P19), the maximum cut on the escarpment and shelf, the share of pixels changed by more
   than a threshold. *INFERRED F6.2.*
+- **GA15b. Colours separate:** neighbouring zones' colours differ (a colour-difference test, e.g. ΔE > 15) and the acid
+  field has the highest chroma on the tile; today the washes (#B85D23) and acid ground (#C8661E) are near twins (ΔE ≈ 8).
+  *OBSERVED round 2.*
 - **GA16. Then eyes:** the same view in the repo's terrain viewer and Azgaar's 3D, and a top-down Shade against the map
   screenshot of the same box; before and after, both eras (P9). The reference overview is mood only (P6). *F6.3.*
 - **GA17. Failure modes** (F6.4): erosion eating protected ground (rain mask + restore with shrunk masks); pools with
