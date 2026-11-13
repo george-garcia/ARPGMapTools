@@ -59,7 +59,7 @@ from `define_style_group`; `add_burg` drops Azgaar's auto-linked trails, so ever
 Markers, labels and notes: `eras/now/60-markers-labels.json` names the landforms with `add_label` (Azgaar's "added" label
 group, restyled and shown from zoom 3 to 40, since Azgaar hides it past 5.5 by default), places markers for the caravan escape
 (zone 01), the active volcano, the Acid Pits and the Dead Spring, and hangs the region note (status, locked anchors, the
-provisional 19-section scaffold and links to Notion) on the "Rift Basin" label. Every name is tagged `[placeholder]`.
+provisional 19-section scaffold and links to the story bible, ARPGStoryBible) on the "Rift Basin" label. Every name is tagged `[placeholder]`.
 
 `eras/now/00-climate.json` applies the present-day drought with `set_climate`; the before era keeps the natural climate from `config.json`.
 
