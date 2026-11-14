@@ -108,26 +108,26 @@
   {
     "id": "act1.wash.braid",
     "tool": "add_route",
-    "note": "Western braid of the main wash",
+    "note": "Western braid of the main wash, leaving and rejoining it inside its cut channel (W3)",
     "args": {
       "frame": "act1",
       "group": "washes",
       "points": [
         [
           0.535,
-          0.42
+          0.43
         ],
         [
-          0.505,
-          0.47
+          0.522,
+          0.48
         ],
         [
-          0.515,
+          0.534,
           0.53
         ],
         [
-          0.55,
-          0.58
+          0.558,
+          0.565
         ]
       ]
     }
@@ -135,26 +135,30 @@
   {
     "id": "act1.wash.terraces",
     "tool": "add_route",
-    "note": "Branch through the fossil-terrace gap out to the salt flats",
+    "note": "Branch through the fossil-terrace gap out to the salt pan, kept in the cut channel so it runs downhill all the way (W3)",
     "args": {
       "frame": "act1",
       "group": "washes",
       "points": [
         [
-          0.54,
-          0.37
+          0.535,
+          0.4
+        ],
+        [
+          0.57,
+          0.44
         ],
         [
           0.6,
-          0.455
+          0.47
         ],
         [
           0.67,
-          0.47
+          0.485
         ],
         [
           0.73,
-          0.47
+          0.475
         ],
         [
           0.79,
@@ -163,6 +167,10 @@
         [
           0.85,
           0.5
+        ],
+        [
+          0.885,
+          0.505
         ]
       ]
     }
@@ -282,35 +290,6 @@
       "subtype": "salt",
       "group": "mineral",
       "name": "[placeholder] Teal mineral pool"
-    }
-  },
-  {
-    "id": "act1.lakes.lava",
-    "tool": "set_lakes",
-    "note": "Small, fluctuating summit lava lake; not the source of the acid",
-    "args": {
-      "frame": "act1",
-      "polygon": [
-        [
-          0.8,
-          0.02
-        ],
-        [
-          0.88,
-          0.02
-        ],
-        [
-          0.88,
-          0.12
-        ],
-        [
-          0.8,
-          0.12
-        ]
-      ],
-      "subtype": "lava",
-      "group": "lava",
-      "name": "Summit Lava Lake"
     }
   }
 ]

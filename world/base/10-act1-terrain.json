@@ -217,7 +217,7 @@
   {
     "id": "act1.highlands",
     "tool": "sculpt",
-    "note": "Escarpment top: the plateau's raised lip along the basin, highest where it breaks off",
+    "note": "Escarpment top: the plateau's raised lip along the basin, highest where it breaks off; its steep face runs on south-west along the Caravan pass to the pass mouth, so the pass is a defile and not a way up onto the plateau (P29)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -267,10 +267,26 @@
         ],
         [
           -0.02,
-          0.82
+          0.78
         ],
         [
-          -0.22,
+          -0.12,
+          0.83
+        ],
+        [
+          -0.24,
+          0.885
+        ],
+        [
+          -0.36,
+          0.93
+        ],
+        [
+          -0.42,
+          0.89
+        ],
+        [
+          -0.3,
           0.8
         ],
         [
@@ -354,57 +370,9 @@
     }
   },
   {
-    "id": "act1.rim.north",
-    "tool": "sculpt",
-    "note": "North rim between the plateau and the volcano, closing the basin and leading into the range's foothills",
-    "args": {
-      "frame": "act1",
-      "polygon": [
-        [
-          0.5,
-          -0.16
-        ],
-        [
-          0.68,
-          -0.2
-        ],
-        [
-          0.85,
-          -0.12
-        ],
-        [
-          1.0,
-          -0.15
-        ],
-        [
-          1.02,
-          0.02
-        ],
-        [
-          0.85,
-          0.06
-        ],
-        [
-          0.68,
-          0.03
-        ],
-        [
-          0.5,
-          0.07
-        ]
-      ],
-      "op": "set",
-      "value": 45,
-      "feather_km": 5,
-      "edge_noise_km": 4,
-      "noise_km": 3,
-      "seed": 206
-    }
-  },
-  {
     "id": "act1.rim.east",
     "tool": "sculpt",
-    "note": "East block: a narrow horst on the basin's east side (the Danakil Alps' role), with spurs falling away eastward",
+    "note": "East block: a narrow horst on the basin's east side (the Danakil Alps' role), with spurs falling away eastward; its inner face steps in and out (two re-entrants for fans, one spur) instead of running ruler-straight (G3, A1)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -453,38 +421,146 @@
           1.04
         ],
         [
-          0.94,
-          0.95
+          0.97,
+          0.96
         ],
         [
-          0.96,
-          0.78
+          0.99,
+          0.79
+        ],
+        [
+          0.985,
+          0.7
+        ],
+        [
+          1.03,
+          0.67
+        ],
+        [
+          1.03,
+          0.6
+        ],
+        [
+          0.975,
+          0.575
         ],
         [
           0.955,
-          0.55
+          0.47
         ],
         [
-          0.965,
-          0.35
+          0.975,
+          0.37
         ],
         [
-          0.95,
-          0.18
+          1.035,
+          0.335
+        ],
+        [
+          1.03,
+          0.27
+        ],
+        [
+          0.975,
+          0.245
+        ],
+        [
+          0.96,
+          0.17
         ]
       ],
       "op": "set",
       "value": 47,
       "feather_km": 5,
-      "edge_noise_km": 6,
+      "edge_noise_km": 4,
       "noise_km": 3,
       "seed": 207
     }
   },
   {
-    "id": "act1.rim.south",
+    "id": "act1.rim.east.crest-north",
     "tool": "sculpt",
-    "note": "South rim hills, broken by spurs and sloping south into the continent's desert",
+    "note": "East horst, north segment: a lower block where the horst runs into the north fault block, so the two are separate steps and not one ramp (crests vary by fault segment, G3)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.95,
+          0.03
+        ],
+        [
+          1.12,
+          -0.02
+        ],
+        [
+          1.17,
+          0.1
+        ],
+        [
+          1.14,
+          0.25
+        ],
+        [
+          1.04,
+          0.255
+        ],
+        [
+          0.975,
+          0.22
+        ]
+      ],
+      "op": "lower",
+      "value": 4,
+      "feather_km": 4,
+      "edge_noise_km": 3,
+      "noise_km": 3,
+      "seed": 260
+    }
+  },
+  {
+    "id": "act1.rim.east.crest-south",
+    "tool": "sculpt",
+    "note": "East horst, south segment: a lower block stepped back from the middle one (G3)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          1.0,
+          0.7
+        ],
+        [
+          1.12,
+          0.7
+        ],
+        [
+          1.16,
+          0.86
+        ],
+        [
+          1.1,
+          1.0
+        ],
+        [
+          1.0,
+          1.0
+        ],
+        [
+          0.985,
+          0.82
+        ]
+      ],
+      "op": "lower",
+      "value": 3,
+      "feather_km": 4,
+      "edge_noise_km": 3,
+      "noise_km": 3,
+      "seed": 261
+    }
+  },
+  {
+    "id": "act1.rim.south.west",
+    "tool": "sculpt",
+    "note": "South rim, west segment: the higher fault block, inner face at about y 0.90 (G3, A1)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -494,51 +570,27 @@
         ],
         [
           0.1,
-          0.93
+          0.925
         ],
         [
           0.22,
-          0.91
+          0.905
         ],
         [
-          0.35,
-          0.94
+          0.34,
+          0.925
+        ],
+        [
+          0.44,
+          0.915
         ],
         [
           0.5,
-          0.92
+          0.96
         ],
         [
-          0.63,
-          0.95
-        ],
-        [
-          0.78,
-          0.92
-        ],
-        [
-          0.92,
-          0.95
-        ],
-        [
-          1.04,
-          1.04
-        ],
-        [
-          0.9,
-          1.1
-        ],
-        [
-          0.78,
-          1.18
-        ],
-        [
-          0.6,
-          1.12
-        ],
-        [
-          0.45,
-          1.2
+          0.49,
+          1.08
         ],
         [
           0.3,
@@ -554,11 +606,107 @@
         ]
       ],
       "op": "set",
-      "value": 47,
+      "value": 50,
       "feather_km": 5,
-      "edge_noise_km": 6,
+      "edge_noise_km": 5,
       "noise_km": 3,
       "seed": 208
+    }
+  },
+  {
+    "id": "act1.rim.south.east",
+    "tool": "sculpt",
+    "note": "South rim, east segment: a lower block stepped back about 4 km south of the west one (en echelon, G3, A1)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.42,
+          0.99
+        ],
+        [
+          0.55,
+          0.98
+        ],
+        [
+          0.7,
+          0.995
+        ],
+        [
+          0.85,
+          0.98
+        ],
+        [
+          0.96,
+          0.955
+        ],
+        [
+          1.06,
+          1.04
+        ],
+        [
+          0.92,
+          1.12
+        ],
+        [
+          0.78,
+          1.18
+        ],
+        [
+          0.6,
+          1.13
+        ],
+        [
+          0.45,
+          1.2
+        ],
+        [
+          0.38,
+          1.1
+        ]
+      ],
+      "op": "set",
+      "value": 45,
+      "feather_km": 5,
+      "edge_noise_km": 5,
+      "noise_km": 3,
+      "seed": 262
+    }
+  },
+  {
+    "id": "act1.rim.south.relay",
+    "tool": "sculpt",
+    "note": "Relay ramp where the two south-rim segments overlap: a saddle in the crest, still above the Caravan pass so the basin stays closed (G3, G29)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.43,
+          0.94
+        ],
+        [
+          0.5,
+          0.955
+        ],
+        [
+          0.52,
+          1.02
+        ],
+        [
+          0.45,
+          1.03
+        ],
+        [
+          0.41,
+          0.98
+        ]
+      ],
+      "op": "set",
+      "value": 42,
+      "feather_km": 2.5,
+      "edge_noise_km": 1.5,
+      "noise_km": 2.5,
+      "seed": 263
     }
   },
   {
@@ -593,9 +741,153 @@
     }
   },
   {
+    "id": "act1.falls-valley.1",
+    "tool": "sculpt",
+    "note": "Falls stream valley, upper plateau: graded so the stream runs downhill from its source to the falls (G7, G13); the head of the city's climb onto the plateau (P28)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          -0.281,
+          -0.1054
+        ],
+        [
+          -0.2607,
+          -0.0882
+        ],
+        [
+          -0.1105,
+          0.032
+        ],
+        [
+          -0.0895,
+          -0.032
+        ],
+        [
+          -0.2393,
+          -0.1518
+        ],
+        [
+          -0.259,
+          -0.1686
+        ]
+      ],
+      "op": "set",
+      "value": 57,
+      "feather_km": 2,
+      "edge_noise_km": 0.8,
+      "noise_km": 2,
+      "seed": 250
+    }
+  },
+  {
+    "id": "act1.falls-valley.2",
+    "tool": "sculpt",
+    "note": "Falls stream valley, mid plateau",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          -0.109,
+          0.0331
+        ],
+        [
+          0.041,
+          0.1331
+        ],
+        [
+          0.059,
+          0.0669
+        ],
+        [
+          -0.091,
+          -0.0331
+        ]
+      ],
+      "op": "set",
+      "value": 56,
+      "feather_km": 2,
+      "edge_noise_km": 0.8,
+      "noise_km": 2,
+      "seed": 251
+    }
+  },
+  {
+    "id": "act1.falls-valley.3",
+    "tool": "sculpt",
+    "note": "Falls stream valley, cut through the escarpment's raised lip",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.0386,
+          0.1312
+        ],
+        [
+          0.1286,
+          0.2112
+        ],
+        [
+          0.1514,
+          0.1488
+        ],
+        [
+          0.0614,
+          0.0688
+        ]
+      ],
+      "op": "set",
+      "value": 55,
+      "feather_km": 2,
+      "edge_noise_km": 0.8,
+      "noise_km": 2,
+      "seed": 252
+    }
+  },
+  {
+    "id": "act1.falls-valley.4",
+    "tool": "sculpt",
+    "note": "Falls stream valley, the notch above the gorge (the falls has cut back into the scarp, G13)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.1262,
+          0.2088
+        ],
+        [
+          0.1839,
+          0.2757
+        ],
+        [
+          0.1889,
+          0.2861
+        ],
+        [
+          0.2251,
+          0.2419
+        ],
+        [
+          0.2161,
+          0.2243
+        ],
+        [
+          0.1538,
+          0.1512
+        ]
+      ],
+      "op": "set",
+      "value": 54,
+      "feather_km": 1.5,
+      "edge_noise_km": 0.8,
+      "noise_km": 2,
+      "seed": 253
+    }
+  },
+  {
     "id": "act1.basin",
     "tool": "sculpt",
-    "note": "Basin floor: an irregular rift trough carved into the shoulders, sharp along the escarpment",
+    "note": "Basin floor: an irregular rift trough carved into the shoulders, sharp along the escarpment; its south and east edges follow the offset rim segments and re-entrants (A1)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -621,51 +913,91 @@
         ],
         [
           0.6,
-          0.08
+          0.085
         ],
         [
           0.75,
-          0.05
+          0.06
         ],
         [
           0.88,
-          0.07
+          0.08
+        ],
+        [
+          0.945,
+          0.17
+        ],
+        [
+          0.958,
+          0.255
+        ],
+        [
+          1.005,
+          0.28
+        ],
+        [
+          1.012,
+          0.325
+        ],
+        [
+          0.962,
+          0.355
         ],
         [
           0.94,
-          0.16
+          0.43
         ],
         [
-          0.945,
-          0.4
+          0.938,
+          0.5
         ],
         [
-          0.935,
-          0.62
+          0.952,
+          0.575
         ],
         [
-          0.945,
-          0.76
+          0.998,
+          0.6
         ],
         [
-          0.9,
-          0.87
+          1.005,
+          0.655
+        ],
+        [
+          0.968,
+          0.685
+        ],
+        [
+          0.975,
+          0.78
+        ],
+        [
+          0.955,
+          0.88
+        ],
+        [
+          0.92,
+          0.935
         ],
         [
           0.8,
-          0.9
+          0.955
         ],
         [
           0.66,
-          0.86
+          0.945
         ],
         [
-          0.55,
-          0.9
+          0.5,
+          0.95
         ],
         [
-          0.45,
-          0.855
+          0.44,
+          0.92
+        ],
+        [
+          0.42,
+          0.875
         ],
         [
           0.33,
@@ -693,9 +1025,9 @@
     }
   },
   {
-    "id": "act1.caravan-pass",
+    "id": "act1.caravan-pass.outer",
     "tool": "sculpt",
-    "note": "Caravan Approach: the one low pass through the south-west rim, opening out to the lowland",
+    "note": "Caravan Approach, outer limb: falls from the col to the lowland",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -708,8 +1040,40 @@
           0.85
         ],
         [
-          0.0,
-          0.8
+          -0.08,
+          0.829
+        ],
+        [
+          -0.08,
+          0.979
+        ],
+        [
+          -0.1,
+          0.99
+        ],
+        [
+          -0.32,
+          1.06
+        ]
+      ],
+      "op": "set",
+      "value": 36,
+      "feather_km": 1.5,
+      "edge_noise_km": 1,
+      "noise_km": 2.5,
+      "seed": 264
+    }
+  },
+  {
+    "id": "act1.caravan-pass.inner",
+    "tool": "sculpt",
+    "note": "Caravan Approach, inner limb: falls from the col to the basin floor",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.05,
+          0.746
         ],
         [
           0.13,
@@ -724,12 +1088,44 @@
           0.9
         ],
         [
-          -0.1,
-          0.99
+          0.05,
+          0.906
+        ]
+      ],
+      "op": "set",
+      "value": 36,
+      "feather_km": 1.5,
+      "edge_noise_km": 1,
+      "noise_km": 2.5,
+      "seed": 265
+    }
+  },
+  {
+    "id": "act1.caravan-pass",
+    "tool": "sculpt",
+    "note": "Caravan Approach: the one low pass through the south-west rim; its col (400 m) is the basin's lowest exit, with the ground falling both ways (G29, P-b)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          -0.08,
+          0.829
         ],
         [
-          -0.32,
-          1.06
+          0.0,
+          0.8
+        ],
+        [
+          0.05,
+          0.746
+        ],
+        [
+          0.05,
+          0.906
+        ],
+        [
+          -0.08,
+          0.979
         ]
       ],
       "op": "set",
@@ -787,7 +1183,7 @@
   {
     "id": "act1.upper-city-shelf",
     "tool": "sculpt",
-    "note": "Upper-city shelf: a bench cut into the escarpment just east of the falls, directly overlooking the Slums",
+    "note": "Upper-city shelf: a bench cut into the escarpment just east of the gorge, directly overlooking the Slums, at the head of the only graded climb onto the plateau (P21, P28)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -817,32 +1213,211 @@
     }
   },
   {
-    "id": "act1.falls-slot",
+    "id": "act1.falls-gorge.1",
     "tool": "sculpt",
-    "note": "The falls' slot: a notch in the escarpment where the stream drops to the Slums",
+    "note": "Falls gorge, head, below the notch: the stream's cut through the escarpment steps down in cascades with no uphill step (G7, G13), and the road climbs beside it: the only graded climb from the basin onto the plateau (P28)",
     "args": {
       "frame": "act1",
       "polygon": [
         [
-          0.215,
-          0.3
+          0.1921,
+          0.2738
         ],
         [
-          0.245,
-          0.3
+          0.2131,
+          0.3298
         ],
         [
-          0.245,
-          0.41
+          0.2389,
+          0.3062
         ],
         [
-          0.215,
-          0.41
+          0.2179,
+          0.2502
         ]
       ],
       "op": "set",
-      "value": 46,
-      "feather_km": 0.6
+      "value": 52,
+      "feather_km": 0.8,
+      "edge_noise_km": 0.5,
+      "noise_km": 2,
+      "seed": 266
+    }
+  },
+  {
+    "id": "act1.falls-gorge.2",
+    "tool": "sculpt",
+    "note": "Falls gorge, beside the upper-city shelf (the city's intake): the stream's cut through the escarpment steps down in cascades with no uphill step (G7, G13), and the road climbs beside it: the only graded climb from the basin onto the plateau (P28)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.2115,
+          0.3238
+        ],
+        [
+          0.2175,
+          0.3608
+        ],
+        [
+          0.2465,
+          0.3492
+        ],
+        [
+          0.2405,
+          0.3122
+        ]
+      ],
+      "op": "set",
+      "value": 50,
+      "feather_km": 0.8,
+      "edge_noise_km": 0.5,
+      "noise_km": 2,
+      "seed": 267
+    }
+  },
+  {
+    "id": "act1.falls-gorge.3",
+    "tool": "sculpt",
+    "note": "Falls gorge, middle: the stream's cut through the escarpment steps down in cascades with no uphill step (G7, G13), and the road climbs beside it: the only graded climb from the basin onto the plateau (P28)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.2174,
+          0.3601
+        ],
+        [
+          0.2224,
+          0.3951
+        ],
+        [
+          0.2516,
+          0.3849
+        ],
+        [
+          0.2466,
+          0.3499
+        ]
+      ],
+      "op": "set",
+      "value": 47,
+      "feather_km": 0.8,
+      "edge_noise_km": 0.5,
+      "noise_km": 2,
+      "seed": 268
+    }
+  },
+  {
+    "id": "act1.falls-gorge.4",
+    "tool": "sculpt",
+    "note": "Falls gorge, mouth, where the falls drop to the Slums: the stream's cut through the escarpment steps down in cascades with no uphill step (G7, G13), and the road climbs beside it: the only graded climb from the basin onto the plateau (P28)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.2233,
+          0.3996
+        ],
+        [
+          0.2313,
+          0.4276
+        ],
+        [
+          0.2587,
+          0.4084
+        ],
+        [
+          0.2507,
+          0.3804
+        ]
+      ],
+      "op": "set",
+      "value": 44,
+      "feather_km": 0.8,
+      "edge_noise_km": 0.5,
+      "noise_km": 2,
+      "seed": 269
+    }
+  },
+  {
+    "id": "act1.bench.south-1",
+    "tool": "sculpt",
+    "note": "Escarpment bench south of the Slums terrace: the master fault steps down in two (G2, A5)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.075,
+          0.47
+        ],
+        [
+          0.115,
+          0.47
+        ],
+        [
+          0.125,
+          0.55
+        ],
+        [
+          0.12,
+          0.64
+        ],
+        [
+          0.08,
+          0.645
+        ],
+        [
+          0.07,
+          0.56
+        ]
+      ],
+      "op": "set",
+      "value": 47,
+      "feather_km": 1.5,
+      "edge_noise_km": 1.5,
+      "noise_km": 2.5,
+      "seed": 270
+    }
+  },
+  {
+    "id": "act1.bench.south-2",
+    "tool": "sculpt",
+    "note": "Escarpment bench on the Caravan pass's north-west wall: a second fault step between the pass and the plateau (G2, A5)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.055,
+          0.675
+        ],
+        [
+          0.085,
+          0.695
+        ],
+        [
+          0.0,
+          0.77
+        ],
+        [
+          -0.1,
+          0.83
+        ],
+        [
+          -0.13,
+          0.81
+        ],
+        [
+          -0.03,
+          0.75
+        ]
+      ],
+      "op": "set",
+      "value": 47,
+      "feather_km": 1,
+      "edge_noise_km": 1,
+      "noise_km": 2.5,
+      "seed": 291
     }
   },
   {
@@ -928,7 +1503,7 @@
   {
     "id": "act1.dead-spring",
     "tool": "sculpt",
-    "note": "Dead Spring hollow",
+    "note": "Dead Spring hollow: a shallow fan-toe hollow well above the pan, so its pools never tie the brine pools (P19, G10, G12)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -1005,15 +1580,15 @@
           0.7429
         ]
       ],
-      "op": "lower",
-      "value": 3,
+      "op": "set",
+      "value": 30,
       "feather_km": 3
     }
   },
   {
     "id": "act1.basalt.a",
     "tool": "sculpt",
-    "note": "Basalt lobe",
+    "note": "Basalt lobe (its south-east toe now ends at the widened salt pan's north-east arm)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -1022,20 +1597,24 @@
           0.1
         ],
         [
-          0.86,
-          0.14
+          0.82,
+          0.16
         ],
         [
-          0.84,
-          0.3
+          0.76,
+          0.215
         ],
         [
-          0.7,
-          0.38
+          0.69,
+          0.26
         ],
         [
-          0.6,
-          0.34
+          0.63,
+          0.31
+        ],
+        [
+          0.59,
+          0.33
         ],
         [
           0.68,
@@ -1119,173 +1698,741 @@
     }
   },
   {
-    "id": "act1.volcano",
+    "id": "act1.rim.north",
     "tool": "sculpt",
-    "note": "Active volcano",
+    "note": "North rim, raised into one fault block from the plateau's east edge past the volcano to the east horst, merging north into the central range's foothills. Drawn after the basin carve with a sharp edge so its south face is a continuous scarp with no graded way up: the city's ramp is the only practical climb onto the plateau (P29, P28; G1-G2)",
     "args": {
       "frame": "act1",
       "polygon": [
         [
-          0.89,
+          0.42,
+          -0.34
+        ],
+        [
+          0.68,
+          -0.38
+        ],
+        [
+          0.86,
+          -0.32
+        ],
+        [
+          1.02,
+          -0.26
+        ],
+        [
+          1.16,
+          -0.2
+        ],
+        [
+          1.17,
+          -0.02
+        ],
+        [
+          1.1,
+          0.06
+        ],
+        [
+          1.02,
+          0.1
+        ],
+        [
+          0.965,
+          0.13
+        ],
+        [
+          0.925,
+          0.135
+        ],
+        [
+          0.9,
+          0.12
+        ],
+        [
+          0.775,
           0.07
         ],
         [
-          0.887,
-          0.0967
+          0.75,
+          0.09
         ],
         [
-          0.8783,
-          0.1202
+          0.68,
+          0.1
         ],
         [
-          0.865,
-          0.1377
+          0.61,
+          0.118
         ],
         [
-          0.8487,
-          0.1469
+          0.565,
+          0.155
         ],
         [
-          0.8313,
-          0.1469
+          0.535,
+          0.215
         ],
         [
-          0.815,
-          0.1377
+          0.47,
+          0.245
         ],
         [
-          0.8017,
-          0.1202
-        ],
-        [
-          0.793,
-          0.0967
-        ],
-        [
-          0.79,
-          0.07
-        ],
-        [
-          0.793,
-          0.0433
-        ],
-        [
-          0.8017,
-          0.0198
-        ],
-        [
-          0.815,
-          0.0023
-        ],
-        [
-          0.8313,
-          -0.0069
-        ],
-        [
-          0.8487,
-          -0.0069
-        ],
-        [
-          0.865,
-          0.0023
-        ],
-        [
-          0.8783,
-          0.0198
-        ],
-        [
-          0.887,
-          0.0433
+          0.44,
+          0.1
         ]
       ],
       "op": "set",
-      "value": 66,
-      "feather_km": 6
+      "value": 56,
+      "feather_km": 0.3,
+      "edge_noise_km": 1.5,
+      "noise_km": 3,
+      "seed": 206
     }
   },
   {
-    "id": "act1.volcano.crater",
+    "id": "act1.roughen.north",
     "tool": "sculpt",
-    "note": "Summit crater",
+    "note": "Relief on the north fault block, kept above its scarp foot (clamped) so the scarp stays a scarp",
     "args": {
       "frame": "act1",
       "polygon": [
         [
-          0.852,
+          0.42,
+          -0.34
+        ],
+        [
+          0.68,
+          -0.38
+        ],
+        [
+          0.86,
+          -0.32
+        ],
+        [
+          1.02,
+          -0.26
+        ],
+        [
+          1.16,
+          -0.2
+        ],
+        [
+          1.17,
+          -0.02
+        ],
+        [
+          1.1,
+          0.06
+        ],
+        [
+          1.02,
+          0.1
+        ],
+        [
+          0.965,
+          0.13
+        ],
+        [
+          0.925,
+          0.135
+        ],
+        [
+          0.9,
+          0.12
+        ],
+        [
+          0.775,
           0.07
         ],
         [
-          0.8513,
-          0.0764
+          0.75,
+          0.09
         ],
         [
-          0.8492,
-          0.0821
+          0.68,
+          0.1
         ],
         [
-          0.846,
-          0.0862
+          0.61,
+          0.118
         ],
         [
-          0.8421,
-          0.0885
+          0.565,
+          0.155
         ],
         [
-          0.8379,
-          0.0885
+          0.535,
+          0.215
         ],
         [
-          0.834,
-          0.0862
+          0.47,
+          0.245
         ],
         [
-          0.8308,
-          0.0821
-        ],
+          0.44,
+          0.1
+        ]
+      ],
+      "op": "roughen",
+      "value": 4,
+      "feather_km": 0,
+      "noise_km": 4,
+      "seed": 280,
+      "clamp": [
+        55,
+        100
+      ]
+    }
+  },
+  {
+    "id": "act1.volcano",
+    "tool": "sculpt",
+    "note": "Active volcano: a cone built as stacked concentric sets drawn in km, replacing the flat table and its 2 km lava-lake shaft (A3, G4, G34). It stands on the north fault block, whose scarp is its steep foot (r 7.5 km), so the cone gives no graded way up onto the rim (P29); a tall lone stratovolcano off the rift axis is a recorded look choice from the vault's layout (P18, P8). The summit lava lake is the marker's note, not a pit (sub-cell, G34)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
         [
-          0.8287,
-          0.0764
-        ],
-        [
-          0.828,
+          0.915,
           0.07
         ],
         [
-          0.8287,
-          0.0636
+          0.9124,
+          0.1003
         ],
         [
-          0.8308,
-          0.0579
+          0.905,
+          0.1286
         ],
         [
-          0.834,
-          0.0538
+          0.893,
+          0.1529
         ],
         [
-          0.8379,
-          0.0515
+          0.8775,
+          0.1715
         ],
         [
-          0.8421,
-          0.0515
+          0.8594,
+          0.1832
         ],
         [
-          0.846,
-          0.0538
+          0.84,
+          0.1872
         ],
         [
-          0.8492,
-          0.0579
+          0.8206,
+          0.1832
         ],
         [
-          0.8513,
-          0.0636
+          0.8025,
+          0.1715
+        ],
+        [
+          0.787,
+          0.1529
+        ],
+        [
+          0.775,
+          0.1286
+        ],
+        [
+          0.7676,
+          0.1003
+        ],
+        [
+          0.765,
+          0.07
+        ],
+        [
+          0.7676,
+          0.0397
+        ],
+        [
+          0.775,
+          0.0114
+        ],
+        [
+          0.787,
+          -0.0129
+        ],
+        [
+          0.8025,
+          -0.0315
+        ],
+        [
+          0.8206,
+          -0.0432
+        ],
+        [
+          0.84,
+          -0.0472
+        ],
+        [
+          0.8594,
+          -0.0432
+        ],
+        [
+          0.8775,
+          -0.0315
+        ],
+        [
+          0.893,
+          -0.0129
+        ],
+        [
+          0.905,
+          0.0114
+        ],
+        [
+          0.9124,
+          0.0397
         ]
       ],
       "op": "set",
-      "value": 58,
-      "feather_km": 0.6
+      "value": 54,
+      "feather_km": 0.3,
+      "edge_noise_km": 0.5,
+      "noise_km": 2,
+      "seed": 271
+    }
+  },
+  {
+    "id": "act1.volcano.flank",
+    "tool": "sculpt",
+    "note": "Active volcano, lower flank (r 6 km)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.9,
+          0.07
+        ],
+        [
+          0.898,
+          0.0943
+        ],
+        [
+          0.892,
+          0.1169
+        ],
+        [
+          0.8824,
+          0.1363
+        ],
+        [
+          0.87,
+          0.1512
+        ],
+        [
+          0.8555,
+          0.1606
+        ],
+        [
+          0.84,
+          0.1638
+        ],
+        [
+          0.8245,
+          0.1606
+        ],
+        [
+          0.81,
+          0.1512
+        ],
+        [
+          0.7976,
+          0.1363
+        ],
+        [
+          0.788,
+          0.1169
+        ],
+        [
+          0.782,
+          0.0943
+        ],
+        [
+          0.78,
+          0.07
+        ],
+        [
+          0.782,
+          0.0457
+        ],
+        [
+          0.788,
+          0.0231
+        ],
+        [
+          0.7976,
+          0.0037
+        ],
+        [
+          0.81,
+          -0.0112
+        ],
+        [
+          0.8245,
+          -0.0206
+        ],
+        [
+          0.84,
+          -0.0237
+        ],
+        [
+          0.8555,
+          -0.0206
+        ],
+        [
+          0.87,
+          -0.0112
+        ],
+        [
+          0.8824,
+          0.0037
+        ],
+        [
+          0.892,
+          0.0231
+        ],
+        [
+          0.898,
+          0.0457
+        ]
+      ],
+      "op": "set",
+      "value": 60,
+      "feather_km": 1.0,
+      "edge_noise_km": 0.5,
+      "noise_km": 2,
+      "seed": 272
+    }
+  },
+  {
+    "id": "act1.volcano.upper",
+    "tool": "sculpt",
+    "note": "Active volcano, upper flank (r 4.6 km)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.886,
+          0.07
+        ],
+        [
+          0.8844,
+          0.0886
+        ],
+        [
+          0.8798,
+          0.1059
+        ],
+        [
+          0.8725,
+          0.1208
+        ],
+        [
+          0.863,
+          0.1322
+        ],
+        [
+          0.8519,
+          0.1394
+        ],
+        [
+          0.84,
+          0.1419
+        ],
+        [
+          0.8281,
+          0.1394
+        ],
+        [
+          0.817,
+          0.1322
+        ],
+        [
+          0.8075,
+          0.1208
+        ],
+        [
+          0.8002,
+          0.1059
+        ],
+        [
+          0.7956,
+          0.0886
+        ],
+        [
+          0.794,
+          0.07
+        ],
+        [
+          0.7956,
+          0.0514
+        ],
+        [
+          0.8002,
+          0.0341
+        ],
+        [
+          0.8075,
+          0.0192
+        ],
+        [
+          0.817,
+          0.0078
+        ],
+        [
+          0.8281,
+          0.0006
+        ],
+        [
+          0.84,
+          -0.0019
+        ],
+        [
+          0.8519,
+          0.0006
+        ],
+        [
+          0.863,
+          0.0078
+        ],
+        [
+          0.8725,
+          0.0192
+        ],
+        [
+          0.8798,
+          0.0341
+        ],
+        [
+          0.8844,
+          0.0514
+        ]
+      ],
+      "op": "set",
+      "value": 65,
+      "feather_km": 1.0
+    }
+  },
+  {
+    "id": "act1.volcano.summit",
+    "tool": "sculpt",
+    "note": "Active volcano, summit cone (r 3.2 km)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.872,
+          0.07
+        ],
+        [
+          0.8709,
+          0.0829
+        ],
+        [
+          0.8677,
+          0.095
+        ],
+        [
+          0.8626,
+          0.1054
+        ],
+        [
+          0.856,
+          0.1133
+        ],
+        [
+          0.8483,
+          0.1183
+        ],
+        [
+          0.84,
+          0.12
+        ],
+        [
+          0.8317,
+          0.1183
+        ],
+        [
+          0.824,
+          0.1133
+        ],
+        [
+          0.8174,
+          0.1054
+        ],
+        [
+          0.8123,
+          0.095
+        ],
+        [
+          0.8091,
+          0.0829
+        ],
+        [
+          0.808,
+          0.07
+        ],
+        [
+          0.8091,
+          0.0571
+        ],
+        [
+          0.8123,
+          0.045
+        ],
+        [
+          0.8174,
+          0.0346
+        ],
+        [
+          0.824,
+          0.0267
+        ],
+        [
+          0.8317,
+          0.0217
+        ],
+        [
+          0.84,
+          0.02
+        ],
+        [
+          0.8483,
+          0.0217
+        ],
+        [
+          0.856,
+          0.0267
+        ],
+        [
+          0.8626,
+          0.0346
+        ],
+        [
+          0.8677,
+          0.045
+        ],
+        [
+          0.8709,
+          0.0571
+        ]
+      ],
+      "op": "set",
+      "value": 69,
+      "feather_km": 0.8
+    }
+  },
+  {
+    "id": "act1.volcano.peak",
+    "tool": "sculpt",
+    "note": "Active volcano, summit (r 2 km); smoothed to about h69 (2,600 m), close to the central range's highest (h70)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.86,
+          0.07
+        ],
+        [
+          0.8593,
+          0.0781
+        ],
+        [
+          0.8573,
+          0.0856
+        ],
+        [
+          0.8541,
+          0.0921
+        ],
+        [
+          0.85,
+          0.0971
+        ],
+        [
+          0.8452,
+          0.1002
+        ],
+        [
+          0.84,
+          0.1013
+        ],
+        [
+          0.8348,
+          0.1002
+        ],
+        [
+          0.83,
+          0.0971
+        ],
+        [
+          0.8259,
+          0.0921
+        ],
+        [
+          0.8227,
+          0.0856
+        ],
+        [
+          0.8207,
+          0.0781
+        ],
+        [
+          0.82,
+          0.07
+        ],
+        [
+          0.8207,
+          0.0619
+        ],
+        [
+          0.8227,
+          0.0544
+        ],
+        [
+          0.8259,
+          0.0479
+        ],
+        [
+          0.83,
+          0.0429
+        ],
+        [
+          0.8348,
+          0.0398
+        ],
+        [
+          0.84,
+          0.0388
+        ],
+        [
+          0.8452,
+          0.0398
+        ],
+        [
+          0.85,
+          0.0429
+        ],
+        [
+          0.8541,
+          0.0479
+        ],
+        [
+          0.8573,
+          0.0544
+        ],
+        [
+          0.8593,
+          0.0619
+        ]
+      ],
+      "op": "set",
+      "value": 71,
+      "feather_km": 0.8
     }
   },
   {
@@ -1345,6 +2492,211 @@
         28,
         100
       ]
+    }
+  },
+  {
+    "id": "act1.volcano.smooth",
+    "tool": "sculpt",
+    "note": "Smooths the cone inside its foot (not the foot itself, so its scarp stays sharp) so it reads as one cone, not stacked rings (A3, G34)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.903,
+          0.07
+        ],
+        [
+          0.9009,
+          0.0955
+        ],
+        [
+          0.8946,
+          0.1192
+        ],
+        [
+          0.8845,
+          0.1396
+        ],
+        [
+          0.8715,
+          0.1552
+        ],
+        [
+          0.8563,
+          0.1651
+        ],
+        [
+          0.84,
+          0.1684
+        ],
+        [
+          0.8237,
+          0.1651
+        ],
+        [
+          0.8085,
+          0.1552
+        ],
+        [
+          0.7955,
+          0.1396
+        ],
+        [
+          0.7854,
+          0.1192
+        ],
+        [
+          0.7791,
+          0.0955
+        ],
+        [
+          0.777,
+          0.07
+        ],
+        [
+          0.7791,
+          0.0445
+        ],
+        [
+          0.7854,
+          0.0208
+        ],
+        [
+          0.7955,
+          0.0004
+        ],
+        [
+          0.8085,
+          -0.0152
+        ],
+        [
+          0.8237,
+          -0.0251
+        ],
+        [
+          0.84,
+          -0.0284
+        ],
+        [
+          0.8563,
+          -0.0251
+        ],
+        [
+          0.8715,
+          -0.0152
+        ],
+        [
+          0.8845,
+          0.0004
+        ],
+        [
+          0.8946,
+          0.0208
+        ],
+        [
+          0.9009,
+          0.0445
+        ]
+      ],
+      "op": "smooth",
+      "value": 1,
+      "feather_km": 0
+    }
+  },
+  {
+    "id": "act1.spring-brook.1",
+    "tool": "sculpt",
+    "note": "Spring Brook's channel across the Slums terrace: in the before era the falls stream runs on here to the Spring; today the stream ends at the Slums and the channel is dry (W5, G8)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.2308,
+          0.4539
+        ],
+        [
+          0.2508,
+          0.5589
+        ],
+        [
+          0.2892,
+          0.5411
+        ],
+        [
+          0.2692,
+          0.4361
+        ]
+      ],
+      "op": "set",
+      "value": 38,
+      "feather_km": 1,
+      "edge_noise_km": 0.4,
+      "noise_km": 2.5,
+      "seed": 288
+    }
+  },
+  {
+    "id": "act1.spring-brook.2",
+    "tool": "sculpt",
+    "note": "Spring Brook's channel across the gravel floor",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.2526,
+          0.5654
+        ],
+        [
+          0.2926,
+          0.6754
+        ],
+        [
+          0.3274,
+          0.6446
+        ],
+        [
+          0.2874,
+          0.5346
+        ]
+      ],
+      "op": "set",
+      "value": 35,
+      "feather_km": 1,
+      "edge_noise_km": 0.4,
+      "noise_km": 2.5,
+      "seed": 289
+    }
+  },
+  {
+    "id": "act1.spring-brook.3",
+    "tool": "sculpt",
+    "note": "Spring Brook's channel into the Spring's hollow",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.2942,
+          0.6792
+        ],
+        [
+          0.3342,
+          0.7592
+        ],
+        [
+          0.3658,
+          0.7208
+        ],
+        [
+          0.3258,
+          0.6408
+        ]
+      ],
+      "op": "set",
+      "value": 32,
+      "feather_km": 1,
+      "edge_noise_km": 0.4,
+      "noise_km": 2.5,
+      "seed": 290
     }
   },
   {
@@ -1524,39 +2876,239 @@
     }
   },
   {
-    "id": "act1.salt-pan",
+    "id": "act1.washes.head",
     "tool": "sculpt",
-    "note": "Salt pan: the lowest land in the basin, where every wash ends and salt accumulates",
+    "note": "Main wash's head, a channel off the basalt edge graded down into the wash belt (G7, W3)",
     "args": {
       "frame": "act1",
       "polygon": [
         [
-          0.855,
+          0.5569,
+          0.2613
+        ],
+        [
+          0.5335,
+          0.3207
+        ],
+        [
+          0.52,
+          0.3701
+        ],
+        [
+          0.544,
+          0.3859
+        ],
+        [
+          0.5565,
+          0.3393
+        ],
+        [
+          0.5791,
+          0.2827
+        ]
+      ],
+      "op": "set",
+      "value": 28,
+      "feather_km": 1,
+      "edge_noise_km": 0.6,
+      "noise_km": 2.5,
+      "seed": 287
+    }
+  },
+  {
+    "id": "act1.washes.south.1",
+    "tool": "sculpt",
+    "note": "Main wash's southern limb, cut down to the wash level so it runs downhill to the teal pool (G7, W3)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.519,
+          0.441
+        ],
+        [
+          0.569,
+          0.61
+        ],
+        [
+          0.591,
+          0.594
+        ],
+        [
+          0.541,
+          0.425
+        ]
+      ],
+      "op": "set",
+      "value": 26,
+      "feather_km": 1,
+      "edge_noise_km": 0.6,
+      "noise_km": 2.5,
+      "seed": 254
+    }
+  },
+  {
+    "id": "act1.washes.braid",
+    "tool": "sculpt",
+    "note": "The main wash's western braid, cut to the wash level so it leaves and rejoins the main channel downhill (W3)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.5239,
+          0.4229
+        ],
+        [
+          0.51,
+          0.4797
+        ],
+        [
+          0.524,
+          0.5404
+        ],
+        [
+          0.5498,
+          0.5787
+        ],
+        [
+          0.5662,
+          0.5513
+        ],
+        [
+          0.544,
+          0.5196
+        ],
+        [
+          0.534,
+          0.4803
+        ],
+        [
+          0.5461,
+          0.4371
+        ]
+      ],
+      "op": "set",
+      "value": 26,
+      "feather_km": 1,
+      "edge_noise_km": 0.6,
+      "noise_km": 2.5,
+      "seed": 275
+    }
+  },
+  {
+    "id": "act1.washes.south.2",
+    "tool": "sculpt",
+    "note": "Main wash's mouth at the teal pool",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.558,
+          0.591
+        ],
+        [
+          0.616,
+          0.648
+        ],
+        [
+          0.629,
+          0.616
+        ],
+        [
+          0.571,
+          0.559
+        ]
+      ],
+      "op": "set",
+      "value": 25,
+      "feather_km": 1,
+      "edge_noise_km": 0.6,
+      "noise_km": 2.5,
+      "seed": 255
+    }
+  },
+  {
+    "id": "act1.salt-pan",
+    "tool": "sculpt",
+    "note": "Salt pan: the lowest land in the basin, where every wash ends and salt accumulates; it fills the eastern floor from the volcano's apron to the acid dome and reaches west into the arm between the basalt and the terraces (K-a, P19)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.64,
+          0.325
+        ],
+        [
+          0.67,
+          0.29
+        ],
+        [
+          0.72,
+          0.265
+        ],
+        [
+          0.78,
+          0.24
+        ],
+        [
+          0.83,
+          0.235
+        ],
+        [
+          0.87,
+          0.23
+        ],
+        [
+          0.905,
+          0.22
+        ],
+        [
+          0.945,
           0.2
         ],
         [
-          0.94,
-          0.18
+          0.952,
+          0.3
         ],
         [
-          0.945,
+          0.985,
+          0.315
+        ],
+        [
+          0.955,
+          0.345
+        ],
+        [
+          0.942,
           0.5
         ],
         [
-          0.945,
+          0.95,
+          0.6
+        ],
+        [
+          0.985,
+          0.63
+        ],
+        [
+          0.958,
+          0.66
+        ],
+        [
+          0.95,
           0.84
         ],
         [
           0.86,
-          0.885
+          0.89
         ],
         [
           0.7,
-          0.875
+          0.88
         ],
         [
           0.6,
-          0.845
+          0.85
         ],
         [
           0.6,
@@ -1571,8 +3123,24 @@
           0.585
         ],
         [
-          0.86,
+          0.855,
           0.42
+        ],
+        [
+          0.84,
+          0.37
+        ],
+        [
+          0.775,
+          0.356
+        ],
+        [
+          0.7,
+          0.352
+        ],
+        [
+          0.655,
+          0.355
         ]
       ],
       "op": "set",
@@ -1789,6 +3357,765 @@
       "edge_noise_km": 2,
       "noise_km": 2,
       "seed": 232
+    }
+  },
+  {
+    "id": "act1.spring-outflow.0",
+    "tool": "sculpt",
+    "note": "The Spring's outlet: a short channel from the main pool down to the lower pool (G8, G9: the Spring is fresh because it drains)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.3976,
+          0.8138
+        ],
+        [
+          0.4396,
+          0.8588
+        ],
+        [
+          0.4544,
+          0.8252
+        ],
+        [
+          0.4124,
+          0.7802
+        ]
+      ],
+      "op": "set",
+      "value": 29,
+      "feather_km": 0.8,
+      "edge_noise_km": 0.3,
+      "noise_km": 2.5,
+      "seed": 292
+    }
+  },
+  {
+    "id": "act1.spring-outflow.1",
+    "tool": "sculpt",
+    "note": "The Spring's old outflow channel east to the pan: a stream in the before era, an abandoned wash today (G8, W5)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.4836,
+          0.88
+        ],
+        [
+          0.5486,
+          0.888
+        ],
+        [
+          0.5514,
+          0.832
+        ],
+        [
+          0.4864,
+          0.824
+        ]
+      ],
+      "op": "set",
+      "value": 28,
+      "feather_km": 1,
+      "edge_noise_km": 0.6,
+      "noise_km": 2.5,
+      "seed": 256
+    }
+  },
+  {
+    "id": "act1.spring-outflow.2",
+    "tool": "sculpt",
+    "note": "Outflow channel, middle",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.5486,
+          0.888
+        ],
+        [
+          0.5986,
+          0.894
+        ],
+        [
+          0.6014,
+          0.838
+        ],
+        [
+          0.5514,
+          0.832
+        ]
+      ],
+      "op": "set",
+      "value": 25,
+      "feather_km": 1,
+      "edge_noise_km": 0.6,
+      "noise_km": 2.5,
+      "seed": 257
+    }
+  },
+  {
+    "id": "act1.spring-outflow.3",
+    "tool": "sculpt",
+    "note": "Outflow channel's mouth on the pan's south-west arm",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.5887,
+          0.8878
+        ],
+        [
+          0.6037,
+          0.9068
+        ],
+        [
+          0.6263,
+          0.8632
+        ],
+        [
+          0.6113,
+          0.8442
+        ]
+      ],
+      "op": "set",
+      "value": 23,
+      "feather_km": 1,
+      "edge_noise_km": 0.6,
+      "noise_km": 2.5,
+      "seed": 258
+    }
+  },
+  {
+    "id": "act1.salt-pan.south-west",
+    "tool": "sculpt",
+    "note": "The pan's south-west arm below the acid dome: the playa where the Spring's old outflow ends (G8, G10; kept a cell clear of acid pool d)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.6,
+          0.885
+        ],
+        [
+          0.64,
+          0.878
+        ],
+        [
+          0.672,
+          0.9
+        ],
+        [
+          0.668,
+          0.93
+        ],
+        [
+          0.62,
+          0.932
+        ],
+        [
+          0.59,
+          0.905
+        ]
+      ],
+      "op": "set",
+      "value": 21,
+      "feather_km": 0.8,
+      "edge_noise_km": 0.4,
+      "noise_km": 2.5,
+      "seed": 293
+    }
+  },
+  {
+    "id": "act1.fans.volcano.upper",
+    "tool": "sculpt",
+    "note": "The volcano's south apron, upper: coarse fan ground between the cone and the pan (G16, G17, G-a)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.9234,
+          0.1308
+        ],
+        [
+          0.9085,
+          0.166
+        ],
+        [
+          0.8877,
+          0.1929
+        ],
+        [
+          0.8628,
+          0.2092
+        ],
+        [
+          0.836,
+          0.2136
+        ],
+        [
+          0.8095,
+          0.2056
+        ],
+        [
+          0.7856,
+          0.1859
+        ],
+        [
+          0.7664,
+          0.1563
+        ],
+        [
+          0.7535,
+          0.1192
+        ],
+        [
+          0.7658,
+          0.1122
+        ],
+        [
+          0.7768,
+          0.1441
+        ],
+        [
+          0.7933,
+          0.1695
+        ],
+        [
+          0.8138,
+          0.1864
+        ],
+        [
+          0.8366,
+          0.1933
+        ],
+        [
+          0.8596,
+          0.1896
+        ],
+        [
+          0.881,
+          0.1755
+        ],
+        [
+          0.8988,
+          0.1524
+        ],
+        [
+          0.9116,
+          0.1222
+        ]
+      ],
+      "op": "set",
+      "value": 36,
+      "feather_km": 0.3,
+      "seed": 276
+    }
+  },
+  {
+    "id": "act1.fans.volcano.lower",
+    "tool": "sculpt",
+    "note": "The volcano's south apron, lower: the fan toe grading onto the pan",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.9283,
+          0.1497
+        ],
+        [
+          0.9113,
+          0.1839
+        ],
+        [
+          0.8891,
+          0.2097
+        ],
+        [
+          0.8632,
+          0.2252
+        ],
+        [
+          0.8356,
+          0.2292
+        ],
+        [
+          0.8083,
+          0.2215
+        ],
+        [
+          0.7833,
+          0.2025
+        ],
+        [
+          0.7626,
+          0.1738
+        ],
+        [
+          0.7476,
+          0.1374
+        ],
+        [
+          0.7566,
+          0.1308
+        ],
+        [
+          0.7702,
+          0.1636
+        ],
+        [
+          0.7889,
+          0.1895
+        ],
+        [
+          0.8114,
+          0.2066
+        ],
+        [
+          0.836,
+          0.2136
+        ],
+        [
+          0.8609,
+          0.21
+        ],
+        [
+          0.8843,
+          0.196
+        ],
+        [
+          0.9043,
+          0.1727
+        ],
+        [
+          0.9197,
+          0.1419
+        ]
+      ],
+      "op": "set",
+      "value": 28,
+      "feather_km": 1.0,
+      "edge_noise_km": 0.6,
+      "noise_km": 2.5,
+      "seed": 277
+    }
+  },
+  {
+    "id": "act1.fans.east.1",
+    "tool": "sculpt",
+    "note": "Fan at the head of the east horst's northern re-entrant, spreading onto the pan (G16, G17, G-a)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.985,
+          0.27
+        ],
+        [
+          1.025,
+          0.285
+        ],
+        [
+          1.03,
+          0.33
+        ],
+        [
+          0.99,
+          0.35
+        ],
+        [
+          0.975,
+          0.31
+        ]
+      ],
+      "op": "set",
+      "value": 27,
+      "feather_km": 1.5,
+      "edge_noise_km": 1,
+      "noise_km": 2.5,
+      "seed": 278
+    }
+  },
+  {
+    "id": "act1.fans.east.2",
+    "tool": "sculpt",
+    "note": "Fan at the head of the east horst's southern re-entrant",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.98,
+          0.595
+        ],
+        [
+          1.02,
+          0.6
+        ],
+        [
+          1.025,
+          0.655
+        ],
+        [
+          0.985,
+          0.67
+        ],
+        [
+          0.972,
+          0.63
+        ]
+      ],
+      "op": "set",
+      "value": 26,
+      "feather_km": 1.5,
+      "edge_noise_km": 1,
+      "noise_km": 2.5,
+      "seed": 279
+    }
+  },
+  {
+    "id": "act1.rim.east.face-north",
+    "tool": "sculpt",
+    "note": "East horst, inner face of the north segment and the northern re-entrant's head: a sharp fault face (drawn after the floor so the floor's feather leaves no ramp up it); the fans spread from gullies at its foot (G1, G3, G16)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.93,
+          0.14
+        ],
+        [
+          0.965,
+          0.13
+        ],
+        [
+          1.0,
+          0.12
+        ],
+        [
+          1.035,
+          0.2
+        ],
+        [
+          1.045,
+          0.29
+        ],
+        [
+          1.04,
+          0.335
+        ],
+        [
+          1.012,
+          0.338
+        ],
+        [
+          1.008,
+          0.285
+        ],
+        [
+          0.962,
+          0.265
+        ],
+        [
+          0.948,
+          0.225
+        ],
+        [
+          0.935,
+          0.2
+        ]
+      ],
+      "op": "set",
+      "value": 45,
+      "feather_km": 0.3,
+      "edge_noise_km": 0.8,
+      "noise_km": 2,
+      "seed": 281
+    }
+  },
+  {
+    "id": "act1.rim.east.face-middle",
+    "tool": "sculpt",
+    "note": "East horst, inner face of the middle segment (the spur)",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          1.015,
+          0.34
+        ],
+        [
+          1.04,
+          0.34
+        ],
+        [
+          1.0,
+          0.45
+        ],
+        [
+          1.025,
+          0.58
+        ],
+        [
+          1.0,
+          0.598
+        ],
+        [
+          0.955,
+          0.578
+        ],
+        [
+          0.944,
+          0.5
+        ],
+        [
+          0.946,
+          0.43
+        ],
+        [
+          0.966,
+          0.36
+        ]
+      ],
+      "op": "set",
+      "value": 47,
+      "feather_km": 0.3,
+      "edge_noise_km": 0.8,
+      "noise_km": 2,
+      "seed": 282
+    }
+  },
+  {
+    "id": "act1.rim.east.face-south",
+    "tool": "sculpt",
+    "note": "East horst, inner face of the south segment and the southern re-entrant's head, stepped back from the middle one",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          1.0,
+          0.602
+        ],
+        [
+          1.03,
+          0.6
+        ],
+        [
+          1.035,
+          0.7
+        ],
+        [
+          1.01,
+          0.86
+        ],
+        [
+          0.97,
+          0.965
+        ],
+        [
+          0.915,
+          0.93
+        ],
+        [
+          0.94,
+          0.88
+        ],
+        [
+          0.958,
+          0.78
+        ],
+        [
+          0.966,
+          0.69
+        ],
+        [
+          1.008,
+          0.66
+        ]
+      ],
+      "op": "set",
+      "value": 48,
+      "feather_km": 0.3,
+      "edge_noise_km": 0.8,
+      "noise_km": 2,
+      "seed": 283
+    }
+  },
+  {
+    "id": "act1.roughen.east-face-north",
+    "tool": "sculpt",
+    "note": "Relief on the east horst's north face, clamped so the face keeps its sharp foot and stays a clear step below the north fault block",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.93,
+          0.14
+        ],
+        [
+          0.965,
+          0.13
+        ],
+        [
+          1.0,
+          0.12
+        ],
+        [
+          1.035,
+          0.2
+        ],
+        [
+          1.045,
+          0.29
+        ],
+        [
+          1.04,
+          0.335
+        ],
+        [
+          1.012,
+          0.338
+        ],
+        [
+          1.008,
+          0.285
+        ],
+        [
+          0.962,
+          0.265
+        ],
+        [
+          0.948,
+          0.225
+        ],
+        [
+          0.935,
+          0.2
+        ]
+      ],
+      "op": "roughen",
+      "value": 3,
+      "feather_km": 0,
+      "noise_km": 3,
+      "seed": 284,
+      "clamp": [
+        43,
+        46
+      ]
+    }
+  },
+  {
+    "id": "act1.roughen.east-face-middle",
+    "tool": "sculpt",
+    "note": "Relief on the east horst's middle face, clamped so the face keeps its sharp foot",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          1.015,
+          0.34
+        ],
+        [
+          1.04,
+          0.34
+        ],
+        [
+          1.0,
+          0.45
+        ],
+        [
+          1.025,
+          0.58
+        ],
+        [
+          1.0,
+          0.598
+        ],
+        [
+          0.955,
+          0.578
+        ],
+        [
+          0.944,
+          0.5
+        ],
+        [
+          0.946,
+          0.43
+        ],
+        [
+          0.966,
+          0.36
+        ]
+      ],
+      "op": "roughen",
+      "value": 3,
+      "feather_km": 0,
+      "noise_km": 3,
+      "seed": 285,
+      "clamp": [
+        45,
+        100
+      ]
+    }
+  },
+  {
+    "id": "act1.roughen.east-face-south",
+    "tool": "sculpt",
+    "note": "Relief on the east horst's south face, clamped so the face keeps its sharp foot",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          1.0,
+          0.602
+        ],
+        [
+          1.03,
+          0.6
+        ],
+        [
+          1.035,
+          0.7
+        ],
+        [
+          1.01,
+          0.86
+        ],
+        [
+          0.97,
+          0.965
+        ],
+        [
+          0.915,
+          0.93
+        ],
+        [
+          0.94,
+          0.88
+        ],
+        [
+          0.958,
+          0.78
+        ],
+        [
+          0.966,
+          0.69
+        ],
+        [
+          1.008,
+          0.66
+        ]
+      ],
+      "op": "roughen",
+      "value": 3,
+      "feather_km": 0,
+      "noise_km": 3,
+      "seed": 286,
+      "clamp": [
+        46,
+        100
+      ]
     }
   },
   {
@@ -2234,87 +4561,87 @@
   {
     "id": "act1.water.acid.c",
     "tool": "sculpt",
-    "note": "Acid pool on the dome, north-east",
+    "note": "Acid pool on the dome, north-east; set back so its north shore sits on the dome, not on the pan's edge (P19, W4)",
     "args": {
       "frame": "act1",
       "polygon": [
         [
-          0.875,
-          0.69
+          0.8655,
+          0.705
         ],
         [
-          0.8732,
-          0.7023
+          0.864,
+          0.7153
         ],
         [
-          0.868,
-          0.7131
+          0.8595,
+          0.7243
         ],
         [
-          0.86,
-          0.7211
+          0.8528,
+          0.7311
         ],
         [
-          0.8502,
-          0.7254
+          0.8444,
+          0.7346
         ],
         [
-          0.8398,
-          0.7254
+          0.8356,
+          0.7346
         ],
         [
-          0.83,
-          0.7211
+          0.8272,
+          0.7311
         ],
         [
-          0.822,
-          0.7131
+          0.8205,
+          0.7243
         ],
         [
-          0.8168,
-          0.7023
+          0.816,
+          0.7153
         ],
         [
-          0.815,
-          0.69
+          0.8145,
+          0.705
         ],
         [
-          0.8168,
-          0.6777
+          0.816,
+          0.6947
         ],
         [
-          0.822,
-          0.6669
+          0.8205,
+          0.6857
         ],
         [
-          0.83,
-          0.6589
+          0.8272,
+          0.6789
         ],
         [
-          0.8398,
-          0.6546
+          0.8356,
+          0.6754
         ],
         [
-          0.8502,
-          0.6546
+          0.8444,
+          0.6754
         ],
         [
-          0.86,
-          0.6589
+          0.8527,
+          0.6789
         ],
         [
-          0.868,
-          0.6669
+          0.8595,
+          0.6857
         ],
         [
-          0.8732,
-          0.6777
+          0.864,
+          0.6947
         ]
       ],
       "op": "set",
       "value": 17,
       "feather_km": 0.5,
-      "edge_noise_km": 0.8,
+      "edge_noise_km": 0.5,
       "noise_km": 1.5,
       "seed": 238
     }
@@ -2322,81 +4649,81 @@
   {
     "id": "act1.water.acid.d",
     "tool": "sculpt",
-    "note": "Acid pool on the dome, south-west",
+    "note": "Acid pool on the dome, south-west; a cell clear of pool a so the two stay separate lakes (W7)",
     "args": {
       "frame": "act1",
       "polygon": [
         [
-          0.745,
-          0.795
+          0.7411,
+          0.84
         ],
         [
-          0.7432,
-          0.8068
+          0.7395,
+          0.8501
         ],
         [
-          0.738,
-          0.8171
+          0.735,
+          0.859
         ],
         [
-          0.73,
-          0.8248
+          0.728,
+          0.8655
         ],
         [
-          0.7202,
-          0.8289
+          0.7195,
+          0.8691
         ],
         [
-          0.7098,
-          0.8289
+          0.7105,
+          0.8691
         ],
         [
-          0.7,
-          0.8248
+          0.7019,
+          0.8655
         ],
         [
-          0.692,
-          0.8171
+          0.695,
+          0.859
         ],
         [
-          0.6868,
-          0.8068
+          0.6905,
+          0.8501
         ],
         [
-          0.685,
-          0.795
+          0.6889,
+          0.84
         ],
         [
-          0.6868,
-          0.7832
+          0.6905,
+          0.8299
         ],
         [
-          0.692,
-          0.7729
+          0.695,
+          0.821
         ],
         [
-          0.7,
-          0.7652
+          0.7019,
+          0.8145
         ],
         [
-          0.7098,
-          0.7611
+          0.7105,
+          0.8109
         ],
         [
-          0.7202,
-          0.7611
+          0.7195,
+          0.8109
         ],
         [
-          0.73,
-          0.7652
+          0.728,
+          0.8145
         ],
         [
-          0.738,
-          0.7729
+          0.735,
+          0.821
         ],
         [
-          0.7432,
-          0.7832
+          0.7395,
+          0.8299
         ]
       ],
       "op": "set",
@@ -2498,87 +4825,87 @@
   {
     "id": "act1.water.acid.f",
     "tool": "sculpt",
-    "note": "Acid pool on the dome, east",
+    "note": "Acid pool on the dome, east; set back on the dome so no shore cell falls below the pan (P19, W4)",
     "args": {
       "frame": "act1",
       "polygon": [
         [
-          0.919,
-          0.77
+          0.915,
+          0.771
         ],
         [
-          0.9176,
-          0.7807
+          0.9135,
+          0.7785
         ],
         [
-          0.9134,
+          0.9092,
+          0.7851
+        ],
+        [
+          0.9025,
           0.7901
         ],
         [
-          0.907,
-          0.7971
+          0.8943,
+          0.7927
         ],
         [
-          0.8992,
-          0.8008
+          0.8857,
+          0.7927
         ],
         [
-          0.8908,
-          0.8008
-        ],
-        [
-          0.883,
-          0.7971
-        ],
-        [
-          0.8766,
+          0.8775,
           0.7901
         ],
         [
-          0.8724,
-          0.7807
+          0.8708,
+          0.7851
         ],
         [
-          0.871,
-          0.77
+          0.8665,
+          0.7785
         ],
         [
-          0.8724,
-          0.7593
+          0.865,
+          0.771
         ],
         [
-          0.8766,
-          0.7499
+          0.8665,
+          0.7635
         ],
         [
-          0.883,
-          0.7429
+          0.8708,
+          0.7569
         ],
         [
-          0.8908,
-          0.7392
+          0.8775,
+          0.7519
         ],
         [
-          0.8992,
-          0.7392
+          0.8857,
+          0.7493
         ],
         [
-          0.907,
-          0.7429
+          0.8943,
+          0.7493
         ],
         [
-          0.9134,
-          0.7499
+          0.9025,
+          0.7519
         ],
         [
-          0.9176,
-          0.7593
+          0.9092,
+          0.7569
+        ],
+        [
+          0.9135,
+          0.7635
         ]
       ],
       "op": "set",
       "value": 17,
-      "feather_km": 0.5,
-      "edge_noise_km": 0.8,
+      "feather_km": 0.3,
+      "edge_noise_km": 0.3,
       "noise_km": 1.5,
       "seed": 241
     }
@@ -2841,8 +5168,8 @@
       ],
       "op": "set",
       "value": 18,
-      "feather_km": 0.5,
-      "edge_noise_km": 0.8,
+      "feather_km": 0.3,
+      "edge_noise_km": 0.3,
       "noise_km": 1.5,
       "seed": 244
     }
@@ -2929,95 +5256,10 @@
       ],
       "op": "set",
       "value": 18,
-      "feather_km": 0.5,
+      "feather_km": 0.3,
       "edge_noise_km": 0.8,
       "noise_km": 1.5,
       "seed": 245
-    }
-  },
-  {
-    "id": "act1.water.lava-lake",
-    "tool": "sculpt",
-    "note": "Small summit lava lake in the crater",
-    "args": {
-      "frame": "act1",
-      "polygon": [
-        [
-          0.856,
-          0.07
-        ],
-        [
-          0.855,
-          0.0786
-        ],
-        [
-          0.8523,
-          0.0861
-        ],
-        [
-          0.848,
-          0.0917
-        ],
-        [
-          0.8428,
-          0.0946
-        ],
-        [
-          0.8372,
-          0.0946
-        ],
-        [
-          0.832,
-          0.0917
-        ],
-        [
-          0.8277,
-          0.0861
-        ],
-        [
-          0.825,
-          0.0786
-        ],
-        [
-          0.824,
-          0.07
-        ],
-        [
-          0.825,
-          0.0614
-        ],
-        [
-          0.8277,
-          0.0539
-        ],
-        [
-          0.832,
-          0.0483
-        ],
-        [
-          0.8372,
-          0.0454
-        ],
-        [
-          0.8428,
-          0.0454
-        ],
-        [
-          0.848,
-          0.0483
-        ],
-        [
-          0.8523,
-          0.0539
-        ],
-        [
-          0.855,
-          0.0614
-        ]
-      ],
-      "op": "set",
-      "value": 18,
-      "feather_km": 0.3
     }
   },
   {
