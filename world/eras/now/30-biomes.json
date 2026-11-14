@@ -1788,7 +1788,7 @@
   {
     "id": "now.biome.basalt.recent",
     "tool": "paint_biome",
-    "note": "Fresh charcoal flows from the volcano down its south side onto the floor and the apron",
+    "note": "Fresh charcoal flows from the volcano down its south side onto the floor and the apron, tucked under the cone's foot (heights 33-57) so the flows join the cone they came from, with no strip of fault rock between them",
     "args": {
       "frame": "act1",
       "name": "Recent Basalt",
@@ -1804,16 +1804,16 @@
           0.1
         ],
         [
-          0.8,
-          0.16
+          0.79,
+          0.13
         ],
         [
           0.84,
-          0.19
+          0.15
         ],
         [
-          0.88,
-          0.18
+          0.89,
+          0.13
         ],
         [
           0.905,
@@ -1850,14 +1850,14 @@
       ],
       "heights": [
         33,
-        55
+        57
       ]
     }
   },
   {
     "id": "now.biome.basalt.cone",
     "tool": "paint_biome",
-    "note": "The cone itself (58 and up inside its foot) in fresh charcoal basalt, standing on the north block's red fault rock, so it reads as a cone and not a dark massif (C1, G4)",
+    "note": "The cone itself (56 and up inside its foot, meeting its south-side flows) in fresh charcoal basalt, standing on the north block's red fault rock, so it reads as a cone and not a dark massif (C1, G4)",
     "args": {
       "frame": "act1",
       "name": "Recent Basalt",
@@ -1960,7 +1960,7 @@
         ]
       ],
       "heights": [
-        58,
+        56,
         100
       ]
     }

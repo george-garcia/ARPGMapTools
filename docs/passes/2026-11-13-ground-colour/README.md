@@ -212,3 +212,12 @@ read-only `run_js` reads per era, TG1, TG2, TG8), as in pass 1.
 - Gaea: the new biome masks (`boulder-fans`, `playa-mud`, `date-palms`, `dryland-terraces`) can drive recipes; the project
   itself reads only the colour map and the two graph masks, so nothing in it breaks. George, reopen it to pick up the new colours.
 - `export_gaea` leaves masks of biomes no longer in the tile on disk; it should clear them (the pre-flight flags them).
+
+## Follow-up: the volcano's flows join its cone (13 Nov, George's question)
+
+George asked why a red patch sat between the volcano's lower and upper parts. Two paint faults left a wedge of red fault
+rock between the cone and the flows that came from it: the flows stopped at height 55 and the cone started at 58, and the
+flows' outline had a V-shaped notch under the cone. Both eras now paint the flows from 33 to 57 with the notch closed (tucked
+under the cone's foot) and the cone from 56 up, so the black runs unbroken from the summit down the south side to the floor.
+Red rock still shows on the cone's flanks and behind it, where no lava ran, so it still reads as a cone on the red north
+block. Paint only, no terrain changed. `after/now-act1-3d-low.png` and the other `after/` views are re-rendered.

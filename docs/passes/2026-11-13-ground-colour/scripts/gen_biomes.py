@@ -40,13 +40,13 @@ def basalt(era):
     old["note"] = ("Weathered outer basalt lobes on the floor below the north wall (heights up to 43, so the wall above stays fault-scarp rock, C1)"
                    + ("" if era == "now" else "; already old before the catastrophe"))
     flows = {"id": f"{era}.biome.basalt.recent", "tool": "paint_biome",
-             "note": "Fresh charcoal flows from the volcano down its south side onto the floor and the apron" + ("" if era == "now" else " (the volcano was already there)"),
+             "note": "Fresh charcoal flows from the volcano down its south side onto the floor and the apron" + "; tucked under the cone's foot (heights 33-57) so the flows join the cone they came from, with no strip of fault rock between them" + ("" if era == "now" else " (the volcano was already there)"),
              "args": {"frame": "act1", "name": "Recent Basalt", "color": "#2D2F2F", "habitability": 0,
-                      "polygon": [[0.74, 0.1], [0.775, 0.1], [0.80, 0.16], [0.84, 0.19], [0.88, 0.18], [0.905, 0.13], [0.93, 0.15], [0.93, 0.21], [0.88, 0.235], [0.82, 0.24], [0.79, 0.215], [0.75, 0.2], [0.735, 0.15]],
-                      "heights": [33, 55]}}
+                      "polygon": [[0.74, 0.1], [0.775, 0.1], [0.79, 0.13], [0.84, 0.15], [0.89, 0.13], [0.905, 0.13], [0.93, 0.15], [0.93, 0.21], [0.88, 0.235], [0.82, 0.24], [0.79, 0.215], [0.75, 0.2], [0.735, 0.15]],
+                      "heights": [33, 57]}}
     cone = {"id": f"{era}.biome.basalt.cone", "tool": "paint_biome",
-            "note": "The cone itself (58 and up inside its foot) in fresh charcoal basalt, standing on the north block's red fault rock, so it reads as a cone and not a dark massif (C1, G4)",
-            "args": {"frame": "act1", "name": "Recent Basalt", "polygon": VOLC, "heights": [58, 100]}}
+            "note": "The cone itself (56 and up inside its foot, meeting its south-side flows) in fresh charcoal basalt, standing on the north block's red fault rock, so it reads as a cone and not a dark massif (C1, G4)",
+            "args": {"frame": "act1", "name": "Recent Basalt", "polygon": VOLC, "heights": [56, 100]}}
     return [old, flows, cone]
 
 def evaporites(era):
