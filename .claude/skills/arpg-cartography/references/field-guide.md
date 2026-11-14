@@ -1,8 +1,8 @@
 # Zone field guides: what each zone physically is, at walking scale
 
 Load when writing or updating a zone field guide, or the field-guide rows of the act handoff. The worked example is
-`docs/studio/research/cartography/reports/Act I zone field guide.md` (Act I, 11 zones, about 30,000 words), built from
-the notes in `docs/studio/research/cartography/research_notes/Act I zone field guide/`.
+the vault's `Act I/Field Guide/` (ARPGStoryBible: a region overview, 11 zone notes, side-area ideas, continuity and gaps,
+and the seven research tracks in `Sources/`).
 
 ## Why the cartographer owns it
 
@@ -77,3 +77,12 @@ land and climate make people build) and change ornament and names; flag it for G
 3. Synthesize into one guide (FG1). Spot-check the load-bearing facts against their sources before handing it on (the
    Act I check caught a mining date that overstated its source).
 4. Link each zone's guide section from the act handoff (`templates/act-handoff.md`, "Field guide" row).
+
+## FG9. Where it lives
+
+In the story vault, as research: `ARPGStoryBible/<Act>/Field Guide/`, one note per zone plus a region overview, the
+side-area list, continuity and gaps, an `INDEX.md`, and the research tracks under `Sources/`. Every note carries
+`status: research`, the vault's frontmatter, relative links and a Related line (vault `AGENTS.md`), and a status line
+saying it is research, not canon. Deliver by PR on its own branch; link it from the vault index, the act's note and
+`Research/INDEX.md`. This is the only thing you write in the vault; story and canon stay the narrative role's. *PROJECT
+(George, 13 Nov 2026: the guides are details to build and bring the zones to life, so they belong with the story).*

@@ -23,7 +23,8 @@ environment art; `references/field-guide.md`); the Gaea projects in `tools/gaea/
 2D, 3D and Gaea visual checks; proposals for new named MCP
 tools when an intent can't be expressed.
 
-**You never touch:** story canon — the story vault `ARPGStoryBible` (read-only) and the ARPG story docs are the
+**You never touch:** story canon — the story vault `ARPGStoryBible` (read-only, with one exception: you write zone
+field guides there as research-status notes, by PR, never canon; George, 13 Nov 2026) and the ARPG story docs are the
 narrative role's; zone layouts, tiles, kits, materials, lights and game data (the studio's specialists); anything else in
 the ARPG repo; `.map` files by hand (P3).
 
@@ -100,8 +101,9 @@ everything that settles canon, moves a locked anchor, renames or approves a plac
    where they grow, human land use, weather and light, asset seeds, side-area ideas, photo references.
 3. Synthesize one guide with the same headings per zone (FG1), every claim's status visible (FG3), departures listed
    (FG5), living-culture flag raised (FG7). Spot-check the load-bearing facts against their sources.
-4. Link each zone's section from the act handoff's "Field guide" row; the guide lives in
-   `docs/studio/research/cartography/reports/`.
+4. The guide lives in the vault as research, not canon: `ARPGStoryBible/<Act>/Field Guide/` (one note per zone, a region
+   overview, side areas, gaps, and `Sources/`), delivered by PR (FG9). Link each zone's note from the act handoff's
+   "Field guide" row.
 
 ## 4. Deliverables and definition of done
 
@@ -112,7 +114,7 @@ everything that settles canon, moves a locked anchor, renames or approves a plac
 | Gaea pass | the edited `.terrain`; before/after Gaea views; the numbers check | GA15 numbers pass (protected ground unchanged, pan lowest); views compared; new names recorded |
 | Change request | the answer doc; the map pass if accepted | the decision has a physical reason; the story beat is kept or an alternative offered |
 | Act handoff | `world/acts/<act>.json`; the handoff doc in ARPG | bearings computed by the script; graph checks run and reported; every fact sourced; OPEN items listed |
-| Zone field guide | the guide in `docs/studio/research/cartography/reports/` and its research notes | every zone has all FG1 headings; every claim sourced, analogue or inference; load-bearing facts spot-checked; side-area ideas graded |
+| Zone field guide | the guide's notes in the vault (`<Act>/Field Guide/`, `status: research`) and their sources, as a vault PR | every zone has all FG1 headings; every claim sourced, analogue or inference; load-bearing facts spot-checked; side-area ideas graded |
 
 A pass never approves itself: George merges (P11). A self-check on `review.md` §3 runs before every report; a fresh judge
 uses the same rubric when George asks for one.
