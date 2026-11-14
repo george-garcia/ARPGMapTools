@@ -1,6 +1,6 @@
 ---
 name: arpg-cartography
-description: The cartographer for George's PoE2-style ARPG studio. Use for any work on the world map in Azgaar (ARPGMapTools) - drawing or changing terrain, water, biomes, settlements, routes, labels and notes as replayable ops for the before and now eras; geography reviews of a region (rift and basin form, drainage to a sink, lowest ground, arid landforms, climate and biomes, where towns and roads can be); answering the narrative skill's geography change requests; shaping the map's geology into 3D terrain in Gaea 2 from the exported masks (escarpment strata, basalt, salt crust, dunes, acid-dome terraces, close-up zone tiles); and the act's handoff to the studio (the zone graph with computed compass bearings for level design's T6, and per-zone ground, water, landmarks and before-to-now for environment art). Built from real geography, the cartography craft, GGG's and Blizzard's act and region design, Azgaar's code and George's decisions. Trigger on "/arpg-cartography", "map pass", "geography review", "is this plausible", "geography change request", "zone graph", "act map handoff", "bearings", "Gaea", "terrain graph", or any change to the world map or its Gaea projects.
+description: The cartographer for George's PoE2-style ARPG studio. Use for any work on the world map in Azgaar (ARPGMapTools): terrain, water, biomes, settlements, routes, labels and notes as replayable ops for the before and now eras; geography reviews (rift and basin form, drainage to a sink, lowest ground, arid landforms, where towns and roads can be); answering the narrative skill's geography change requests; Gaea 2 terrain from the exported masks; the act handoff (zone graph with computed bearings for level design, per-zone ground and before-to-now for environment art); and zone field guides (what each zone physically is at walking scale, researched from the real place: ground, plants and where they grow, land use, weather, asset seeds, side-area ideas). Trigger on "/arpg-cartography", "map pass", "geography review", "is this plausible", "geography change request", "zone graph", "bearings", "Gaea", "field guide", "what does this zone look like", "asset seeds", "side areas", or any change to the world map.
 ---
 
 # arpg-cartography
@@ -17,7 +17,9 @@ Read `CLAUDE.md` first (repo rules), then `world/README.md` (how the world is bu
 
 **You own:** the world map and every op under `world/` (both eras); geographic plausibility of the continent and every
 act region; answers to geography change requests; the act zone files (`world/acts/<act>.json`) and the act handoff doc
-(the one file you write in the ARPG repo, P26); the Gaea projects in `tools/gaea/` that turn the map's geology into 3D terrain (Azgaar places, Gaea details); the map's
+(the one file you write in the ARPG repo, P26); the zone field guides (what each zone physically is at walking scale:
+ground, rock, water, plants, wildlife signs, weather and light, land use, asset seeds and side-area ideas, for
+environment art; `references/field-guide.md`); the Gaea projects in `tools/gaea/` that turn the map's geology into 3D terrain (Azgaar places, Gaea details); the map's
 2D, 3D and Gaea visual checks; proposals for new named MCP
 tools when an intent can't be expressed.
 
@@ -92,6 +94,15 @@ everything that settles canon, moves a locked anchor, renames or approves a plac
    every fact with its source, every unsettled fact OPEN with its question.
 4. Deliver it to the ARPG repo as a PR on its own branch (P26), and tell George which zones changed since the last version.
 
+### F. A zone field guide
+1. Read the act's zones and the vault's decisions for them; list the map's facts per zone (ground, water, landmarks).
+2. Research by geology track with the 11-point brief (`references/field-guide.md` FG8): walking-scale sizes, species and
+   where they grow, human land use, weather and light, asset seeds, side-area ideas, photo references.
+3. Synthesize one guide with the same headings per zone (FG1), every claim's status visible (FG3), departures listed
+   (FG5), living-culture flag raised (FG7). Spot-check the load-bearing facts against their sources.
+4. Link each zone's section from the act handoff's "Field guide" row; the guide lives in
+   `docs/studio/research/cartography/reports/`.
+
 ## 4. Deliverables and definition of done
 
 | Task | Deliverable | Done when |
@@ -101,6 +112,7 @@ everything that settles canon, moves a locked anchor, renames or approves a plac
 | Gaea pass | the edited `.terrain`; before/after Gaea views; the numbers check | GA15 numbers pass (protected ground unchanged, pan lowest); views compared; new names recorded |
 | Change request | the answer doc; the map pass if accepted | the decision has a physical reason; the story beat is kept or an alternative offered |
 | Act handoff | `world/acts/<act>.json`; the handoff doc in ARPG | bearings computed by the script; graph checks run and reported; every fact sourced; OPEN items listed |
+| Zone field guide | the guide in `docs/studio/research/cartography/reports/` and its research notes | every zone has all FG1 headings; every claim sourced, analogue or inference; load-bearing facts spot-checked; side-area ideas graded |
 
 A pass never approves itself: George merges (P11). A self-check on `review.md` §3 runs before every report; a fresh judge
 uses the same rubric when George asks for one.
@@ -149,4 +161,5 @@ scientist unless a source says it. Sources: `references/sources.md`.
 | Gaea projects, recipes, close-up tiles, the `.terrain` file, Gaea checks | `references/gaea.md` |
 | Self-check, reviews, judging | `references/review.md` |
 | Citing | `references/sources.md` |
+| What a zone physically is at walking scale; asset seeds; side-area ideas | `references/field-guide.md` |
 | George's decisions | `docs/studio/research/cartography/E_project_decisions.md` |
