@@ -32,7 +32,7 @@
   {
     "id": "before.lakes.spring.a",
     "tool": "set_lakes",
-    "note": "Hot spring a (an acid pool today)",
+    "note": "Hot spring a (an acid pool today); salt, not fresh: hot mineral springs on a salt dome in a closed basin (G9, W5); whether the hydrothermal field predates the machine is open (P24)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -53,7 +53,7 @@
           0.745
         ]
       ],
-      "subtype": "freshwater",
+      "subtype": "salt",
       "group": "hot-spring",
       "name": "[placeholder] Hot spring a"
     }
@@ -61,7 +61,7 @@
   {
     "id": "before.lakes.spring.b",
     "tool": "set_lakes",
-    "note": "Hot spring b (an acid pool today)",
+    "note": "Hot spring b (an acid pool today); salt, not fresh: hot mineral springs on a salt dome in a closed basin (G9, W5); whether the hydrothermal field predates the machine is open (P24)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -82,7 +82,7 @@
           0.68
         ]
       ],
-      "subtype": "freshwater",
+      "subtype": "salt",
       "group": "hot-spring",
       "name": "[placeholder] Hot spring b"
     }
@@ -90,7 +90,7 @@
   {
     "id": "before.lakes.spring.c",
     "tool": "set_lakes",
-    "note": "Hot spring c (an acid pool today)",
+    "note": "Hot spring c (an acid pool today); salt, not fresh: hot mineral springs on a salt dome in a closed basin (G9, W5); whether the hydrothermal field predates the machine is open (P24)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -111,7 +111,7 @@
           0.73
         ]
       ],
-      "subtype": "freshwater",
+      "subtype": "salt",
       "group": "hot-spring",
       "name": "[placeholder] Hot spring c"
     }
@@ -119,7 +119,7 @@
   {
     "id": "before.lakes.spring.d",
     "tool": "set_lakes",
-    "note": "Hot spring d (an acid pool today)",
+    "note": "Hot spring d (an acid pool today); salt, not fresh: hot mineral springs on a salt dome in a closed basin (G9, W5); whether the hydrothermal field predates the machine is open (P24)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -140,7 +140,7 @@
           0.87
         ]
       ],
-      "subtype": "freshwater",
+      "subtype": "salt",
       "group": "hot-spring",
       "name": "[placeholder] Hot spring d"
     }
@@ -148,7 +148,7 @@
   {
     "id": "before.lakes.spring.e",
     "tool": "set_lakes",
-    "note": "Hot spring e (an acid pool today)",
+    "note": "Hot spring e (an acid pool today); salt, not fresh: hot mineral springs on a salt dome in a closed basin (G9, W5); whether the hydrothermal field predates the machine is open (P24)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -169,7 +169,7 @@
           0.8300000000000001
         ]
       ],
-      "subtype": "freshwater",
+      "subtype": "salt",
       "group": "hot-spring",
       "name": "[placeholder] Hot spring e"
     }
@@ -177,7 +177,7 @@
   {
     "id": "before.lakes.spring.f",
     "tool": "set_lakes",
-    "note": "Hot spring f (an acid pool today)",
+    "note": "Hot spring f (an acid pool today); salt, not fresh: hot mineral springs on a salt dome in a closed basin (G9, W5); whether the hydrothermal field predates the machine is open (P24)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -198,7 +198,7 @@
           0.791
         ]
       ],
-      "subtype": "freshwater",
+      "subtype": "salt",
       "group": "hot-spring",
       "name": "[placeholder] Hot spring f"
     }
@@ -206,7 +206,7 @@
   {
     "id": "before.lakes.spring.h",
     "tool": "set_lakes",
-    "note": "Hot spring h (an acid pool today)",
+    "note": "Hot spring h (an acid pool today); salt, not fresh: hot mineral springs on a salt dome in a closed basin (G9, W5); whether the hydrothermal field predates the machine is open (P24)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -227,7 +227,7 @@
           0.755
         ]
       ],
-      "subtype": "freshwater",
+      "subtype": "salt",
       "group": "hot-spring",
       "name": "[placeholder] Hot spring h"
     }
@@ -235,7 +235,7 @@
   {
     "id": "before.lakes.spring.i",
     "tool": "set_lakes",
-    "note": "Hot spring i (an acid pool today)",
+    "note": "Hot spring i (an acid pool today); salt, not fresh: hot mineral springs on a salt dome in a closed basin (G9, W5); whether the hydrothermal field predates the machine is open (P24)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -256,7 +256,7 @@
           0.88
         ]
       ],
-      "subtype": "freshwater",
+      "subtype": "salt",
       "group": "hot-spring-deep",
       "name": "[placeholder] Hot spring i"
     }
@@ -264,7 +264,7 @@
   {
     "id": "before.lakes.dead-spring",
     "tool": "set_lakes",
-    "note": "Before: a living freshwater oasis (the Spring's main pool)",
+    "note": "The Spring: a freshwater pool fed by Spring Brook and draining through its outflow to the pan (G9)",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -293,7 +293,7 @@
   {
     "id": "before.lakes.dead-spring.lower",
     "tool": "set_lakes",
-    "note": "Before: the Spring's lower pool",
+    "note": "The Spring's lower pool, on its outflow",
     "args": {
       "frame": "act1",
       "polygon": [
@@ -317,6 +317,96 @@
       "subtype": "freshwater",
       "group": "freshwater",
       "name": "[placeholder] The Spring's lower pool"
+    }
+  },
+  {
+    "id": "before.river.spring-brook",
+    "tool": "add_river",
+    "note": "Spring Brook: in the before era the falls stream runs on from the Slums across the terrace to the Spring (W5, G8: it ends in a lake). Today it ends at the Slums; what stood at the city site before is open (P24)",
+    "args": {
+      "frame": "act1",
+      "points": [
+        [
+          0.25,
+          0.445
+        ],
+        [
+          0.27,
+          0.55
+        ],
+        [
+          0.31,
+          0.66
+        ],
+        [
+          0.35,
+          0.74
+        ],
+        [
+          0.372,
+          0.775
+        ]
+      ],
+      "name": "[placeholder] Spring Brook",
+      "type": "Stream",
+      "source_width": 0.05,
+      "width_factor": 0.5
+    }
+  },
+  {
+    "id": "before.river.spring-outlet",
+    "tool": "add_river",
+    "note": "The Spring's outlet to its lower pool (the Spring is fresh because it drains, G9)",
+    "args": {
+      "frame": "act1",
+      "points": [
+        [
+          0.415,
+          0.8
+        ],
+        [
+          0.445,
+          0.84
+        ]
+      ],
+      "name": "[placeholder] Spring Outflow",
+      "type": "Stream",
+      "source_width": 0.05,
+      "width_factor": 0.5
+    }
+  },
+  {
+    "id": "before.river.spring-outflow",
+    "tool": "add_river",
+    "note": "The Spring's outflow east along its channel to the pan's south-west arm, where it spreads out on the playa: the basin's sink (W5, G8, G10). How large the old salt lake on the pan was is George's open question (P24), so no lake is drawn there yet",
+    "args": {
+      "frame": "act1",
+      "points": [
+        [
+          0.49,
+          0.852
+        ],
+        [
+          0.55,
+          0.86
+        ],
+        [
+          0.6,
+          0.868
+        ],
+        [
+          0.615,
+          0.89
+        ],
+        [
+          0.625,
+          0.905
+        ]
+      ],
+      "name": "[placeholder] Spring Outflow",
+      "type": "Stream",
+      "source_width": 0.05,
+      "width_factor": 0.5
     }
   }
 ]
