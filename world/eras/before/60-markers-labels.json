@@ -1,0 +1,18 @@
+[
+  {
+    "id": "before.marker.hot-springs",
+    "tool": "add_marker",
+    "note": "[provisional, P24 open] The before map's hot-spring dome: a draft, not canon (E2)",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.765,
+        0.73
+      ],
+      "type": "hot springs",
+      "name": "[placeholder] Hot springs",
+      "icon": "♨️",
+      "note": "<p>[placeholder] Name not approved.</p><p>[provisional] Before the machine, this map draws the dome as white travertine terraces round clear, salty hot springs where the acid pools are today. Whether the hydrothermal field predates the machine is open (P24); this is the cartographer's draft, not canon.</p>"
+    }
+  }
+]

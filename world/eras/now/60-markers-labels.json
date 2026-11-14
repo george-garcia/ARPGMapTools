@@ -58,18 +58,18 @@
         0.93
       ],
       "text": "Rift Basin",
-      "note": "<p>[placeholder] \"Rift Basin\" is the overview's title, not an approved name.</p><p><b>Act I region.</b> A closed (endorheic) rift basin modelled on the Danakil Depression / Dallol, about 100 km rim to rim. Escarpment and highlands to the west and north-west; the city's upper city on a shelf in the escarpment directly above its Slums, at the foot of the falls; mineral washes and the Ruined Outpost mid-basin; basalt to the north under an active volcano; fossil reef terraces and gypsum stepping east to the salt flats and brine pools; localized acid pits at the south of the floor; the Dead Spring to the south.</p><p><b>Locked:</b> zone 01 is the caravan escape tutorial (combat); zone 02 is the Slums, the safe quest hub (no combat). Anchors: Slums, upper city (4-6 combat maps for the finale), Acid Pits, destroyed ruins, captive-caravan intro.</p><p><b>Provisional:</b> about 15-20 playable maps. The working 19-section scaffold groups them as 01 caravan escape, 02 Slums hub, 03-04 ruined road and ruins, 05-06 iron-stained washes, 07-08 basalt, 09-10 fossil terraces and gypsum, 11-12 salt flat and brine margin, 13-14 acid pools, 15-19 upper-city ascent to the final fight. Order, names and routes between zones are undecided; each zone is an ARPG tileset, so the map draws no zone-to-zone paths.</p><p>Story bible (ARPGStoryBible): <a href=\"https://github.com/george-garcia/ARPGStoryBible/blob/main/README.md\">Index</a> \u00b7 <a href=\"https://github.com/george-garcia/ARPGStoryBible/blob/main/Act%20I/Act%20I%20-%20Reboot%20and%20Captive%20Caravan%20Opening.md\">Act I</a> \u00b7 <a href=\"https://github.com/george-garcia/ARPGStoryBible/blob/main/Act%20I/Act%20I%20Region%20-%20Danakil-Dallol%20Geological%20Blueprint.md\">Geological blueprint</a></p>"
+      "note": "<p>[placeholder] \"Rift Basin\" is the overview's title, not an approved name.</p><p><b>Act I region.</b> A closed (endorheic) rift basin modelled on the Danakil Depression / Dallol, about 100 km rim to rim, and drying: \"the basin is drying\" is the act's thread. Escarpment and highlands to the west and north-west, with the raised north rim running on past the volcano; the city's upper city on a shelf in the escarpment directly above its Slums, at the foot of the falls; mineral washes and the Ruined Outpost mid-basin; basalt to the north under an active volcano; fossil reef terraces and gypsum stepping east to the salt flats and brine pools; localized acid pits at the south of the floor; the Dead Spring to the south.</p><p><b>The city (P28).</b> The city holds the only graded caravan road onto the plateau and the last reliable water, a thin, shrinking stream; its power is those two, not fertile land. Arid farming only: small stone-terraced fields along the stream on the plateau, date palms along the falls, failing as the stream shrinks. Food is topped up by caravan, paid for in salt (and sulfur) cut by captives on the pan and at the acid field and carried up the escarpment road; that is why captives are brought here. The act's exit is up through the city onto the plateau. Who buys the salt beyond the plateau, and the boss, are open.</p><p><b>Fugitives (P30).</b> Slums residents are free citizens; slavers take only escaped slaves, the wanted and fugitives. Nothing keeps a fugitive safe there except laying low and evading the slavers; the protagonist is not branded or marked.</p><p><b>Act I spine (2026-11-13).</b> Escape captivity, refuge in the Slums, pursue promised passage beyond the region, betrayal and slaver ambush, the route sealed behind, several upper-city zones, the Act I boss, passage into Act II. The way forward is through the city. Staging of the betrayal is provisional.</p><p><b>Locked:</b> zone 01 is the caravan escape tutorial (combat); zone 02 is the Slums, the safe quest hub (no combat). Anchors: Slums, upper city (4-6 combat maps for the finale), Acid Pits, destroyed ruins, captive-caravan intro.</p><p><b>Provisional:</b> about 15-20 playable maps. The working 19-section scaffold groups them as 01 caravan escape, 02 Slums hub, 03-04 ruined road and ruins, 05-06 iron-stained washes, 07-08 basalt, 09-10 fossil terraces and gypsum, 11-12 salt flat and brine margin, 13-14 acid pools, 15-19 upper-city ascent to the final fight. Order, names and routes between zones are undecided; each zone is an ARPG tileset, so the map draws no zone-to-zone paths.</p><p><b>Exaggerated for play:</b> the pools, the lava lake and the Dead Spring are 10-100 times their real size, so they read on the map and in the zones (G36). [provisional] What feeds the falls: springs where the plateau's groundwater meets the master fault (W2).</p><p>Story bible (ARPGStoryBible): <a href=\"https://github.com/george-garcia/ARPGStoryBible/blob/main/README.md\">Index</a> · <a href=\"https://github.com/george-garcia/ARPGStoryBible/blob/main/Act%20I/Act%20I%20-%20Reboot%20and%20Captive%20Caravan%20Opening.md\">Act I</a> · <a href=\"https://github.com/george-garcia/ARPGStoryBible/blob/main/Act%20I/Act%20I%20Region%20-%20Danakil-Dallol%20Geological%20Blueprint.md\">Geological blueprint</a></p>"
     }
   },
   {
     "id": "now.label.escarpment",
     "tool": "add_label",
-    "note": "Highlands and escarpment, north-west",
+    "note": "Highlands and escarpment, west (moved off the plateau road)",
     "args": {
       "frame": "act1",
       "point": [
-        0.14,
-        0.12
+        0.07,
+        0.3
       ],
       "text": "Rift Escarpment",
       "note": "<p>[placeholder] Name from the regional overview, not approved.</p>"
@@ -200,14 +200,14 @@
       ],
       "type": "caravan escape",
       "name": "Caravan Approach",
-      "note": "<p>Zone 01, locked: the captive caravan escape, the combat tutorial. Who attacks the caravan, and why, is open.</p>",
-      "icon": "\u26d3\ufe0f"
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p><p>Zone 01, locked: the captive caravan escape, the combat tutorial. Who attacks the caravan, and why, is open.</p>",
+      "icon": "⛓️"
     }
   },
   {
     "id": "now.marker.volcano",
     "tool": "add_marker",
-    "note": "The active volcano north of the basalt",
+    "note": "The active volcano on the north fault block (G4 departure, recorded)",
     "args": {
       "frame": "act1",
       "point": [
@@ -216,7 +216,7 @@
       ],
       "type": "volcanoes",
       "name": "Active volcano",
-      "note": "<p>Active volcano with a small, fluctuating summit lava lake. Not the source of the acid pits. Unnamed.</p>"
+      "note": "<p>[placeholder] Unnamed; \"Active volcano\" is a description, not a name.</p><p>Active volcano with a small, fluctuating summit lava lake (exaggerated for play; a real one would be far smaller than a map cell). [provisional] Not the source of the acid pits.</p><p>Departure from the rift model, recorded (G4): rift volcanoes sit on the basin's axis; this one stands at the basin's north-east, on the north fault block, because the vault's layout puts it there (P18). It is a look and layout choice.</p>"
     }
   },
   {
@@ -231,24 +231,87 @@
       ],
       "type": "acid pits",
       "name": "Acid Pits",
-      "note": "<p>Anchor: localized acid hydrothermal pools (Dallol). Medium pools act as blockers. Acid chemistry tied to the Grand Machine's extraction is open.</p>",
-      "icon": "\ud83e\uddea"
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p><p>Anchor: localized acid hydrothermal pools (Dallol). Medium pools act as blockers. Acid chemistry tied to the Grand Machine's extraction is open. The pools are exaggerated for play.</p>",
+      "icon": "🧪"
     }
   },
   {
     "id": "now.marker.dead-spring",
     "tool": "add_marker",
-    "note": "Dead Spring",
+    "note": "Dead Spring, on its pools (between the main and the lower pool; K-f)",
     "args": {
       "frame": "act1",
       "point": [
-        0.31,
-        0.8
+        0.4,
+        0.825
       ],
       "type": "dead spring",
       "name": "Dead Spring",
-      "note": "<p>A freshwater oasis before the catastrophe; today dead trees and stagnant mineral pools.</p>",
-      "icon": "\ud83e\udd40"
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p><p>A freshwater oasis before the catastrophe (map implementation, provisional); today dead trees and stagnant mineral pools. Exaggerated for play.</p>",
+      "icon": "🥀"
+    }
+  },
+  {
+    "id": "now.marker.plateau-road",
+    "tool": "add_marker",
+    "note": "The act's exit: where the main road gains the plateau above the gorge (P28)",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.13,
+        0.19
+      ],
+      "type": "road exit",
+      "name": "[placeholder] Plateau road",
+      "icon": "⬆️",
+      "note": "<p>[placeholder] Name not approved.</p><p>The act's exit: the main road comes up the graded gorge from the upper city and goes on across the plateau. It is the only graded caravan road out of the basin, and the city holds it (P28). Where it leads beyond the plateau is open.</p>"
+    }
+  },
+  {
+    "id": "now.label.plateau-road",
+    "tool": "add_label",
+    "note": "Names the act's exit on the plateau",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.085,
+        0.07
+      ],
+      "text": "Plateau road",
+      "note": "<p>[placeholder] Name not approved. The act's exit up through the city onto the plateau (P28).</p>",
+      "size": 80
+    }
+  },
+  {
+    "id": "now.marker.salt-cuttings",
+    "tool": "add_marker",
+    "note": "Salt workings on the pan's west arm, at the head of the salt track (P28)",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.712,
+        0.302
+      ],
+      "type": "salt cuttings",
+      "name": "[placeholder] Salt cuttings",
+      "icon": "⛏️",
+      "note": "<p>[placeholder] Name not approved.</p><p>Captives cut salt slabs here for the caravans, which carry them to the Slums and up the escarpment road to pay for the city's food (P28). The basin is drying, and the salt is what it has left to sell.</p>"
+    }
+  },
+  {
+    "id": "now.marker.sulfur-workings",
+    "tool": "add_marker",
+    "note": "Sulfur workings at the acid field's west edge, on the sulfur crust (P28)",
+    "args": {
+      "frame": "act1",
+      "point": [
+        0.685,
+        0.775
+      ],
+      "type": "sulfur workings",
+      "name": "[placeholder] Sulfur workings",
+      "icon": "⚒️",
+      "note": "<p>[placeholder] Name not approved.</p><p>Captives dig sulfur at the edge of the acid field; it goes out with the salt caravans (P28). Hazardous ground: acid pools and fumes.</p>"
     }
   }
 ]
