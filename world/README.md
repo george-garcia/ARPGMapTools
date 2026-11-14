@@ -31,14 +31,34 @@ no frame-shaped edges), then the escarpment lip and the irregular rims, then the
 it. Later ops overwrite earlier ones where they overlap. Frame-local coordinates may run outside 0-1 to reach beyond the frame.
 
 The basin drains to the salt pan, its lowest land (height 21) with the brine pools in it; the acid field sits on a low dome (24-26)
-at the pan's southern edge, with its pools as small craters.
+at the pan's southern edge, with its pools as small craters. Since the 13 Nov 2026 terrain-and-water pass
+(`docs/passes/2026-11-13-terrain-water/`) the basin is closed on every side but two: the Caravan pass (a col at 400 m with a
+limb falling each way) to the lowland, and the city's climb. That climb runs up the falls stream's graded gorge past the
+upper-city shelf and on up its valley onto the plateau, and it is the only practical climb from the floor onto the plateau
+(P28, P29): the north rim is one raised fault block with a sharp scarp from the plateau past the volcano to the east horst,
+the east horst has a sharp inner face (with two re-entrants and their fans), and the escarpment's steep face runs on along
+the Caravan pass to its mouth. Ops that keep a scarp sharp (`act1.rim.north`, `act1.rim.east.face-*`, the volcano's foot)
+come after the floor is carved and use a near-zero feather, with their relief added by clamped `roughen`: a wide feather
+or later carving next to them would leave a graded ramp up the scarp. The south rim is two offset (en-echelon) segments
+with a relay saddle at 42, the volcano is a stacked cone on the north block with a fan apron down to the pan, and the pan
+reaches west into an arm between the basalt and the terraces. Re-check the climb with the review's `paths.py` (grade-limited
+search) after any change to the rims.
 
-Water: lakes form wherever `finalize_terrain` finds enclosed ground below height 20, so Act I's pools (brine, acid, the teal
-mineral pool, the Dead Spring and the summit lava lake) are sculpted as small pits at the end of `base/10-act1-terrain.json`.
-`finalize_terrain` and `set_climate` reset every lake's look, so `eras/common/10-water.json` styles them afterwards with
-`define_style_group` and `set_lakes`, draws the falls stream with `add_river` and the seasonal mineral washes as dashed lines
-with `add_route`. A cell is about 2.3 km across, so a pool needs a radius of about 2 km to show, and pools closer than a cell
-merge into one lake.
+Water: lakes form wherever `finalize_terrain` finds enclosed ground below height 20, so Act I's pools (two brine pools, eight
+acid pools, the teal mineral pool and the Dead Spring's two pools: 13 lakes) are sculpted as small pits at the end of
+`base/10-act1-terrain.json`. The summit lava lake is no longer a pit (it was a one-cell, 2 km shaft); it is the volcano
+marker's note. `finalize_terrain` and `set_climate` reset every lake's look and name, so `eras/common/10-water.json` and the
+eras' `20-water.json` style and name them afterwards with `define_style_group` and `set_lakes` (one `set_lakes` box per
+lake, every name tagged `[placeholder]`). `common/10-water.json` also draws the falls stream with `add_river` and the seasonal
+mineral washes as dashed lines with `add_route`. Every drawn river and wash runs in a carved channel, so its heights never
+rise downstream: `add_river` and `add_route` don't check that, so read the heights along each line after a terrain change.
+The salt pan's brine pools are the lowest water (surface 20.9); every other pool is at least one unit higher. A cell is about
+2.3 km across, so a pool needs a radius of about 2 km to show, and pools closer than a cell merge into one lake.
+
+The before era removes the generated rivers draining into Act I (`eras/before/05-rivers.json`) and draws its water instead:
+the falls stream runs on as Spring Brook from the Slums to the Spring, which drains through its lower pool and an outflow
+channel to the pan's south-west arm (`eras/before/20-water.json`). The channels are carved in the shared terrain, so today
+they are dry. How large the old salt lake on the pan was is still open (P24), so no lake is drawn there.
 
 Biomes: `finalize_terrain` and `set_climate` repaint every biome from climate, so Act I's zones are painted afterwards with
 `paint_biome`, in `eras/<era>/30-biomes.json`. Each paint goes over the ones before it, and `heights` lets an edge follow the
@@ -46,8 +66,9 @@ terrain (the escarpment is every cell at 44 or more; terrace benches are 28 or m
 present day paints all eleven zones in the art-bible palette; the before era so far only keeps the bedrock zones (basalt,
 terraces) and greens the Spring and the falls.
 
-Settlements: `eras/now/40-settlements.json` founds the city with `add_burg` (its upper city and its Slums as two burgs, since
-they sit about 30 km apart on the overview) and puts the Ruined Outpost down as a ruins marker with `add_marker`. Names and
+Settlements: `eras/now/40-settlements.json` founds the city with `add_burg` (its upper city and its Slums as two burgs: the
+Slums at the foot of the falls and the upper city on its shelf directly above, about 7 km and a short switchback apart, P21)
+and puts the Ruined Outpost down as a ruins marker with `add_marker`. Names and
 populations are placeholders, tagged `[placeholder]` in each note. The before era has no settlements until they are decided.
 
 Routes: `eras/now/50-routes.json` draws only the traffic that the terrain and the story support: the main road into the
