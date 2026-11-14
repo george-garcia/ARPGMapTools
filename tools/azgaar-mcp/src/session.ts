@@ -973,7 +973,7 @@ export class AzgaarSession {
           }
           return canvas.toDataURL("image/png");
         };
-        out.roads = lines(["main-road", "old-road", "roads", "trails"], Math.max(2, size / 400));
+        out.roads = lines(["main-road", "old-road", "salt-road", "roads", "trails"], Math.max(2, size / 400));
         out.washes = lines(["washes"], Math.max(3, size / 300));
         // two combined masks the saved Gaea graph reads, feathered a little so blends have no stair-steps:
         // "gaea-protect" keeps standing water and the salt pan out of erosion; "gaea-colour" is where the

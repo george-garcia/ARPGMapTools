@@ -1,12 +1,1533 @@
 [
   {
+    "id": "before.biome.floor",
+    "tool": "paint_biome",
+    "note": "The basin floor under the before era's natural climate stays grassland, but the climate's forest patches on dry ground (below the north wall, on the volcano's apron) are taken back to grassland: green ribbons and spots belong where the water is (the falls, Spring Brook, the Spring and its outflow; G25, E1)",
+    "args": {
+      "frame": "act1",
+      "name": "Grassland",
+      "polygon": [
+        [
+          0.11,
+          0.618
+        ],
+        [
+          0.018,
+          0.732
+        ],
+        [
+          -0.034,
+          0.775
+        ],
+        [
+          -0.172,
+          0.849
+        ],
+        [
+          -0.341,
+          0.956
+        ],
+        [
+          -0.36,
+          0.998
+        ],
+        [
+          -0.344,
+          1.041
+        ],
+        [
+          -0.308,
+          1.06
+        ],
+        [
+          -0.273,
+          1.054
+        ],
+        [
+          0.034,
+          0.875
+        ],
+        [
+          0.123,
+          0.794
+        ],
+        [
+          0.137,
+          0.851
+        ],
+        [
+          0.218,
+          0.899
+        ],
+        [
+          0.322,
+          0.939
+        ],
+        [
+          0.394,
+          0.927
+        ],
+        [
+          0.412,
+          0.956
+        ],
+        [
+          0.488,
+          0.993
+        ],
+        [
+          0.659,
+          0.99
+        ],
+        [
+          0.802,
+          1.0
+        ],
+        [
+          0.935,
+          0.977
+        ],
+        [
+          0.956,
+          0.963
+        ],
+        [
+          0.997,
+          0.897
+        ],
+        [
+          1.02,
+          0.785
+        ],
+        [
+          1.015,
+          0.705
+        ],
+        [
+          1.049,
+          0.663
+        ],
+        [
+          1.039,
+          0.582
+        ],
+        [
+          0.992,
+          0.546
+        ],
+        [
+          0.983,
+          0.496
+        ],
+        [
+          0.985,
+          0.437
+        ],
+        [
+          1.0,
+          0.385
+        ],
+        [
+          1.042,
+          0.358
+        ],
+        [
+          1.056,
+          0.336
+        ],
+        [
+          1.047,
+          0.264
+        ],
+        [
+          1.034,
+          0.245
+        ],
+        [
+          0.999,
+          0.226
+        ],
+        [
+          0.984,
+          0.147
+        ],
+        [
+          0.9,
+          0.039
+        ],
+        [
+          0.747,
+          0.015
+        ],
+        [
+          0.584,
+          0.043
+        ],
+        [
+          0.501,
+          0.117
+        ],
+        [
+          0.462,
+          0.273
+        ],
+        [
+          0.341,
+          0.304
+        ],
+        [
+          0.279,
+          0.358
+        ],
+        [
+          0.127,
+          0.387
+        ],
+        [
+          0.106,
+          0.401
+        ],
+        [
+          0.095,
+          0.429
+        ]
+      ],
+      "heights": [
+        20,
+        43
+      ]
+    }
+  },
+  {
+    "id": "before.biome.rim-hills.fade-2",
+    "tool": "paint_biome",
+    "note": "Duller brown basement rock of the east horst, the south rim and the Caravan pass's south-east face (older than the escarpment's red beds): outermost fade ring, an outer ring that keeps only the higher ground, so the rock thins out into the continent's own ground instead of ending on a straight line (C1, P17)",
+    "args": {
+      "frame": "act1",
+      "name": "Rim Hills",
+      "color": "#B98552",
+      "habitability": 3,
+      "polygon": [
+        [
+          -0.205,
+          1.3752
+        ],
+        [
+          -0.18,
+          1.3654
+        ],
+        [
+          -0.145,
+          1.3348
+        ],
+        [
+          -0.09,
+          1.2694
+        ],
+        [
+          0.0,
+          1.2133
+        ],
+        [
+          0.04,
+          1.2029
+        ],
+        [
+          0.085,
+          1.1776
+        ],
+        [
+          0.135,
+          1.1327
+        ],
+        [
+          0.2,
+          1.1473
+        ],
+        [
+          0.34,
+          1.1074
+        ],
+        [
+          0.38,
+          1.1241
+        ],
+        [
+          0.4358,
+          1.168
+        ],
+        [
+          0.465,
+          1.1825
+        ],
+        [
+          0.525,
+          1.1979
+        ],
+        [
+          0.575,
+          1.1911
+        ],
+        [
+          0.615,
+          1.209
+        ],
+        [
+          0.66,
+          1.2188
+        ],
+        [
+          0.73,
+          1.2168
+        ],
+        [
+          0.81,
+          1.2578
+        ],
+        [
+          0.855,
+          1.2644
+        ],
+        [
+          0.905,
+          1.2533
+        ],
+        [
+          0.98,
+          1.1962
+        ],
+        [
+          1.025,
+          1.1326
+        ],
+        [
+          1.0596,
+          1.04
+        ],
+        [
+          1.095,
+          0.84
+        ],
+        [
+          1.092,
+          0.752
+        ],
+        [
+          1.1103,
+          0.696
+        ],
+        [
+          1.1231,
+          0.624
+        ],
+        [
+          1.1254,
+          0.536
+        ],
+        [
+          1.1105,
+          0.464
+        ],
+        [
+          1.1295,
+          0.424
+        ],
+        [
+          1.1447,
+          0.368
+        ],
+        [
+          1.1514,
+          0.28
+        ],
+        [
+          1.1403,
+          0.192
+        ],
+        [
+          1.1042,
+          0.0694
+        ],
+        [
+          1.0,
+          0.12
+        ],
+        [
+          0.6,
+          0.5
+        ],
+        [
+          0.2,
+          0.74
+        ],
+        [
+          0.06,
+          0.8
+        ],
+        [
+          0.0,
+          0.845
+        ],
+        [
+          -0.32,
+          1.02
+        ],
+        [
+          -0.4972,
+          1.0764
+        ],
+        [
+          -0.4858,
+          1.152
+        ],
+        [
+          -0.46,
+          1.2265
+        ],
+        [
+          -0.4278,
+          1.288
+        ],
+        [
+          -0.3846,
+          1.344
+        ],
+        [
+          -0.35,
+          1.3733
+        ],
+        [
+          -0.33,
+          1.3805
+        ]
+      ],
+      "heights": [
+        50,
+        100
+      ]
+    }
+  },
+  {
+    "id": "before.biome.rim-hills.fade-1",
+    "tool": "paint_biome",
+    "note": "Duller brown basement rock of the east horst, the south rim and the Caravan pass's south-east face (older than the escarpment's red beds): middle fade ring, an outer ring that keeps only the higher ground, so the rock thins out into the continent's own ground instead of ending on a straight line (C1, P17)",
+    "args": {
+      "frame": "act1",
+      "name": "Rim Hills",
+      "habitability": 3,
+      "polygon": [
+        [
+          -0.205,
+          1.3114
+        ],
+        [
+          -0.145,
+          1.2658
+        ],
+        [
+          -0.105,
+          1.214
+        ],
+        [
+          -0.015,
+          1.1555
+        ],
+        [
+          0.025,
+          1.1445
+        ],
+        [
+          0.07,
+          1.117
+        ],
+        [
+          0.13,
+          1.0528
+        ],
+        [
+          0.155,
+          1.0653
+        ],
+        [
+          0.2,
+          1.0725
+        ],
+        [
+          0.34,
+          1.0433
+        ],
+        [
+          0.385,
+          1.0644
+        ],
+        [
+          0.465,
+          1.1263
+        ],
+        [
+          0.53,
+          1.1434
+        ],
+        [
+          0.585,
+          1.134
+        ],
+        [
+          0.62,
+          1.1508
+        ],
+        [
+          0.655,
+          1.1583
+        ],
+        [
+          0.725,
+          1.152
+        ],
+        [
+          0.83,
+          1.1991
+        ],
+        [
+          0.865,
+          1.1983
+        ],
+        [
+          0.89,
+          1.1905
+        ],
+        [
+          0.965,
+          1.1308
+        ],
+        [
+          1.005,
+          1.0743
+        ],
+        [
+          1.0286,
+          1.008
+        ],
+        [
+          1.0371,
+          0.928
+        ],
+        [
+          1.0577,
+          0.824
+        ],
+        [
+          1.05,
+          0.736
+        ],
+        [
+          1.0739,
+          0.68
+        ],
+        [
+          1.0854,
+          0.624
+        ],
+        [
+          1.0831,
+          0.536
+        ],
+        [
+          1.0585,
+          0.472
+        ],
+        [
+          1.0977,
+          0.392
+        ],
+        [
+          1.111,
+          0.336
+        ],
+        [
+          1.1141,
+          0.288
+        ],
+        [
+          1.1071,
+          0.224
+        ],
+        [
+          1.087,
+          0.16
+        ],
+        [
+          1.0786,
+          0.0807
+        ],
+        [
+          1.0,
+          0.12
+        ],
+        [
+          0.6,
+          0.5
+        ],
+        [
+          0.2,
+          0.74
+        ],
+        [
+          0.06,
+          0.8
+        ],
+        [
+          0.0,
+          0.845
+        ],
+        [
+          -0.32,
+          1.02
+        ],
+        [
+          -0.4581,
+          1.0639
+        ],
+        [
+          -0.4491,
+          1.128
+        ],
+        [
+          -0.4259,
+          1.2
+        ],
+        [
+          -0.4014,
+          1.248
+        ],
+        [
+          -0.3699,
+          1.288
+        ],
+        [
+          -0.345,
+          1.3083
+        ],
+        [
+          -0.32,
+          1.3191
+        ],
+        [
+          -0.235,
+          1.3177
+        ]
+      ],
+      "heights": [
+        47,
+        100
+      ]
+    }
+  },
+  {
+    "id": "before.biome.rim-hills",
+    "tool": "paint_biome",
+    "note": "Duller brown basement rock of the east horst, the south rim and the Caravan pass's south-east face (older than the escarpment's red beds). Every cell at 44 or more within a few km of the rift floor; the outline follows the crest at a varying distance (deeper over the north block), not a frame (C1)",
+    "args": {
+      "frame": "act1",
+      "name": "Rim Hills",
+      "habitability": 3,
+      "polygon": [
+        [
+          -0.22,
+          1.2474
+        ],
+        [
+          -0.16,
+          1.2057
+        ],
+        [
+          -0.12,
+          1.1533
+        ],
+        [
+          -0.06,
+          1.1225
+        ],
+        [
+          -0.025,
+          1.0933
+        ],
+        [
+          0.01,
+          1.0851
+        ],
+        [
+          0.06,
+          1.0526
+        ],
+        [
+          0.13,
+          0.9754
+        ],
+        [
+          0.16,
+          0.9955
+        ],
+        [
+          0.185,
+          1.0012
+        ],
+        [
+          0.225,
+          1.0007
+        ],
+        [
+          0.275,
+          0.9892
+        ],
+        [
+          0.305,
+          0.9925
+        ],
+        [
+          0.345,
+          0.9809
+        ],
+        [
+          0.37,
+          0.9974
+        ],
+        [
+          0.39,
+          1.0012
+        ],
+        [
+          0.41,
+          1.0241
+        ],
+        [
+          0.47,
+          1.0664
+        ],
+        [
+          0.535,
+          1.0811
+        ],
+        [
+          0.575,
+          1.0636
+        ],
+        [
+          0.6,
+          1.068
+        ],
+        [
+          0.625,
+          1.0869
+        ],
+        [
+          0.655,
+          1.0949
+        ],
+        [
+          0.7,
+          1.0813
+        ],
+        [
+          0.74,
+          1.0842
+        ],
+        [
+          0.765,
+          1.1003
+        ],
+        [
+          0.79,
+          1.1029
+        ],
+        [
+          0.81,
+          1.12
+        ],
+        [
+          0.83,
+          1.1269
+        ],
+        [
+          0.885,
+          1.1189
+        ],
+        [
+          0.95,
+          1.0709
+        ],
+        [
+          0.9753,
+          1.04
+        ],
+        [
+          0.9943,
+          0.992
+        ],
+        [
+          0.9968,
+          0.92
+        ],
+        [
+          1.0194,
+          0.8
+        ],
+        [
+          1.0074,
+          0.712
+        ],
+        [
+          1.0385,
+          0.656
+        ],
+        [
+          1.0479,
+          0.616
+        ],
+        [
+          1.0469,
+          0.576
+        ],
+        [
+          1.0379,
+          0.544
+        ],
+        [
+          1.025,
+          0.5233
+        ],
+        [
+          0.9998,
+          0.504
+        ],
+        [
+          1.02,
+          0.4409
+        ],
+        [
+          1.06,
+          0.3786
+        ],
+        [
+          1.0763,
+          0.312
+        ],
+        [
+          1.07,
+          0.231
+        ],
+        [
+          1.0557,
+          0.192
+        ],
+        [
+          1.0349,
+          0.16
+        ],
+        [
+          1.0525,
+          0.0938
+        ],
+        [
+          1.0,
+          0.12
+        ],
+        [
+          0.955,
+          0.16
+        ],
+        [
+          0.6,
+          0.5
+        ],
+        [
+          0.2,
+          0.74
+        ],
+        [
+          0.06,
+          0.8
+        ],
+        [
+          0.0,
+          0.845
+        ],
+        [
+          -0.32,
+          1.02
+        ],
+        [
+          -0.419,
+          1.0515
+        ],
+        [
+          -0.4119,
+          1.104
+        ],
+        [
+          -0.3944,
+          1.16
+        ],
+        [
+          -0.355,
+          1.2238
+        ],
+        [
+          -0.335,
+          1.2393
+        ],
+        [
+          -0.31,
+          1.2485
+        ],
+        [
+          -0.275,
+          1.2436
+        ],
+        [
+          -0.245,
+          1.2515
+        ]
+      ],
+      "heights": [
+        44,
+        100
+      ]
+    }
+  },
+  {
+    "id": "before.biome.escarpment.fade-2",
+    "tool": "paint_biome",
+    "note": "Red-brown rock of the master fault: the west escarpment, the Caravan pass's north-west face and the whole raised north block (P29), so the north reads as one fault wall: outermost fade ring, an outer ring that keeps only the higher ground, so the rock thins out into the continent's own ground instead of ending on a straight line (C1, P17)",
+    "args": {
+      "frame": "act1",
+      "name": "Rift Escarpment",
+      "color": "#A4532F",
+      "habitability": 4,
+      "polygon": [
+        [
+          1.1042,
+          0.0694
+        ],
+        [
+          1.0872,
+          -0.04
+        ],
+        [
+          1.06,
+          -0.1279
+        ],
+        [
+          1.04,
+          -0.1734
+        ],
+        [
+          1.0,
+          -0.2018
+        ],
+        [
+          0.935,
+          -0.2215
+        ],
+        [
+          0.87,
+          -0.2138
+        ],
+        [
+          0.805,
+          -0.2543
+        ],
+        [
+          0.745,
+          -0.2686
+        ],
+        [
+          0.705,
+          -0.2621
+        ],
+        [
+          0.6,
+          -0.2114
+        ],
+        [
+          0.48,
+          -0.1148
+        ],
+        [
+          0.42,
+          0.0475
+        ],
+        [
+          0.4,
+          0.0749
+        ],
+        [
+          0.36,
+          0.077
+        ],
+        [
+          0.295,
+          0.0973
+        ],
+        [
+          0.245,
+          0.1422
+        ],
+        [
+          0.22,
+          0.1818
+        ],
+        [
+          0.19,
+          0.1603
+        ],
+        [
+          0.15,
+          0.1603
+        ],
+        [
+          0.075,
+          0.1999
+        ],
+        [
+          0.04,
+          0.2315
+        ],
+        [
+          0.0,
+          0.2915
+        ],
+        [
+          -0.0269,
+          0.36
+        ],
+        [
+          -0.0411,
+          0.44
+        ],
+        [
+          -0.0419,
+          0.528
+        ],
+        [
+          -0.115,
+          0.5772
+        ],
+        [
+          -0.17,
+          0.5788
+        ],
+        [
+          -0.225,
+          0.6096
+        ],
+        [
+          -0.27,
+          0.6216
+        ],
+        [
+          -0.41,
+          0.7568
+        ],
+        [
+          -0.455,
+          0.8346
+        ],
+        [
+          -0.4825,
+          0.912
+        ],
+        [
+          -0.4962,
+          0.992
+        ],
+        [
+          -0.4972,
+          1.0764
+        ],
+        [
+          -0.32,
+          1.02
+        ],
+        [
+          0.0,
+          0.845
+        ],
+        [
+          0.06,
+          0.8
+        ],
+        [
+          0.2,
+          0.74
+        ],
+        [
+          0.6,
+          0.5
+        ],
+        [
+          1.0,
+          0.12
+        ]
+      ],
+      "heights": [
+        60,
+        100
+      ]
+    }
+  },
+  {
+    "id": "before.biome.escarpment.fade-1",
+    "tool": "paint_biome",
+    "note": "Red-brown rock of the master fault: the west escarpment, the Caravan pass's north-west face and the whole raised north block (P29), so the north reads as one fault wall: middle fade ring, an outer ring that keeps only the higher ground, so the rock thins out into the continent's own ground instead of ending on a straight line (C1, P17)",
+    "args": {
+      "frame": "act1",
+      "name": "Rift Escarpment",
+      "habitability": 4,
+      "polygon": [
+        [
+          1.0786,
+          0.08
+        ],
+        [
+          1.0708,
+          -0.008
+        ],
+        [
+          1.04,
+          -0.1104
+        ],
+        [
+          0.985,
+          -0.1535
+        ],
+        [
+          0.925,
+          -0.1674
+        ],
+        [
+          0.865,
+          -0.154
+        ],
+        [
+          0.805,
+          -0.1968
+        ],
+        [
+          0.745,
+          -0.2119
+        ],
+        [
+          0.71,
+          -0.2056
+        ],
+        [
+          0.6,
+          -0.1532
+        ],
+        [
+          0.48,
+          -0.0475
+        ],
+        [
+          0.4441,
+          0.056
+        ],
+        [
+          0.44,
+          0.1105
+        ],
+        [
+          0.4,
+          0.1472
+        ],
+        [
+          0.375,
+          0.1518
+        ],
+        [
+          0.35,
+          0.1712
+        ],
+        [
+          0.325,
+          0.1733
+        ],
+        [
+          0.305,
+          0.1839
+        ],
+        [
+          0.285,
+          0.2074
+        ],
+        [
+          0.25,
+          0.2722
+        ],
+        [
+          0.235,
+          0.2801
+        ],
+        [
+          0.215,
+          0.2722
+        ],
+        [
+          0.195,
+          0.251
+        ],
+        [
+          0.16,
+          0.2443
+        ],
+        [
+          0.12,
+          0.2643
+        ],
+        [
+          0.09,
+          0.2715
+        ],
+        [
+          0.0593,
+          0.296
+        ],
+        [
+          0.0322,
+          0.336
+        ],
+        [
+          0.0109,
+          0.392
+        ],
+        [
+          -0.0002,
+          0.464
+        ],
+        [
+          0.0031,
+          0.536
+        ],
+        [
+          -0.009,
+          0.56
+        ],
+        [
+          -0.1,
+          0.6366
+        ],
+        [
+          -0.155,
+          0.6401
+        ],
+        [
+          -0.22,
+          0.6803
+        ],
+        [
+          -0.245,
+          0.6822
+        ],
+        [
+          -0.27,
+          0.6943
+        ],
+        [
+          -0.3748,
+          0.8
+        ],
+        [
+          -0.42,
+          0.876
+        ],
+        [
+          -0.4438,
+          0.936
+        ],
+        [
+          -0.4566,
+          1.0
+        ],
+        [
+          -0.4581,
+          1.0639
+        ],
+        [
+          -0.32,
+          1.02
+        ],
+        [
+          0.0,
+          0.845
+        ],
+        [
+          0.06,
+          0.8
+        ],
+        [
+          0.2,
+          0.74
+        ],
+        [
+          0.6,
+          0.5
+        ],
+        [
+          1.0,
+          0.12
+        ]
+      ],
+      "heights": [
+        58,
+        100
+      ]
+    }
+  },
+  {
+    "id": "before.biome.escarpment",
+    "tool": "paint_biome",
+    "note": "Red-brown rock of the master fault: the west escarpment, the Caravan pass's north-west face and the whole raised north block (P29), so the north reads as one fault wall. Every cell at 44 or more within a few km of the rift floor; the outline follows the crest at a varying distance (deeper over the north block), not a frame (C1)",
+    "args": {
+      "frame": "act1",
+      "name": "Rift Escarpment",
+      "habitability": 4,
+      "polygon": [
+        [
+          1.0525,
+          0.0938
+        ],
+        [
+          1.0587,
+          0.056
+        ],
+        [
+          1.04,
+          -0.0358
+        ],
+        [
+          1.01,
+          -0.075
+        ],
+        [
+          0.97,
+          -0.1023
+        ],
+        [
+          0.915,
+          -0.1103
+        ],
+        [
+          0.855,
+          -0.0906
+        ],
+        [
+          0.805,
+          -0.1367
+        ],
+        [
+          0.775,
+          -0.1503
+        ],
+        [
+          0.745,
+          -0.1545
+        ],
+        [
+          0.715,
+          -0.1483
+        ],
+        [
+          0.6,
+          -0.0942
+        ],
+        [
+          0.515,
+          -0.0185
+        ],
+        [
+          0.48,
+          0.0289
+        ],
+        [
+          0.4694,
+          0.072
+        ],
+        [
+          0.4758,
+          0.12
+        ],
+        [
+          0.4893,
+          0.16
+        ],
+        [
+          0.4738,
+          0.192
+        ],
+        [
+          0.465,
+          0.1989
+        ],
+        [
+          0.43,
+          0.2027
+        ],
+        [
+          0.405,
+          0.2186
+        ],
+        [
+          0.385,
+          0.2227
+        ],
+        [
+          0.36,
+          0.2484
+        ],
+        [
+          0.325,
+          0.2598
+        ],
+        [
+          0.2944,
+          0.304
+        ],
+        [
+          0.28,
+          0.3415
+        ],
+        [
+          0.24,
+          0.3496
+        ],
+        [
+          0.19,
+          0.3202
+        ],
+        [
+          0.17,
+          0.3152
+        ],
+        [
+          0.15,
+          0.32
+        ],
+        [
+          0.13,
+          0.3344
+        ],
+        [
+          0.1,
+          0.3378
+        ],
+        [
+          0.0802,
+          0.352
+        ],
+        [
+          0.0591,
+          0.384
+        ],
+        [
+          0.0447,
+          0.432
+        ],
+        [
+          0.0417,
+          0.48
+        ],
+        [
+          0.0475,
+          0.536
+        ],
+        [
+          0.0134,
+          0.6
+        ],
+        [
+          -0.085,
+          0.6966
+        ],
+        [
+          -0.14,
+          0.7037
+        ],
+        [
+          -0.215,
+          0.7559
+        ],
+        [
+          -0.25,
+          0.7575
+        ],
+        [
+          -0.28,
+          0.7779
+        ],
+        [
+          -0.315,
+          0.822
+        ],
+        [
+          -0.35,
+          0.8521
+        ],
+        [
+          -0.3886,
+          0.92
+        ],
+        [
+          -0.4129,
+          0.984
+        ],
+        [
+          -0.419,
+          1.0515
+        ],
+        [
+          -0.32,
+          1.02
+        ],
+        [
+          0.0,
+          0.845
+        ],
+        [
+          0.06,
+          0.8
+        ],
+        [
+          0.2,
+          0.74
+        ],
+        [
+          0.6,
+          0.5
+        ],
+        [
+          0.955,
+          0.16
+        ],
+        [
+          1.0,
+          0.12
+        ]
+      ],
+      "heights": [
+        44,
+        100
+      ]
+    }
+  },
+  {
     "id": "before.biome.basalt.old",
     "tool": "paint_biome",
-    "note": "Basalt lobes, already old before the catastrophe",
+    "note": "Weathered outer basalt lobes on the floor below the north wall (heights up to 43, so the wall above stays fault-scarp rock, C1); already old before the catastrophe",
     "args": {
       "frame": "act1",
       "name": "Old Basalt",
-      "color": "#55483E",
+      "color": "#4A403A",
       "habitability": 1,
       "polygon": [
         [
@@ -44,51 +1565,186 @@
       ],
       "heights": [
         33,
-        100
+        43
       ]
     }
   },
   {
     "id": "before.biome.basalt.recent",
     "tool": "paint_biome",
-    "note": "Volcanic flows by the volcano, which was already present",
+    "note": "Fresh charcoal flows from the volcano down its south side onto the floor and the apron, tucked under the cone's foot (heights 33-57) so the flows join the cone they came from, with no strip of fault rock between them (the volcano was already there)",
     "args": {
       "frame": "act1",
       "name": "Recent Basalt",
-      "color": "#2D2F2F",
+      "color": "#222425",
       "habitability": 0,
       "polygon": [
         [
           0.74,
-          0
+          0.1
         ],
         [
-          0.95,
-          0
+          0.775,
+          0.1
         ],
         [
-          0.96,
-          0.17
+          0.79,
+          0.13
+        ],
+        [
+          0.84,
+          0.15
+        ],
+        [
+          0.89,
+          0.13
+        ],
+        [
+          0.905,
+          0.13
         ],
         [
           0.93,
-          0.25
+          0.15
         ],
         [
-          0.85,
+          0.93,
+          0.21
+        ],
+        [
+          0.88,
+          0.235
+        ],
+        [
+          0.82,
           0.24
         ],
         [
-          0.8,
+          0.79,
+          0.215
+        ],
+        [
+          0.75,
           0.2
         ],
         [
-          0.74,
-          0.12
+          0.735,
+          0.15
         ]
       ],
       "heights": [
         33,
+        57
+      ]
+    }
+  },
+  {
+    "id": "before.biome.basalt.cone",
+    "tool": "paint_biome",
+    "note": "The cone itself (56 and up inside its foot, meeting its south-side flows) in fresh charcoal basalt, standing on the north block's red fault rock, so it reads as a cone and not a dark massif (C1, G4)",
+    "args": {
+      "frame": "act1",
+      "name": "Recent Basalt",
+      "polygon": [
+        [
+          0.915,
+          0.07
+        ],
+        [
+          0.9124,
+          0.1003
+        ],
+        [
+          0.905,
+          0.1286
+        ],
+        [
+          0.893,
+          0.1529
+        ],
+        [
+          0.8775,
+          0.1715
+        ],
+        [
+          0.8594,
+          0.1832
+        ],
+        [
+          0.84,
+          0.1872
+        ],
+        [
+          0.8206,
+          0.1832
+        ],
+        [
+          0.8025,
+          0.1715
+        ],
+        [
+          0.787,
+          0.1529
+        ],
+        [
+          0.775,
+          0.1286
+        ],
+        [
+          0.7676,
+          0.1003
+        ],
+        [
+          0.765,
+          0.07
+        ],
+        [
+          0.7676,
+          0.0397
+        ],
+        [
+          0.775,
+          0.0114
+        ],
+        [
+          0.787,
+          -0.0129
+        ],
+        [
+          0.8025,
+          -0.0315
+        ],
+        [
+          0.8206,
+          -0.0432
+        ],
+        [
+          0.84,
+          -0.0472
+        ],
+        [
+          0.8594,
+          -0.0432
+        ],
+        [
+          0.8775,
+          -0.0315
+        ],
+        [
+          0.893,
+          -0.0129
+        ],
+        [
+          0.905,
+          0.0114
+        ],
+        [
+          0.9124,
+          0.0397
+        ]
+      ],
+      "heights": [
+        56,
         100
       ]
     }
@@ -96,11 +1752,11 @@
   {
     "id": "before.biome.terraces",
     "tool": "paint_biome",
-    "note": "The fossil-reef benches are bedrock in every era",
+    "note": "Ivory fossil-reef benches (heights 27 and up, so the h27 belt reads as terrace, not gravel); lighter than the gravel and gypsum around them (K-c); bedrock in every era",
     "args": {
       "frame": "act1",
       "name": "Fossil Terraces",
-      "color": "#E3D3A8",
+      "color": "#F3E8C8",
       "habitability": 2,
       "polygon": [
         [
@@ -121,8 +1777,292 @@
         ]
       ],
       "heights": [
-        28,
+        27,
         100
+      ]
+    }
+  },
+  {
+    "id": "before.biome.salt",
+    "tool": "paint_biome",
+    "note": "Halite crust on the pan, the lowest ground: the salt predates the catastrophe, so it is salt in both eras (E1, P14). How large the old salt lake was is still open (P24); no lake or shore is drawn",
+    "args": {
+      "frame": "act1",
+      "name": "Salt Flats",
+      "color": "#F6F3EC",
+      "habitability": 0,
+      "polygon": [
+        [
+          0.63,
+          0.32
+        ],
+        [
+          0.67,
+          0.28
+        ],
+        [
+          0.72,
+          0.255
+        ],
+        [
+          0.78,
+          0.23
+        ],
+        [
+          0.84,
+          0.225
+        ],
+        [
+          0.955,
+          0.16
+        ],
+        [
+          0.965,
+          0.29
+        ],
+        [
+          1.0,
+          0.31
+        ],
+        [
+          0.965,
+          0.36
+        ],
+        [
+          0.96,
+          0.58
+        ],
+        [
+          1.0,
+          0.62
+        ],
+        [
+          0.965,
+          0.67
+        ],
+        [
+          0.96,
+          0.86
+        ],
+        [
+          0.86,
+          0.9
+        ],
+        [
+          0.7,
+          0.895
+        ],
+        [
+          0.675,
+          0.935
+        ],
+        [
+          0.6,
+          0.94
+        ],
+        [
+          0.575,
+          0.9
+        ],
+        [
+          0.59,
+          0.86
+        ],
+        [
+          0.59,
+          0.72
+        ],
+        [
+          0.68,
+          0.63
+        ],
+        [
+          0.8,
+          0.575
+        ],
+        [
+          0.85,
+          0.42
+        ],
+        [
+          0.835,
+          0.375
+        ],
+        [
+          0.77,
+          0.36
+        ],
+        [
+          0.7,
+          0.36
+        ],
+        [
+          0.645,
+          0.365
+        ]
+      ],
+      "heights": [
+        20,
+        23
+      ]
+    }
+  },
+  {
+    "id": "before.biome.gypsum",
+    "tool": "paint_biome",
+    "note": "Gypsum pavement east of the terraces: an evaporite older than the catastrophe (E1)",
+    "args": {
+      "frame": "act1",
+      "name": "Gypsum Pavement",
+      "color": "#C4CAC6",
+      "habitability": 1,
+      "polygon": [
+        [
+          0.785,
+          0.39
+        ],
+        [
+          0.855,
+          0.37
+        ],
+        [
+          0.865,
+          0.58
+        ],
+        [
+          0.795,
+          0.6
+        ]
+      ],
+      "heights": [
+        20,
+        27
+      ]
+    }
+  },
+  {
+    "id": "before.biome.dunes",
+    "tool": "paint_biome",
+    "note": "Gypsum dunes downwind (ENE) of the pavement, as today (E1, G19)",
+    "args": {
+      "frame": "act1",
+      "name": "Gypsum Dunes",
+      "color": "#E9C77F",
+      "habitability": 0,
+      "polygon": [
+        [
+          0.843,
+          0.385
+        ],
+        [
+          0.885,
+          0.395
+        ],
+        [
+          0.89,
+          0.59
+        ],
+        [
+          0.85,
+          0.595
+        ],
+        [
+          0.84,
+          0.5
+        ]
+      ],
+      "heights": [
+        22,
+        27
+      ]
+    }
+  },
+  {
+    "id": "before.biome.travertine",
+    "tool": "paint_biome",
+    "note": "[provisional, P24 open] Before the machine: white travertine terraces round clear hot springs on the dome. Whether the hydrothermal field predates the machine is George's open question; this is a cartographer's draft, not canon (E2)",
+    "args": {
+      "frame": "act1",
+      "name": "Spring Terraces",
+      "color": "#EEEADF",
+      "habitability": 5,
+      "polygon": [
+        [
+          0.93,
+          0.735
+        ],
+        [
+          0.92,
+          0.7884
+        ],
+        [
+          0.8914,
+          0.8354
+        ],
+        [
+          0.8475,
+          0.8703
+        ],
+        [
+          0.7937,
+          0.8889
+        ],
+        [
+          0.7363,
+          0.8889
+        ],
+        [
+          0.6825,
+          0.8703
+        ],
+        [
+          0.6386,
+          0.8354
+        ],
+        [
+          0.61,
+          0.7884
+        ],
+        [
+          0.6,
+          0.735
+        ],
+        [
+          0.61,
+          0.6816
+        ],
+        [
+          0.6386,
+          0.6346
+        ],
+        [
+          0.6825,
+          0.5997
+        ],
+        [
+          0.7363,
+          0.5811
+        ],
+        [
+          0.7937,
+          0.5811
+        ],
+        [
+          0.8475,
+          0.5997
+        ],
+        [
+          0.8914,
+          0.6346
+        ],
+        [
+          0.92,
+          0.6816
+        ]
+      ],
+      "heights": [
+        20,
+        30
       ]
     }
   },
@@ -213,91 +2153,88 @@
     }
   },
   {
-    "id": "before.biome.travertine",
+    "id": "before.biome.oasis.brook",
     "tool": "paint_biome",
-    "note": "Before the machine: the dome was white travertine terraces around clear hot springs",
+    "note": "A green ribbon along Spring Brook from the Slums' site to the Spring: green only where the water runs (G25, E1)",
     "args": {
       "frame": "act1",
-      "name": "Spring Terraces",
-      "color": "#EEEADF",
-      "habitability": 5,
+      "name": "Spring Oasis",
       "polygon": [
         [
-          0.93,
-          0.735
+          0.235,
+          0.44
         ],
         [
-          0.92,
-          0.7884
+          0.265,
+          0.44
         ],
         [
-          0.8914,
-          0.8354
+          0.29,
+          0.55
         ],
         [
-          0.8475,
-          0.8703
+          0.33,
+          0.65
         ],
         [
-          0.7937,
-          0.8889
+          0.37,
+          0.73
         ],
         [
-          0.7363,
-          0.8889
+          0.35,
+          0.75
         ],
         [
-          0.6825,
-          0.8703
+          0.31,
+          0.67
         ],
         [
-          0.6386,
-          0.8354
+          0.265,
+          0.56
+        ]
+      ]
+    }
+  },
+  {
+    "id": "before.biome.oasis.outflow",
+    "tool": "paint_biome",
+    "note": "A green ribbon along the Spring's outflow to the pan's south-west arm, ending where the water spreads on the salt (G25, E1)",
+    "args": {
+      "frame": "act1",
+      "name": "Spring Oasis",
+      "polygon": [
+        [
+          0.47,
+          0.83
+        ],
+        [
+          0.55,
+          0.84
         ],
         [
           0.61,
-          0.7884
+          0.85
         ],
         [
-          0.6,
-          0.735
+          0.63,
+          0.88
         ],
         [
           0.61,
-          0.6816
+          0.9
         ],
         [
-          0.6386,
-          0.6346
+          0.55,
+          0.885
         ],
         [
-          0.6825,
-          0.5997
-        ],
-        [
-          0.7363,
-          0.5811
-        ],
-        [
-          0.7937,
-          0.5811
-        ],
-        [
-          0.8475,
-          0.5997
-        ],
-        [
-          0.8914,
-          0.6346
-        ],
-        [
-          0.92,
-          0.6816
+          0.48,
+          0.875
         ]
       ],
       "heights": [
-        20,
-        30
+        24,
+        40
       ]
     }
   }

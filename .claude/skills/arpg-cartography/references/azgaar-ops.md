@@ -64,7 +64,7 @@ Load for every step that writes an op or reads the map. Evidence and full tables
 - **M8. A lake's look is subtype + group;** set both after the climate. Judge acid colours on the 2D map, the terrain
   viewer and Gaea: Azgaar's own 3D view colours lakes by subtype only (the acid pools render teal there). *SOURCE D §2.10.*
 - **M9. Gaea mask names are an interface.** `export_gaea` hard-codes the biome names "Salt Flats", "Sulfur Crust",
-  "Acid Pits", "Dead Spring", the route groups `main-road`, `old-road`, `roads`, `trails`, `washes`, and the `acid*`
+  "Acid Pits", "Dead Spring", the route groups `main-road`, `old-road`, `roads`, `trails`, `salt-road`, `washes`, and the `acid*`
   lake-group prefix. Renaming any of them silently empties a mask: change the tool too. *SOURCE D §5 TG5.*
 - **M10. Azgaar's climate is cooler than the Danakil** (Act I computes 0–16 °C, mean 11.5): unpainted ground becomes cold
   desert, and evaporation is low. Paint covers it inside Act I; whether to change the world's climate is George's call.

@@ -2,7 +2,7 @@
   {
     "id": "act1.river.falls",
     "tool": "add_river",
-    "note": "Stream off the plateau: it rises well back on the highlands, passes the upper city (its intake) and drops down the falls slot to the Slums, the city's water source; it ends at the Slums, used up",
+    "note": "Stream off the plateau: it rises well back on the highlands, runs down its graded valley past the stone-terraced fields (P28), passes the upper city (its intake) and drops down the gorge to the Slums, the city's last reliable water; it ends at the Slums, used up. What feeds it is provisional: springs where the plateau's groundwater meets the master fault (W2)",
     "args": {
       "frame": "act1",
       "points": [
@@ -193,13 +193,13 @@
   {
     "id": "act1.style.mineral",
     "tool": "define_style_group",
-    "note": "Teal mineral pools with gypsum rims",
+    "note": "Mineral (saline, not acid) pools: a dull blue-grey teal with gypsum rims, well apart from the acid pools' turquoise so 'saline is not acidic' reads (K-d)",
     "args": {
       "layer": "lakes",
       "group": "mineral",
       "attrs": {
         "opacity": 0.9,
-        "fill": "#49b3a8",
+        "fill": "#5E9A9E",
         "stroke": "#d9d5c8",
         "stroke-width": 0.8
       }
