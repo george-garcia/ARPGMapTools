@@ -65,6 +65,10 @@ rules they lean on are in `geography.md`.
   B X1–X2.* Dallol is the analogue, not the blueprint.
 - **K26. Depart from reality where readability or play needs it, and nowhere else** — even Azgaar bends physics for
   colour. *DEV B X4; COMMUNITY (one practitioner) B X3; PROJECT P8.*
+- **K26b. Story and theme first, then gameplay and beauty, then geography** (P8 refined by P31–P33). Zones are reached
+  through the zone graph, so the land never has to wall a route off; aim for beauty (the strange beauty of a dying
+  place), and make grit (mud, rust, dreariness) a deliberate narrative choice. Every colour carries a stated story or
+  beauty reason in the pass report. *PROJECT P31–P33.*
 - **K27. Say what was bent:** every op that departs from a G- or K-rule carries a note naming its reason (gameplay, look,
   story), so "what did we fake and why" is one list. *INFERRED B X7.*
 - **K28. Keep a place's soul when you change it;** compress, but keep the landmarks people remember. *DEV B X5–X6.*
