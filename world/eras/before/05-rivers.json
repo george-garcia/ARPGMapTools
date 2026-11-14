@@ -1,0 +1,10 @@
+[
+  {
+    "id": "before.act1.rivers.clear",
+    "tool": "remove_rivers",
+    "note": "Before era: the basin's water is designed, not generated (M7, W5). Generated rivers draining into Act I ended on the acid dome, so they are removed here and the designed streams are drawn in 20-water (Spring Brook, the Spring's outflow to the pan) after the shared falls stream.",
+    "args": {
+      "frame": "act1"
+    }
+  }
+]

@@ -84,7 +84,8 @@
         ]
       ],
       "subtype": "salt",
-      "group": "acid"
+      "group": "acid",
+      "name": "[placeholder] Acid pool a"
     }
   },
   {
@@ -112,7 +113,8 @@
         ]
       ],
       "subtype": "salt",
-      "group": "acid-sulfur"
+      "group": "acid-sulfur",
+      "name": "[placeholder] Acid pool b"
     }
   },
   {
@@ -123,24 +125,25 @@
       "frame": "act1",
       "polygon": [
         [
-          0.825,
-          0.6599999999999999
+          0.82,
+          0.68
         ],
         [
-          0.865,
-          0.6599999999999999
+          0.86,
+          0.68
         ],
         [
-          0.865,
-          0.72
+          0.86,
+          0.73
         ],
         [
-          0.825,
-          0.72
+          0.82,
+          0.73
         ]
       ],
       "subtype": "salt",
-      "group": "acid-teal"
+      "group": "acid-teal",
+      "name": "[placeholder] Acid pool c"
     }
   },
   {
@@ -152,23 +155,24 @@
       "polygon": [
         [
           0.695,
-          0.765
+          0.81
         ],
         [
           0.735,
-          0.765
+          0.81
         ],
         [
           0.735,
-          0.8250000000000001
+          0.87
         ],
         [
           0.695,
-          0.8250000000000001
+          0.87
         ]
       ],
       "subtype": "salt",
-      "group": "acid"
+      "group": "acid",
+      "name": "[placeholder] Acid pool d"
     }
   },
   {
@@ -196,7 +200,8 @@
         ]
       ],
       "subtype": "salt",
-      "group": "acid"
+      "group": "acid",
+      "name": "[placeholder] Acid pool e"
     }
   },
   {
@@ -207,24 +212,25 @@
       "frame": "act1",
       "polygon": [
         [
-          0.875,
-          0.74
+          0.87,
+          0.751
         ],
         [
-          0.915,
-          0.74
+          0.91,
+          0.751
         ],
         [
-          0.915,
-          0.8
+          0.91,
+          0.791
         ],
         [
-          0.875,
-          0.8
+          0.87,
+          0.791
         ]
       ],
       "subtype": "salt",
-      "group": "acid-sulfur"
+      "group": "acid-sulfur",
+      "name": "[placeholder] Acid pool f"
     }
   },
   {
@@ -252,7 +258,8 @@
         ]
       ],
       "subtype": "salt",
-      "group": "acid"
+      "group": "acid",
+      "name": "[placeholder] Acid pool h"
     }
   },
   {
@@ -280,7 +287,8 @@
         ]
       ],
       "subtype": "salt",
-      "group": "acid-deep"
+      "group": "acid-deep",
+      "name": "[placeholder] Acid pool i"
     }
   },
   {
@@ -308,36 +316,66 @@
         ]
       ],
       "subtype": "salt",
-      "group": "mineral"
+      "group": "mineral",
+      "name": "[placeholder] Teal mineral pool"
     }
   },
   {
     "id": "now.lakes.dead-spring",
     "tool": "set_lakes",
-    "note": "Present day: the oasis is dead; only stagnant mineral pools remain (teal on the overview)",
+    "note": "The Dead Spring's main pool: stagnant mineral water today",
     "args": {
       "frame": "act1",
       "polygon": [
         [
-          0.33,
-          0.76
+          0.335,
+          0.755
         ],
         [
-          0.49,
-          0.76
+          0.415,
+          0.755
         ],
         [
-          0.49,
-          0.88
+          0.415,
+          0.825
         ],
         [
-          0.33,
-          0.88
+          0.335,
+          0.825
         ]
       ],
       "subtype": "salt",
       "group": "mineral",
-      "name": "Dead Spring"
+      "name": "[placeholder] Dead Spring"
+    }
+  },
+  {
+    "id": "now.lakes.dead-spring.lower",
+    "tool": "set_lakes",
+    "note": "The Dead Spring's lower pool",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.435,
+          0.83
+        ],
+        [
+          0.475,
+          0.83
+        ],
+        [
+          0.475,
+          0.87
+        ],
+        [
+          0.435,
+          0.87
+        ]
+      ],
+      "subtype": "salt",
+      "group": "mineral",
+      "name": "[placeholder] Dead Spring lower pool"
     }
   }
 ]
