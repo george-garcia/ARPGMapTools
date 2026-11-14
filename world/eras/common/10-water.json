@@ -198,31 +198,61 @@
     }
   },
   {
-    "id": "act1.lakes.brine",
+    "id": "act1.lakes.brine.west",
     "tool": "set_lakes",
-    "note": "Brine pools NE of the salt flats",
+    "note": "Brine pool in the pan's north arm, below the basalt",
     "args": {
       "frame": "act1",
       "polygon": [
         [
-          0.84,
-          0.18
+          0.852,
+          0.265
         ],
         [
-          0.97,
-          0.18
+          0.912,
+          0.265
         ],
         [
-          0.97,
-          0.35
+          0.912,
+          0.335
         ],
         [
-          0.84,
-          0.35
+          0.852,
+          0.335
         ]
       ],
       "subtype": "salt",
-      "group": "brine"
+      "group": "brine",
+      "name": "[placeholder] Brine pool west"
+    }
+  },
+  {
+    "id": "act1.lakes.brine.east",
+    "tool": "set_lakes",
+    "note": "Brine pool against the east horst",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.917,
+          0.218
+        ],
+        [
+          0.953,
+          0.218
+        ],
+        [
+          0.953,
+          0.262
+        ],
+        [
+          0.917,
+          0.262
+        ]
+      ],
+      "subtype": "salt",
+      "group": "brine",
+      "name": "[placeholder] Brine pool east"
     }
   },
   {
@@ -250,7 +280,8 @@
         ]
       ],
       "subtype": "salt",
-      "group": "mineral"
+      "group": "mineral",
+      "name": "[placeholder] Teal mineral pool"
     }
   },
   {

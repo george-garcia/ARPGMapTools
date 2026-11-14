@@ -54,7 +54,8 @@
         ]
       ],
       "subtype": "freshwater",
-      "group": "hot-spring"
+      "group": "hot-spring",
+      "name": "[placeholder] Hot spring a"
     }
   },
   {
@@ -82,7 +83,8 @@
         ]
       ],
       "subtype": "freshwater",
-      "group": "hot-spring"
+      "group": "hot-spring",
+      "name": "[placeholder] Hot spring b"
     }
   },
   {
@@ -110,7 +112,8 @@
         ]
       ],
       "subtype": "freshwater",
-      "group": "hot-spring"
+      "group": "hot-spring",
+      "name": "[placeholder] Hot spring c"
     }
   },
   {
@@ -138,7 +141,8 @@
         ]
       ],
       "subtype": "freshwater",
-      "group": "hot-spring"
+      "group": "hot-spring",
+      "name": "[placeholder] Hot spring d"
     }
   },
   {
@@ -166,7 +170,8 @@
         ]
       ],
       "subtype": "freshwater",
-      "group": "hot-spring"
+      "group": "hot-spring",
+      "name": "[placeholder] Hot spring e"
     }
   },
   {
@@ -194,7 +199,8 @@
         ]
       ],
       "subtype": "freshwater",
-      "group": "hot-spring"
+      "group": "hot-spring",
+      "name": "[placeholder] Hot spring f"
     }
   },
   {
@@ -222,7 +228,8 @@
         ]
       ],
       "subtype": "freshwater",
-      "group": "hot-spring"
+      "group": "hot-spring",
+      "name": "[placeholder] Hot spring h"
     }
   },
   {
@@ -250,36 +257,66 @@
         ]
       ],
       "subtype": "freshwater",
-      "group": "hot-spring-deep"
+      "group": "hot-spring-deep",
+      "name": "[placeholder] Hot spring i"
     }
   },
   {
     "id": "before.lakes.dead-spring",
     "tool": "set_lakes",
-    "note": "Before: a living freshwater oasis",
+    "note": "Before: a living freshwater oasis (the Spring's main pool)",
     "args": {
       "frame": "act1",
       "polygon": [
         [
-          0.33,
-          0.76
+          0.335,
+          0.755
         ],
         [
-          0.49,
-          0.76
+          0.415,
+          0.755
         ],
         [
-          0.49,
-          0.88
+          0.415,
+          0.825
         ],
         [
-          0.33,
-          0.88
+          0.335,
+          0.825
         ]
       ],
       "subtype": "freshwater",
       "group": "freshwater",
-      "name": "The Spring"
+      "name": "[placeholder] The Spring"
+    }
+  },
+  {
+    "id": "before.lakes.dead-spring.lower",
+    "tool": "set_lakes",
+    "note": "Before: the Spring's lower pool",
+    "args": {
+      "frame": "act1",
+      "polygon": [
+        [
+          0.435,
+          0.83
+        ],
+        [
+          0.475,
+          0.83
+        ],
+        [
+          0.475,
+          0.87
+        ],
+        [
+          0.435,
+          0.87
+        ]
+      ],
+      "subtype": "freshwater",
+      "group": "freshwater",
+      "name": "[placeholder] The Spring's lower pool"
     }
   }
 ]
