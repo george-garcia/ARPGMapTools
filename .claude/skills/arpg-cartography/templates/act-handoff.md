@@ -41,6 +41,9 @@ One block per zone, in act order. Every fact names its source: a vault decision,
 | **Now, and what changed** | <the now era; the cause of each kind of change (drought, extraction, acid, abandonment…) as far as the vault says; open causes marked open> |
 | **Palette and hook** | <the map's biome hex colours here; a real-world analogue to photograph for the hook (environment art Z2)> |
 | **Light** | <latitude, so sun height and direction; haze, steam, ash> |
+| **Field guide** | <link to this zone's section of the act's zone field guide (`references/field-guide.md`): walking-scale ground, plants, land use, asset seeds> |
+| **Top asset seeds** | <the five to eight things environment art should build first, from the guide> |
+| **Side-area ideas** | <the guide's Strong ideas for this zone, marked as ideas, not decisions> |
 | **Open** | <what the map can't decide: questions for George / narrative> |
 
 ## 4. Changes since the last version
