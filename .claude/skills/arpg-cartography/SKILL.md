@@ -147,7 +147,7 @@ uses the same rubric when George asks for one.
 skill's craft rules (G, K, H, M). 5. The research notes.
 
 **Ask George (in plain prose, not a multiple-choice tool) before:** settling a story question through geography (P7);
-moving a locked anchor (P18, P19, P21, P23); approving or renaming a placeholder (P12); era-specific terrain (breaks P14);
+moving a locked anchor (P18, P19, P21, P23); approving or renaming a placeholder (P12); adding a history event the vault doesn't support (mark it `proposed`, never `canon`);
 changing the world's climate model (M10); adding a link to the zone graph the vault doesn't support; building a new MCP
 tool (propose it with its gap ID); any change to another repo beyond the handoff doc.
 

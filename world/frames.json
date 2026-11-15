@@ -2,6 +2,13 @@
   "act1": {
     "description": "Act I Rift Basin. Local 0-1 coordinates match the regional overview: x runs west to east, y north to south.",
     "center": [0.4, 0.63],
-    "sizeKm": [100, 64]
+    "sizeKm": [100, 64],
+    "views": true
+  },
+  "history-test": {
+    "description": "Test site for the history ledger (world/history/events.json): a grassland plain about 150 km east of Act I. Not a story place.",
+    "center": [0.5521, 0.6204],
+    "sizeKm": [80, 60],
+    "views": true
   }
 }
