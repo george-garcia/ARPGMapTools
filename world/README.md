@@ -10,6 +10,7 @@ The world map's source of truth. Generated `.map` files and screenshots are buil
 | `eras/common/` | Ops every era shares that must run after an era's climate, such as Act I's water styling |
 | `eras/before/` | Pre-catastrophe water, biomes, settlements, routes and notes |
 | `eras/now/` | Present-day water, biomes, settlements, routes and notes |
+| `history/events.json` | The history ledger: dated events (about 2,000 and 1,000 years ago) that change the land between the eras; compiled into each era's `*-history.json` ops |
 | `reference/act1-overview.jpg` | The canonical Act I regional overview (4K, map only). Passes from water onward trace and review against it; the terrain pass was traced from an earlier, smaller crop that agrees within one to two cells |
 | `build/` | Generated `before.map`, `now.map`, 2D and 3D screenshots, 3D region exports (`build/3d/`) and the `run_js` log |
 
@@ -17,7 +18,7 @@ The world map's source of truth. Generated `.map` files and screenshots are buil
 
 Each op file is a JSON array of `{ "id", "tool", "args", "note" }`, replayed through the azgaar MCP server in file-name order:
 `base/*.json` first, then `eras/common/*.json` and `eras/<era>/*.json` interleaved by file name (on a tie, `common` first). So
-`now/00-climate.json` runs before `common/10-water.json`, and an era's `20-*.json` can override the shared water. `id` is a stable name (such as `act1.city`) so an op is edited in place rather than
+`now/01-climate.json` runs before `common/10-water.json`, and an era's `20-*.json` can override the shared water. `id` is a stable name (such as `act1.city`) so an op is edited in place rather than
 appended again. The first op must be `new_map`, and `run_js` is never allowed in an op.
 
 ```
@@ -82,7 +83,16 @@ group, restyled and shown from zoom 3 to 40, since Azgaar hides it past 5.5 by d
 (zone 01), the active volcano, the Acid Pits and the Dead Spring, and hangs the region note (status, locked anchors, the
 provisional 19-section scaffold and links to the story bible, ARPGStoryBible) on the "Rift Basin" label. Every name is tagged `[placeholder]`.
 
-`eras/now/00-climate.json` applies the present-day drought with `set_climate`; the before era keeps the natural climate from `config.json`.
+`eras/now/01-climate.json` applies the present-day drought with `set_climate`; the before era keeps the natural climate from `config.json`.
 
 `base/00-continent.json` holds the continent as a custom Azgaar heightmap template. Template steps draw random positions from the seed,
 so changing one step reshapes the whole continent: review the screenshots after every edit.
+
+History: the eras may have different terrain (P14, amended 15 Nov 2026). `history/events.json` lists dated events, each
+with a kind, a place (a frame and shapes in km) and a status (`test`, `proposed` or `canon`). `scripts/history.mjs`
+(run by every build) turns each event into ops by its kind's aging rules: the before era shows the place as it was, the
+now era what the event left. It writes `eras/<era>/00-history.json` (terrain, ending in `finalize_terrain`, before the
+climate), `35-history.json` (biomes, lakes) and `65-history.json` (markers, labels). Edit the ledger, never those
+files. History is sparse (P32): an event goes in only where something happened. The first test is the Drained Lake on
+the `history-test` frame (`docs/passes/2026-11-15-history-ledger-test/`). Frames marked `"views": true` in
+`frames.json` get frame screenshots, 3D views and a Gaea tile in every build.

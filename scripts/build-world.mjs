@@ -1,11 +1,13 @@
 // Rebuilds a world map from the recorded ops: world/base/*.json, then the era's ops, in file-name order.
 // The era's ops are world/eras/common/*.json (shared by every era) and world/eras/<era>/*.json, interleaved by
-// file name, so now/00-climate.json runs before common/10-water.json and an era's 20-*.json can override it.
+// file name, so now/01-climate.json runs before common/10-water.json and an era's 20-*.json can override it.
+// The history ledger (world/history/events.json) is compiled into each era's *-history.json ops first.
 // Each op file is a JSON array of { id, tool, args, note } replayed through the azgaar MCP server.
 // Usage: node scripts/build-world.mjs [now|before]   (default: now)
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { compileHistory } from "./history.mjs";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 
@@ -22,6 +24,10 @@ function opFiles(...dirs) {
     .sort((a, b) => (a.name === b.name ? a.dir.localeCompare(b.dir) : a.name < b.name ? -1 : 1))
     .map(({ dir, name }) => join(dir, name));
 }
+
+console.log(`History ops: ${compileHistory().join(", ") || "none"}`);
+const frames = JSON.parse(readFileSync(join(root, "world/frames.json"), "utf8"));
+const viewFrames = Object.keys(frames).filter(key => frames[key].views);
 
 const files = [...opFiles("world/base"), ...opFiles("world/eras/common", `world/eras/${era}`)];
 const ops = files.flatMap(file => {
@@ -65,13 +71,15 @@ try {
     ["biomes", ["biomes", "rivers", "lakes", "routes", "burgIcons", "labels", "markers"]]
   ]) {
     await call("screenshot", { name: `${era}-${name}`, layers });
-    await call("screenshot", { name: `${era}-act1-${name}`, frame: "act1", layers });
+    for (const frame of viewFrames) await call("screenshot", { name: `${era}-${frame}-${name}`, frame, layers });
   }
-  // 3D: Azgaar's own view of the whole map, then Act I in the terrain viewer (data kept in world/build/3d/)
+  // 3D: Azgaar's own view of the whole map, then each view frame in the terrain viewer (data kept in world/build/3d/)
   await call("screenshot_3d", { name: `${era}-3d` });
-  await call("screenshot_3d", { name: `${era}-act1-3d`, frame: "act1", cameras: ["overview", "low"] });
-  // Gaea 2 handoff: a square Act I tile (heightfield, colour map, masks) to rebuild on the Windows desktop
-  await call("export_gaea", { name: `${era}-act1`, frame: "act1" });
+  for (const frame of viewFrames) {
+    await call("screenshot_3d", { name: `${era}-${frame}-3d`, frame, cameras: ["overview", "low"] });
+    // Gaea 2 handoff: a square tile (heightfield, colour map, masks) to rebuild on the Windows desktop
+    await call("export_gaea", { name: `${era}-${frame}`, frame });
+  }
   console.log(`Screenshots in world/build/screenshots/${era}-*.png; 3D data in world/build/3d/; Gaea export in world/build/gaea/`);
 } finally {
   await client.close();
