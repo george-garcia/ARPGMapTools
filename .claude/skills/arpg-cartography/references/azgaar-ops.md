@@ -76,9 +76,11 @@ Load for every step that writes an op or reads the map. Evidence and full tables
 - **River style groups:** every river has a group: `regular`, `frozen`, `dry`, `lava` or a custom one (`FMG.styles.rivers.groups`).
   Generated rivers are grouped by their course: `frozen` if every land cell is at 0 °C or below, `lava` if the source is at
   height 60 or more and the whole course stays at 45 or more, `dry` in arid heat (precipitation 4 or less, 20 °C or more). All
-  of our rivers are `regular` today (checked 22 Nov 2026). This would draw dead channels (washes, Foundry Brook below the
-  lava) as `dry` rivers instead of dashed routes, but neither `add_river` nor `define_style_group` can set a river group
-  yet (TG9). *SOURCE river-generator.ts pickGroup; default-styles.json.*
+  of our rivers are `regular` today (checked 22 Nov 2026). Since 22 Nov 2026 `add_river group` sets a river's group and `define_style_group layer:"rivers"`
+  restyles one (TG9 closed). **Dead beds** (a stream that no longer runs: Spring Brook and its outflow today, Foundry Brook
+  below the lava) are `dry` rivers; **seasonal braided washes** stay dashed routes in `washes`, because they split and
+  rejoin, which a river can't (G7). `export_gaea` puts `dry` rivers in `mask-washes`, not `mask-rivers`. *SOURCE
+  river-generator.ts pickGroup; default-styles.json.*
 - **Heightmap contours** are spaced in round height units and can carry elevation labels on every fifth contour (a style
   value; 0 hides them). Useful for height evidence in screenshots.
 - **Zoom size** for labels, markers and burg icons (a style option), so markers stop crowding a frame screenshot.
@@ -99,7 +101,7 @@ Load for every step that writes an op or reads the map. Evidence and full tables
 | TG6 | No edit/remove tools; no notes on lakes, rivers, routes | `remove` / `move` by id; `set_note` |
 | TG7 | No drainage trace | `trace_flow point` |
 | TG8 | `query_cells` lacks climate, river and land-only fields | extend it |
-| TG9 | No river group: `add_river` can't set one, and `define_style_group` has no rivers layer (v1.157 added river style groups) | `add_river group`, and `define_style_group layer:"rivers"` |
+| TG9 | ~~No river group~~ closed 22 Nov 2026: `add_river group`, `define_style_group layer:"rivers"` | done |
 
 Until TG1 and TG2 exist, the lowest-ground and drainage checks (review.md §2) need a read-only `run_js` query in a dev
 session (logged, never in an op), and the report says so. *SOURCE D §4–5; PROJECT P3.*

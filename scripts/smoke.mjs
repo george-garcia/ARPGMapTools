@@ -75,6 +75,10 @@ try {
   check("set_lakes restyles the lake in a sculpted pit", lakes.body.length >= 1 && lakes.body.every(l => l.group === "smokeAcid" && l.subtype === "salt"), JSON.stringify(lakes.body));
   const river = await call("add_river", { frame: "act1", points: [[0.65, 0.65], [0.55, 0.5], [0.42, 0.4]], name: "Smoke Creek", type: "Creek" });
   check("add_river draws a named river through neighbouring cells", river.body.cells >= 3 && river.body.name === "Smoke Creek", JSON.stringify(river.body));
+  const riverStyle = await call("define_style_group", { layer: "rivers", group: "smokeDry", attrs: { fill: "#c9bfa7", stroke: "#8a7f68", "stroke-width": 0.3 } });
+  check("define_style_group adds a river group from the regular look", riverStyle.body.created && riverStyle.body.attrs.fill === "#c9bfa7", JSON.stringify(riverStyle.body.attrs));
+  const dryBed = await call("add_river", { frame: "act1", points: [[0.3, 0.75], [0.3, 0.62], [0.32, 0.52]], name: "Smoke Bed", group: "smokeDry" });
+  check("add_river puts a river in a style group", dryBed.body.group === "smokeDry", JSON.stringify(dryBed.body));
   const cleared = await call("remove_rivers", { frame: "act1" });
   const kept = await call("run_js", { code: `return FMG.pack.rivers.some(r => r.i === ${river.body.i} && r.lock);` });
   check("remove_rivers keeps hand-placed (locked) rivers", kept.body === true, `${cleared.body.removed} removed`);
@@ -120,15 +124,16 @@ try {
     code: `const lake = FMG.pack.features.find(f => f && f.name === "Smoke Pool");
       return { style: FMG.styles.lakes.groups.smokeAcid?.attrs.fill, lakeGroup: lake?.group, wash: FMG.styles.routes.groups.smokeWash?.attrs.stroke,
         route: FMG.pack.routes.find(r => r.name === "Smoke Wash")?.group, river: FMG.pack.rivers.find(r => r.name === "Smoke Creek")?.lock,
+        riverGroup: FMG.pack.rivers.find(r => r.name === "Smoke Bed")?.group, riverStyle: FMG.styles.rivers.groups.smokeDry?.attrs.fill,
         biome: FMG.pack.biomes[${painted.body.i}]?.color, biomeCells: FMG.pack.cells.biome.filter(b => b === ${painted.body.i}).length > 20,
         burg: FMG.pack.burgs[${burg.body.i}]?.name, burgNote: FMG.pack.burgs[${burg.body.i}]?.note, marker: FMG.pack.markers.find(m => m.name === "Smoke Ruin")?.note,
         label: FMG.pack.addedLabels.find(l => l.label.text === "Smoke Basin")?.note,
         labelZoom: FMG.options.map.labels.groups.find(g => g.name === "added")?.zoom.max };`
   });
   check(
-    "custom lake/route groups, lakes, rivers, routes, biomes, burgs, markers and labels survive save and open",
+    "custom lake/river/route groups, lakes, rivers, routes, biomes, burgs, markers and labels survive save and open",
     JSON.stringify(persisted.body) ===
-      JSON.stringify({ style: "#98B72C", lakeGroup: "smokeAcid", wash: "#9a3d17", route: "smokeWash", river: true, biome: "#333333", biomeCells: true,
+      JSON.stringify({ style: "#98B72C", lakeGroup: "smokeAcid", wash: "#9a3d17", route: "smokeWash", river: true, riverGroup: "smokeDry", riverStyle: "#c9bfa7", biome: "#333333", biomeCells: true,
         burg: "Smoke Keep", burgNote: "<p>[placeholder]</p>", marker: "<p>picked over</p>", label: "<p>[placeholder]</p>", labelZoom: 40 }),
     JSON.stringify(persisted.body)
   );
