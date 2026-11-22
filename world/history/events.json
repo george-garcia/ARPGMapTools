@@ -1,0 +1,25 @@
+{
+  "note": "The history ledger: dated events that change the land between the before map and the present (P14, P31, P32). scripts/history.mjs turns each event into ops in world/eras/<era>/*-history.json. Edit events here, never the generated op files. Shapes are in km from the frame's north-west corner (x east, y south). status: test (pipeline test, delete freely), proposed (the cartographer's suggestion, not canon) or canon (decided in the story vault, with its source).",
+  "eras": {
+    "first": { "yearsAgo": 2000, "note": "Estimate (George, 15 Nov 2026)" },
+    "second": { "yearsAgo": 1000, "note": "Estimate (George, 15 Nov 2026)" }
+  },
+  "events": [
+    {
+      "id": "test.drained-lake",
+      "status": "test",
+      "name": "[test] The Drained Lake",
+      "era": "first",
+      "kind": "extraction-drain",
+      "frame": "history-test",
+      "story": "Pipeline test only, not canon. An extraction works drew the ground dry about 2,000 years ago: the water table fell, a shallow plain lake and its marsh died, and the ground over the drained aquifer sank.",
+      "shape": {
+        "lake": { "centerKm": [40, 30], "radiiKm": [8, 5], "angle": -20 },
+        "marshKm": 4,
+        "drawdown": { "centerKm": [44, 27], "radiiKm": [22, 15], "angle": -20 },
+        "worksKm": [50, 24]
+      },
+      "params": { "subsidence": 3, "playaHeight": 26 }
+    }
+  ]
+}
