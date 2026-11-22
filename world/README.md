@@ -126,7 +126,7 @@ files. History is sparse (P32): an event goes in only where something happened. 
 the `history-test` frame (`docs/passes/2026-11-15-history-ledger-test/`). Frames marked `"views": true` in
 `frames.json` get frame screenshots, 3D views and a Gaea tile in every build.
 
-The first story event is `volcano-north.skirmish` (status `proposed`, P34-P38), on the `volcano-north` frame north and
+The first story event is `volcano-north.skirmish` (status `canon` since the vault recorded it, 22 Nov 2026; P34-P38), on the `volcano-north` frame north and
 north-west of the Act I volcano, of kind `calamity-skirmish`. The before era shows the foundry at work on its stream (Foundry
 Brook, in a valley carved in both eras, ending in a marshy fan on the lowland), the extractor on the volcano's north flank and
 the foundry's road. The now era shows what ~2,000 years left: the conjured lava filling the valley from the extractor past the

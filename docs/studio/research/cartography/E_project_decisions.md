@@ -68,8 +68,9 @@ them, and re-reads the vault's README map sections at the start of every task.
 
 ## History, magic and blight (22 Nov 2026)
 
-Decided by George in chat on 22 Nov 2026. None of this is in the story vault yet; until it is, the history ledger
-marks the events built on it `proposed` (the vault decides canon, P1).
+Decided by George in chat on 22 Nov 2026 and recorded in the story vault the same day (ARPGStoryBible #8: `World/World Rule -
+Magic, Extraction and Blight.md`, `Geography/`). The ledger event `volcano-north.skirmish` is `canon` for those decisions; the
+map's details (lava, springs, craters, blight bands, names) stay provisional, as the vault marks them.
 
 | ID | Decision | Source |
 |---|---|---|
