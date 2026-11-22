@@ -59,8 +59,10 @@ geology in `geography.md`: tune them in Gaea, and record what worked in §8. Rul
   George's call (13 Nov 2026, P27): our use is non-commercial — dev visualization that never ships. *DEV F5.5–F5.7; PROJECT P27.*
 - **GA10. Pin Gaea 2.3.1.0** like Azgaar (P4); the project records its version. Builds go to a predictable folder
   ("maintain a static folder with the latest copy"; copy the `.terrain` into the build). *DEV F5.9–F5.10.*
-- **GA11. Eras:** one project per era, or one scripted path switch; paths are absolute today
-  (`C:\Users\jorge\ARPGMapTools\world\build\gaea\<era>-act1\`). *F5.9.*
+- **GA11. Eras and frames:** one project per era, or one scripted path switch; paths are absolute today
+  (`C:\Users\jorge\ARPGMapTools\world\build\gaea\<era>-<frame>\`). One project per frame: `tools/gaea/act1.terrain`
+  (now-act1) and `tools/gaea/volcano-north.terrain` (now-volcano-north, a copy of act1's graph with its paths, Width
+  102400 and Height 2 × 3069 = 6138). Act I's recipes are only a starting point there: the blight needs its own. *F5.9.*
 
 ## 4. Scale
 
