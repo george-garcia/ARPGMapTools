@@ -100,3 +100,61 @@ Each rule: the instruction, its origin, what the mistake looks like, and the che
   Note it where environment art will read it (the act handoff's per-zone sheet). *INFERRED A6.3.*
 - **G37. Some things can't be drawn:** land below sea level, a river split, seasonal versus permanent water. They go in
   labels, notes and dashed styles. *SOURCE A6.4.*
+
+## 7. Why a place looks the way it does (story first)
+
+George's rule (P34-P38, 22 Nov 2026): every place looks the way it does because of the world's past. These rules turn
+that into placement. Kenshi evidence: `G_kenshi_geography.md` (G1-G4).
+
+- **G38. Every place has a cause in the world's past; real places only show how a process looks.** The deep-time bones
+  (rift, escarpment, volcano) may stay natural. The skin carries the history: colour, acid, salt, dead water, craters,
+  glass. *PROJECT P34; DEV G1.1 (Hunt: laid out "based on the story and the physics that'd occur").* Mistake: a landform
+  adopted because a real place has it, explained only by that place's geology. Check: every landmark's note names the event
+  or the natural reason behind it.
+- **G39. Place a landmark for one of these reasons, roughly from most to least common:**
+  1. **Ordinary land.** Most ground is just ground; a spring can just be a spring (P32).
+  2. **People settled on a resource or strong ground,** such as water, salt, ore or a defensible height.
+  3. **Routes and the places along them:** passes, crossings, waystations.
+  4. **Wells:** where the earth's power concentrates and magic was drawn out.
+  5. **The works built for the wells:** extractors, foundries, and their roads and depots.
+  6. **Fights over the wells.** Wars happen where something was worth taking, never at random.
+  7. **Refuges:** places nobody wanted.
+  8. **Animals and plants** that define a place.
+  9. **Faith:** people worshipping what they don't understand.
+
+  *OBSERVED G3 (Kenshi: about a quarter of zones are shaped by an ancient catastrophe or technology; three quarters by
+  nature, animals or factions, though most hold a ruin); PROJECT P34-P37.* Check: say which reason each new landmark
+  serves; a region whose landmarks are all scars is a finding.
+- **G40. Scars are sized by their power source.** Everyday magic (skill stones) leaves zone-scale marks: burned ground,
+  small craters, wrecks. Region-scale scars come only from calamity extractions at the world's great natural sources.
+  *PROJECT P35.* Check: a scar's size matches the source that made it.
+- **G41. Calamity wells sit at the world's natural extremes:**
+  - fire at volcanoes, hotspots and rifts;
+  - ice on the highest inland peaks, far from the sea;
+  - thunder where warm, wet air meets high ground over water or forest (Lake Maracaibo's Catatumbo lightning);
+  - wind in the gaps and straits that squeeze it.
+
+  Find candidates from the map's own heights, temperature and precipitation; George chooses which are real. *SCIENCE (the
+  physics of each element); PROJECT P35.*
+- **G42. Extraction drains the source and leaves its residue:** the source weakens, and the residue is the corruption.
+  - **The blight's bands** run outward from the extractor: core, blighted, margin. Fade them with distance.
+  - **Its three layers:** drained (colour and stillness gone), the wound (veins and pits radiating from the extraction
+    point), and what grows in it.
+  - **Each well gives the blight its own accent.**
+  - **Stop the blight where the story says it isn't seen,** using a height clip and a gap from the act's frame.
+
+  *PROJECT P36; recorded look in docs/passes/2026-11-22-volcano-north/.*
+- **G43. Each signature scar appears once at full scale; its echoes elsewhere are small.** Don't repeat red rivers, robot
+  graveyards or craters as defaults: keep each for a story that needs it. *OBSERVED G4.1, G4.3 (one death ray, one
+  satellite, one Behemoth pit; red water twice, craters about three times); PROJECT P38.*
+- **G44. When a hazard repeats, make it behave differently, and give the same kind of scar a different present-day user.**
+  Acid as rain in one place and pools in another; one crater with shrines, another with a camp. *OBSERVED G4.2, G4.5.*
+- **G45. Scars cluster around their cause or sit at the edges; they are never sprinkled evenly.** Corruption is worst at
+  the well and fades with distance; battle marks lie on the approaches to what was fought over. *OBSERVED G2 (Kenshi's two
+  war belts); PROJECT P37.*
+- **G46. Know every cause; show the player only evidence.** The cause goes in the ledger event, the notes and the
+  handoff; the land shows its effects, and in-world accounts may be wrong (the vault's unreliable-narration rule, 17 Nov
+  2026). *DEV G1.3 (Hunt: "not a fan of exposition"); OBSERVED G4.6.*
+- **G47. Place an ancient site on the before map's land and water, then age it.** Ask what became of its stream, road and
+  walls over 1,000 or 2,000 years: buried, dried, rusted, a trace. Never describe it against today's conditions.
+  *PROJECT P34, P31.*

@@ -140,6 +140,9 @@ uses the same rubric when George asks for one.
 - Read the heights along every drawn river and wash: `add_river` doesn't check downhill. Compare eras cell by cell over rock and salt.
 - Check colours and area shares, not just placement: the signature must pop and a praised anchor must not shrink.
 - Write for readers without this skill: rules in words, our IDs only in parentheses (H25).
+- Every place has a cause in the world's past; real places only show how a process looks. Name each landmark's reason (G38, G39, P34).
+- Scars are sized by their source, cluster around their cause, and each signature scar appears once at full scale (G40, G43, G45).
+- Place ancient sites on the before map's land and water, then age them; know every cause, show only evidence (G46, G47).
 
 ## 6. Which rule wins, and when to ask George
 
@@ -161,7 +164,7 @@ scientist unless a source says it. Sources: `references/sources.md`.
 | Step | Load |
 |---|---|
 | Any op, any map read, any check | `references/azgaar-ops.md` |
-| Terrain, water, ground, climate, settlements, routes; reviews; change requests | `references/geography.md` |
+| Terrain, water, ground, climate, settlements, routes; landmarks and their causes in the past (§7); reviews; change requests | `references/geography.md` |
 | Readability, identity, naming, before/after, bending for play | `references/cartography-craft.md` |
 | Zone anchors, the zone graph, the act handoff, the act's shape | `references/world-to-zones.md` |
 | Gaea projects, recipes, close-up tiles, the `.terrain` file, Gaea checks | `references/gaea.md` |

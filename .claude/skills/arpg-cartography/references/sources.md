@@ -11,6 +11,7 @@ the source says it.
 | W1…W42, C1…C16, LD-x, EA-x | `C_world_to_zones.md` | "Sources": new sources C1–C16, plus the studio's level-design (LD-A…I) and environment-art (EA-B, C, F) research by their own numbers | Act maps, directions, act shape, region identity, the handoff format |
 | D §n, S1…S10 | `D_azgaar_and_tools.md` | "Sources", S1–S10 (Azgaar v1.156.0 source file:line, this repo's code, Azgaar's wiki, measurements on our maps) | Azgaar's model, the tools, resets, verification, gaps |
 | F1.1…F6.4 | `F_gaea.md` | "Sources (read 2026-11-13)": QuadSpinner's Gaea 2 docs (the public `Gaea2-Docs` repo), EULA and editions pages, release notes, measurements on our export | Gaea's nodes, recipes, scale, the `.terrain` file, Community limits, checks |
+| G1.1…G4.6 | `G_kenshi_geography.md` | "Sources": kenshi.zone (fan wiki, labels [S]/[I]/[F]), Chris Hunt's 2019 AMA, a Rock Paper Shotgun interview | How Kenshi decides what each region looks like and why; its reasons for places; how it avoids repeating scars |
 | P1…P26 | `E_project_decisions.md` | the story vault's README sections and George's instructions, by date | George's decisions |
 
 Rule prefixes in this skill: **G** geography (`geography.md`), **K** craft (`cartography-craft.md`), **H** world to zones
