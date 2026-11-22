@@ -40,13 +40,13 @@
     },
     {
       "id": "volcano-north.skirmish",
-      "status": "proposed",
+      "status": "canon",
       "name": "[placeholder] The Skirmish at the Extractor",
       "era": "first",
       "kind": "calamity-skirmish",
       "frame": "volcano-north",
-      "source": "George, chat 22 Nov 2026 (approved; not yet recorded in the story vault, so proposed until it is)",
-      "story": "The first era's skirmish between the first two major powers, magic and machine (neither side named yet). An extractor on the volcano's north flank, built and fed by a foundry on the stream below, harvested the volcano's magmatic power; the magic users channelled the volcano through it, so the fight reached calamity size. It conjured lava down the foundry's valley, cratered and glassed the approaches, and weakened the earth: blight scarred the land and mutations and demons arose. The extractor is defunct and the blight has settled (no longer growing). Only the grafted and the ritualists who commune with monsters live here. On the path from Act I's exit toward Act II; not seen from Act I, which lies on the volcano's south side. The Grand Machine is far from here and was not the first extractor.",
+      "source": "Story vault, 22 Nov 2026 (ARPGStoryBible #8): World/World Rule - Magic, Extraction and Blight.md and Geography/Region - The Volcano's North Side.md",
+      "story": "The first era's skirmish between the first two major powers, magic and machine (neither side named yet). An extractor on the volcano's north flank, built and fed by a foundry on the stream below, harvested the volcano's magmatic power; the magic users channelled the volcano through it, so the fight reached calamity size. It conjured lava down the foundry's valley, cratered and glassed the approaches, and weakened the earth: blight scarred the land and mutations and demons arose. The extractor is defunct and the blight has settled (no longer growing). Only the grafted and the ritualists who commune with monsters live here. On the path from Act I's exit toward Act II; not seen from Act I, which lies on the volcano's south side. The Grand Machine is far from here and was not the first extractor. The map's details (the lava-filled valley, the springs, the craters and glass, the blight's bands and sites, every name) are the cartographer's approved proposals and stay provisional in the vault.",
       "shape": {
         "extractorKm": [59, 47],
         "foundryKm": [53, 38],

@@ -216,7 +216,7 @@
       ],
       "type": "volcanoes",
       "name": "Active volcano",
-      "note": "<p>[placeholder] Unnamed; \"Active volcano\" is a description, not a name.</p><p>Active volcano with a small, fluctuating summit lava lake (exaggerated for play; a real one would be far smaller than a map cell). [proposed, George 22 Nov 2026] A well of magmatic power. In the first era an extractor on its north flank, built and fed by a foundry below it, harvested its fire; magic users channelled the volcano through it in a skirmish that left calamity marks and a settled blight north and north-west of the cone (history ledger: volcano-north.skirmish). None of that is visible from Act I, which lies on the volcano's south side. The extractor is defunct; the lava lake is weakened, its power drawn out.</p><p>Departure from the rift model, recorded (G4): rift volcanoes sit on the basin's axis; this one stands at the basin's north-east, on the north fault block, because the vault's layout puts it there (P18). It is a look and layout choice.</p>"
+      "note": "<p>[placeholder] Unnamed; \"Active volcano\" is a description, not a name.</p><p>Active volcano with a small, fluctuating summit lava lake (exaggerated for play; a real one would be far smaller than a map cell). [confirmed, story vault 22 Nov 2026] A well of magmatic power. In the first era an extractor on its north flank, built and fed by a foundry below it, harvested its fire; magic users channelled the volcano through it in a skirmish that left calamity marks and a settled blight north and north-west of the cone (history ledger: volcano-north.skirmish). None of that is visible from Act I, which lies on the volcano's south side. The extractor is defunct; the lava lake is weakened, its power drawn out.</p><p>Departure from the rift model, recorded (G4): rift volcanoes sit on the basin's axis; this one stands at the basin's north-east, on the north fault block, because the vault's layout puts it there (P18). It is a look and layout choice.</p>"
     }
   },
   {
@@ -231,7 +231,7 @@
       ],
       "type": "acid pits",
       "name": "Acid Pits",
-      "note": "<p>[placeholder] Name from the regional overview, not approved.</p><p>Anchor: localized acid hydrothermal pools (Dallol). Medium pools act as blockers. [proposed, George's principle 22 Nov 2026: extraction drains the source and leaves its residue] The residue of the volcano's extraction: its gases, sulfur and acid without the heat behind them, pooling in the closed basin over the old hot springs. The Grand Machine is far from here and was not the first extractor. The pools are exaggerated for play.</p>",
+      "note": "<p>[placeholder] Name from the regional overview, not approved.</p><p>Anchor: localized acid hydrothermal pools (Dallol). Medium pools act as blockers. [provisional, following the vault's confirmed principle (22 Nov 2026): extraction drains the source and leaves its residue] The residue of the volcano's extraction: its gases, sulfur and acid without the heat behind them, pooling in the closed basin over the old hot springs. The Grand Machine is far from here and was not the first extractor. The pools are exaggerated for play.</p>",
       "icon": "🧪"
     }
   },
