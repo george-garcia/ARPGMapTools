@@ -125,3 +125,12 @@ climate), `35-history.json` (biomes, lakes) and `65-history.json` (markers, labe
 files. History is sparse (P32): an event goes in only where something happened. The first test is the Drained Lake on
 the `history-test` frame (`docs/passes/2026-11-15-history-ledger-test/`). Frames marked `"views": true` in
 `frames.json` get frame screenshots, 3D views and a Gaea tile in every build.
+
+The first story event is `volcano-north.skirmish` (status `proposed`, P34-P38), on the `volcano-north` frame north and
+north-west of the Act I volcano, of kind `calamity-skirmish`. The before era shows the foundry at work on its stream (Foundry
+Brook, in a valley carved in both eras, ending in a marshy fan on the lowland), the extractor on the volcano's north flank and
+the foundry's road. The now era shows what ~2,000 years left: the conjured lava filling the valley from the extractor past the
+foundry to a toe in the gorge, tainted springs at the toe, the old channel dry below it, softened craters and glassed ground on
+the road's approach, and the settled blight in three bands (`Blight Core`, `Blighted Ground`, `Blight Margin`) painted outward
+from the extractor on ground at 50 and up, with veins drawn as the `blight-veins` route group. Everything stays north of the
+rim, so nothing shows from Act I (`docs/passes/2026-11-22-volcano-north/`).

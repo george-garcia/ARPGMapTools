@@ -152,7 +152,152 @@ const KINDS = {
         ]
       }
     };
-  }
+  },
+
+  /**
+   * A first-era skirmish fought with calamity power, around an extractor that tapped a natural well (here a volcano's
+   * magma). George, 22 Nov 2026: everyday magic comes from skill stones, each a minor extraction; an extractor harvests
+   * magic from the land where it stands, and magic users channelled the volcano through this one, which is how a
+   * skirmish reached calamity size. Where the earth weakens and power is extracted, blight scars the land and
+   * mutations arise. Principle (approved): extraction drains the source and leaves its residue.
+   *
+   * Before: the foundry at work on its stream (the reason it was built there), the extractor on the flank above it,
+   * the road out, a ribbon of green along the water (G25), the stream ending in a marshy fan on the lowland (G8 note).
+   * Now (aged ~2,000 years):
+   * - The stream's valley is filled by the lava the skirmish conjured, from the extractor down past the foundry to a toe
+   *   in the gorge. Real lava fills and dams valleys; water seeps through it and rises as springs at the flow's foot
+   *   (Idaho's Thousand Springs). Below the toe the old channel is dry (a wash), and the world's drier climate
+   *   (the now era's drought) finishes the rest.
+   * - Craters softened into shallow hollows, with ash pans in two; fused rock (glassed ground) dulled and cracked.
+   * - The foundry is a ruin: stone footings outlast walls, metal rusts to stains, slag outlasts everything
+   *   (Wadi Faynan and Timna: ancient copper works whose slag still poisons the ground).
+   * - The blight, settled (no longer growing): three bands painted outward from the extractor, core, blighted and
+   *   margin, kept on the high ground (heights 50 and up) so it never spills into Act I's basin. Veins radiate from
+   *   the extractor as a route group (Azgaar can't draw them otherwise; Gaea has no mask for them yet, TG5).
+   * - Only the grafted and the ritualists live here: shrines on vein junctions, monster pens, a ritual ring, graft
+   *   workshops in the foundry ruins, and a track only they use.
+   */
+  "calamity-skirmish"(event, frameKm, ledger) {
+    const { shape: s } = event;
+    const frame = event.frame;
+    const id = event.id;
+    const L = p => local(p, frameKm);
+    const line = pts => pts.map(L);
+    const note = (era, extra) => eventNote(event, era, ledger, extra);
+    // A corridor along a polyline: one quad per segment, widened a little at the joins so the segments overlap
+    const corridor = (pts, widthKm, i) => {
+      const [a, b] = [pts[i], pts[i + 1]];
+      const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      const [ux, uy] = [(b[0] - a[0]) / len, (b[1] - a[1]) / len];
+      const [nx, ny] = [-uy * widthKm / 2, ux * widthKm / 2];
+      const ext = widthKm / 3;
+      const a2 = [a[0] - ux * ext, a[1] - uy * ext], b2 = [b[0] + ux * ext, b[1] + uy * ext];
+      return [[a2[0] + nx, a2[1] + ny], [b2[0] + nx, b2[1] + ny], [b2[0] - nx, b2[1] - ny], [a2[0] - nx, a2[1] - ny]].map(L);
+    };
+    const circle = (centerKm, r, key) => outline({ centerKm, radiiKm: [r, r] }, frameKm, key, 0, 20);
+    const stream = s.stream.pointsKm;
+    const heights = s.stream.floorHeights;
+    if (heights.length !== stream.length) throw new Error(`Event "${id}": stream.floorHeights needs one height per point`);
+    for (let i = 1; i < heights.length; i++) if (heights[i] > heights[i - 1]) throw new Error(`Event "${id}": the valley floor must never rise downstream (point ${i})`);
+    // The valley, carved in both eras: the stream cut it long before the skirmish, so it is part of both maps
+    const valley = era => stream.slice(0, -1).map((_, i) => ({
+      id: `${id}.${era}.valley.${i}`,
+      tool: "sculpt",
+      note: `The stream's valley, segment ${i + 1}: floor set to ${heights[i + 1]}, never rising downstream (G7)`,
+      args: { frame, polygon: corridor(stream, s.stream.widthKm, i), op: "set", value: heights[i + 1], feather_km: 2, edge_noise_km: 0.5, clamp: [21, 100] }
+    }));
+    const toeIndex = s.lava.toeIndex;
+    const lavaLine = stream.slice(0, toeIndex + 1);
+    const lavaPolys = lavaLine.slice(0, -1).map((_, i) => corridor(lavaLine, s.lava.widthKm, i));
+    const toeLobe = outline({ centerKm: lavaLine[toeIndex], radiiKm: [s.lava.widthKm * 0.6, s.lava.widthKm * 0.45], angle: s.lava.toeAngle ?? 0 }, frameKm, `${id}.toe`);
+    const band = (name, key) => outline(s.blight[key], frameKm, `${id}.blight.${key}`);
+    const marker = (era, key, type, icon, name, extra) => ({
+      id: `${id}.${era}.${key}`, tool: "add_marker", note: name,
+      args: { frame, point: L(s.sitesKm[key] ?? s[`${key}Km`]), type, icon, name, note: note(era, `[placeholder] "${name}" is a description, not an approved name. ${extra}`) }
+    });
+    // Veins: crooked lines radiating from the extractor, each a deterministic wobble so builds never differ
+    const veins = s.veins.map((v, i) => {
+      const [x0, y0] = s.extractorKm;
+      const a = (v.bearingDeg * Math.PI) / 180;
+      const pts = [];
+      for (let k = 0; k <= 6; k++) {
+        const d = (v.lengthKm * k) / 6;
+        const wob = k === 0 ? 0 : (hash(`${id}.vein.${i}.${k}`) - 0.5) * 2.4;
+        pts.push([x0 + Math.sin(a) * d + Math.cos(a) * wob, y0 - Math.cos(a) * d + Math.sin(a) * wob]);
+      }
+      return { id: `${id}.now.vein.${i}`, tool: "add_route", note: `Blight vein ${i + 1}, bearing ${v.bearingDeg} degrees from the extractor`, args: { frame, group: "blight-veins", points: line(pts) } };
+    });
+    return {
+      before: {
+        terrain: valley("before"),
+        ground: [
+          {
+            id: `${id}.before.riparian`, tool: "paint_biome",
+            note: "Green only where the water is (G25): a ribbon of woodland along the foundry's stream",
+            args: { frame, name: "Riparian Woodland", color: "#6E8F4A", habitability: 60, polygon: outline({ centerKm: s.riparian.centerKm, radiiKm: s.riparian.radiiKm, angle: s.riparian.angle }, frameKm, `${id}.riparian`), heights: [20, 100] }
+          },
+          {
+            id: `${id}.before.fan`, tool: "paint_biome",
+            note: "Where the stream spreads out on the lowland and soaks in (G8: a river may end in a fan, said in a note)",
+            args: { frame, name: "Wetland", polygon: circle(stream[stream.length - 1], s.stream.fanKm, `${id}.fan`), heights: [20, 100] }
+          },
+          {
+            id: `${id}.before.river`, tool: "add_river",
+            note: "The foundry's stream, off the volcano's north flank, down its valley to the lowland, where it soaks into a marshy fan",
+            args: { frame, points: line(stream), name: s.stream.name, type: "Stream" }
+          }
+        ],
+        notes: [
+          marker("before", "extractor", "extractor", "⚙️", s.names.extractor, "Shown at work: it taps the volcano's magma and harvests its power. Magic users could channel the volcano through it."),
+          marker("before", "foundry", "foundry", "⚒️", s.names.foundry, "Shown at work, on its stream: it built and fed the extractor."),
+          { id: `${id}.before.road`, tool: "add_route", note: "The foundry's road out, north-west toward the lands of whoever held it (open)", args: { frame, group: "roads", name: s.names.road, points: line(s.roadKm) } }
+        ]
+      },
+      now: {
+        terrain: [
+          ...valley("now"),
+          ...lavaPolys.map((polygon, i) => ({
+            id: `${id}.now.lava.${i}`, tool: "sculpt",
+            note: `The skirmish's conjured lava filling the valley, segment ${i + 1}: surface set ${s.lava.raise} above the old floor (set, not raise, so overlapping segments never stack), still falling downstream`,
+            args: { frame, polygon, op: "set", value: heights[i + 1] + s.lava.raise, feather_km: 1.5, clamp: [21, 100] }
+          })),
+          ...s.craters.map((c, i) => ({
+            id: `${id}.now.crater.${i}`, tool: "sculpt",
+            note: `Crater ${i + 1}, softened over ~2,000 years to a shallow hollow (P31)`,
+            args: { frame, polygon: circle(c.centerKm, c.radiusKm, `${id}.crater.${i}`), op: "lower", value: c.depth, feather_km: 1.5, clamp: [21, 100] }
+          }))
+        ],
+        ground: [
+          { id: `${id}.now.blight.margin`, tool: "paint_biome", note: "Blight margin: half-living land, mutated scrub and animals, fading into ordinary country", args: { frame, name: "Blight Margin", color: "#8E8A73", habitability: 2, polygon: band("margin", "margin"), heights: [50, 100] } },
+          { id: `${id}.now.blight.blighted`, tool: "paint_biome", note: "Blighted: charred trees with gall-like swellings, slime-vein mats over the ash, sulfur crystals grown too large", args: { frame, name: "Blighted Ground", color: "#6B5A55", habitability: 0, polygon: band("blighted", "blighted"), heights: [50, 100] } },
+          { id: `${id}.now.glass`, tool: "paint_biome", note: "Fused ground from the skirmish: rock melted to glass, now dulled, cracked and half under dust", args: { frame, name: "Glassed Ground", color: "#3E4A4C", habitability: 0, polygon: outline(s.glass, frameKm, `${id}.glass`), heights: [50, 100] } },
+          ...s.craters.filter(c => c.ashPan).map((c, i) => ({ id: `${id}.now.ashpan.${i}`, tool: "paint_biome", note: "Ash pan in a softened crater floor", args: { frame, name: "Ash Pan", color: "#B9B4AA", habitability: 0, polygon: circle(c.centerKm, Math.max(c.radiusKm * 0.7, 2), `${id}.ash.${i}`), heights: [20, 100] } })),
+          ...lavaPolys.map((polygon, i) => ({ id: `${id}.now.lava-paint.${i}`, tool: "paint_biome", note: "The conjured lava: black, young-looking basalt filling the valley", args: { frame, name: "Calamity Lava", color: "#2B1714", habitability: 0, polygon, heights: [20, 100] } })),
+          { id: `${id}.now.lava-toe`, tool: "paint_biome", note: "The lava's toe, spread across the gorge", args: { frame, name: "Calamity Lava", polygon: toeLobe, heights: [20, 100] } },
+          { id: `${id}.now.blight.core`, tool: "paint_biome", note: "Blight core around the extractor: ground bleached bone-grey and hollowed into pits; dead stillness; the demons strongest", args: { frame, name: "Blight Core", color: "#D8D2C4", habitability: 0, polygon: band("core", "core"), heights: [50, 100] } },
+          { id: `${id}.now.springs-ground`, tool: "paint_biome", note: "Tainted springs where the buried stream seeps out at the lava's foot: the only water in the blight", args: { frame, name: "Tainted Springs", color: "#4F6B4E", habitability: 4, polygon: circle(s.springsKm, 2.2, `${id}.springs`), heights: [20, 100] } },
+          { id: `${id}.now.channel`, tool: "add_route", note: "The stream's old channel below the lava toe, dry: a wash that runs only in rare storms", args: { frame, group: "washes", name: `${s.stream.name} (dry)`, points: line(stream.slice(toeIndex + 1)) } }
+        ],
+        notes: [
+          { id: `${id}.now.style.veins`, tool: "define_style_group", note: "Blight veins: thin dark-red lines radiating from the extractor (ember-red at night in the zones)", args: { layer: "routes", group: "blight-veins", attrs: { stroke: "#7A1F1A", "stroke-width": 0.7, "stroke-dasharray": "none", "stroke-linecap": "round", opacity: 0.9 } } },
+          ...veins,
+          { id: `${id}.now.road`, tool: "add_route", note: "The foundry's road, faded to a trace after ~2,000 years", args: { frame, group: "old-road", name: `${s.names.road} (trace)`, points: line(s.roadKm) } },
+          { id: `${id}.now.track`, tool: "add_route", note: "A track only the grafted and the ritualists use: springs, foundry ruins, pens, shrines", args: { frame, group: "trails", name: s.names.track, points: line(s.trackKm) } },
+          marker("now", "extractor", "extractor", "⚙️", `${s.names.extractor} (defunct)`, "Defunct. The core of the blight: bleached, hollowed ground and dead stillness around it. The blight has settled and no longer grows (George, 22 Nov 2026)."),
+          marker("now", "foundry", "ruins", "🏚️", `${s.names.foundry} (ruin)`, "Stone footings outlast the walls; metal rusted to stains; part of it half-buried in the lava; slag heaps that still poison the ground. Graft workshops in its ruins."),
+          marker("now", "craters", "craters", "🕳️", s.names.craters, "Softened hollows from the skirmish's calamity power; ash pans in two."),
+          marker("now", "casts", "lava casts", "🗿", s.names.casts, "Hollow machine-shaped moulds in the black lava, where the fallen machines burned or rusted away inside it."),
+          marker("now", "springs", "tainted springs", "💧", s.names.springs, "The buried stream seeps out at the lava's foot. The only water here, and why anyone can live in the blight."),
+          marker("now", "shrineA", "shrine", "🕯️", s.names.shrine, "A ritualists' shrine on a vein junction."),
+          marker("now", "shrineB", "shrine", "🕯️", s.names.shrine, "A ritualists' shrine on a vein junction."),
+          marker("now", "pens", "monster pens", "🦴", s.names.pens, "Pens where monsters are kept or communed with."),
+          marker("now", "ring", "ritual ring", "⭕", s.names.ring, "A bare ritual ring on the blight's margin."),
+          { id: `${id}.now.label`, tool: "add_label", note: "The blight's name, carrying the event note", args: { frame, point: L(s.labelKm), text: s.names.label, note: note("now", s.labelNote) } },
+          { id: `${id}.now.label.glass`, tool: "add_label", note: "The glassed field", args: { frame, point: L(s.glass.centerKm), text: s.names.glass, note: `[placeholder] "${s.names.glass}" is a description, not an approved name. Fused ground from the skirmish.`, size: 70 } }
+        ]
+      }
+    };
+  },
 };
 
 export function compileHistory() {

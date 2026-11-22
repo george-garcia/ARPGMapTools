@@ -10,5 +10,11 @@
     "center": [0.5521, 0.6204],
     "sizeKm": [80, 60],
     "views": true
+  },
+  "volcano-north": {
+    "description": "North and north-west of the Act I volcano: the extractor on its north flank, the first-era foundry, the skirmish's calamity marks and the settled blight. On the path from Act I's exit toward Act II; not seen from Act I (the volcano stands between). Working frame, names are placeholders.",
+    "center": [0.4115, 0.5333],
+    "sizeKm": [80, 60],
+    "views": true
   }
 }

@@ -1,8 +1,14 @@
 {
   "note": "The history ledger: dated events that change the land between the before map and the present (P14, P31, P32). scripts/history.mjs turns each event into ops in world/eras/<era>/*-history.json. Edit events here, never the generated op files. Shapes are in km from the frame's north-west corner (x east, y south). status: test (pipeline test, delete freely), proposed (the cartographer's suggestion, not canon) or canon (decided in the story vault, with its source).",
   "eras": {
-    "first": { "yearsAgo": 2000, "note": "Estimate (George, 15 Nov 2026)" },
-    "second": { "yearsAgo": 1000, "note": "Estimate (George, 15 Nov 2026)" }
+    "first": {
+      "yearsAgo": 2000,
+      "note": "Estimate (George, 15 Nov 2026)"
+    },
+    "second": {
+      "yearsAgo": 1000,
+      "note": "Estimate (George, 15 Nov 2026)"
+    }
   },
   "events": [
     {
@@ -14,12 +20,154 @@
       "frame": "history-test",
       "story": "Pipeline test only, not canon. An extraction works drew the ground dry about 2,000 years ago: the water table fell, a shallow plain lake and its marsh died, and the ground over the drained aquifer sank.",
       "shape": {
-        "lake": { "centerKm": [40, 30], "radiiKm": [8, 5], "angle": -20 },
+        "lake": {
+          "centerKm": [40, 30],
+          "radiiKm": [8, 5],
+          "angle": -20
+        },
         "marshKm": 4,
-        "drawdown": { "centerKm": [44, 27], "radiiKm": [22, 15], "angle": -20 },
+        "drawdown": {
+          "centerKm": [44, 27],
+          "radiiKm": [22, 15],
+          "angle": -20
+        },
         "worksKm": [50, 24]
       },
-      "params": { "subsidence": 3, "playaHeight": 26 }
+      "params": {
+        "subsidence": 3,
+        "playaHeight": 26
+      }
+    },
+    {
+      "id": "volcano-north.skirmish",
+      "status": "proposed",
+      "name": "[placeholder] The Skirmish at the Extractor",
+      "era": "first",
+      "kind": "calamity-skirmish",
+      "frame": "volcano-north",
+      "source": "George, chat 22 Nov 2026 (approved; not yet recorded in the story vault, so proposed until it is)",
+      "story": "The first era's skirmish between the first two major powers, magic and machine (neither side named yet). An extractor on the volcano's north flank, built and fed by a foundry on the stream below, harvested the volcano's magmatic power; the magic users channelled the volcano through it, so the fight reached calamity size. It conjured lava down the foundry's valley, cratered and glassed the approaches, and weakened the earth: blight scarred the land and mutations and demons arose. The extractor is defunct and the blight has settled (no longer growing). Only the grafted and the ritualists who commune with monsters live here. On the path from Act I's exit toward Act II; not seen from Act I, which lies on the volcano's south side. The Grand Machine is far from here and was not the first extractor.",
+      "shape": {
+        "extractorKm": [59, 47],
+        "foundryKm": [53, 38],
+        "stream": {
+          "name": "Foundry Brook",
+          "pointsKm": [[ 58, 46 ], [ 56, 42 ], [ 53, 38 ], [ 51, 33 ], [ 51, 28 ], [ 51, 23 ], [ 52, 18 ], [ 52, 13 ], [ 51, 8 ], [ 49, 3 ], [ 47, -2 ]],
+          "floorHeights": [55, 54, 53, 52, 51, 50, 49, 46, 44, 40, 39],
+          "widthKm": 4.5,
+          "fanKm": 4
+        },
+        "riparian": {
+          "centerKm": [52.5, 22],
+          "radiiKm": [26, 4.5],
+          "angle": 77
+        },
+        "lava": {
+          "toeIndex": 5,
+          "widthKm": 5,
+          "raise": 3,
+          "toeAngle": 0
+        },
+        "springsKm": [51, 19.5],
+        "craters": [
+          {
+            "centerKm": [44, 33],
+            "radiusKm": 2.6,
+            "depth": 3,
+            "ashPan": true
+          },
+          {
+            "centerKm": [39.5, 29.5],
+            "radiusKm": 3.2,
+            "depth": 3,
+            "ashPan": false
+          },
+          {
+            "centerKm": [35, 26.5],
+            "radiusKm": 2.8,
+            "depth": 2,
+            "ashPan": true
+          }
+        ],
+        "glass": {
+          "centerKm": [37, 28],
+          "radiiKm": [10, 5],
+          "angle": -35
+        },
+        "blight": {
+          "core": {
+            "centerKm": [58.5, 45],
+            "radiiKm": [4, 2.8],
+            "angle": 60
+          },
+          "blighted": {
+            "centerKm": [52.5, 37.5],
+            "radiiKm": [11, 8],
+            "angle": 70
+          },
+          "margin": {
+            "centerKm": [50, 30],
+            "radiiKm": [19, 14],
+            "angle": 65
+          }
+        },
+        "veins": [
+          {
+            "bearingDeg": 280,
+            "lengthKm": 8
+          },
+          {
+            "bearingDeg": 300,
+            "lengthKm": 12
+          },
+          {
+            "bearingDeg": 325,
+            "lengthKm": 14
+          },
+          {
+            "bearingDeg": 345,
+            "lengthKm": 16
+          },
+          {
+            "bearingDeg": 5,
+            "lengthKm": 13
+          },
+          {
+            "bearingDeg": 25,
+            "lengthKm": 11
+          },
+          {
+            "bearingDeg": 50,
+            "lengthKm": 10
+          }
+        ],
+        "roadKm": [[ 53, 38 ], [ 47, 35 ], [ 41, 31 ], [ 35, 27 ], [ 28, 22 ], [ 20, 17 ], [ 11, 12 ], [ 2, 8 ], [ -6, 4 ]],
+        "trackKm": [[ 51, 19.5 ], [ 52, 26 ], [ 52.5, 33 ], [ 53, 37.5 ], [ 47, 40 ], [ 50, 42 ], [ 55, 43.3 ]],
+        "sitesKm": {
+          "craters": [39.5, 30.5],
+          "casts": [52, 30.5],
+          "shrineA": [55, 42],
+          "shrineB": [59.9, 39],
+          "pens": [47, 40],
+          "ring": [43, 43]
+        },
+        "labelKm": [42, 37],
+        "names": {
+          "extractor": "The Extractor",
+          "foundry": "The Foundry",
+          "road": "Foundry Road",
+          "track": "Ritualists' track",
+          "craters": "Crater field",
+          "casts": "Machine casts",
+          "springs": "Tainted springs",
+          "shrine": "Vein shrine",
+          "pens": "Monster pens",
+          "ring": "Ritual ring",
+          "label": "The Blight",
+          "glass": "Glassed Field"
+        },
+        "labelNote": "[placeholder] \"The Blight\" is a description, not an approved name; every name in this event is a placeholder. Blight (George, 22 Nov 2026): where the earth weakens and power is extracted, blight scars the land and demons, mutations and mutated animals arise. Principle (approved): extraction drains the source and leaves its residue. Three layers: drained (colour, substance and stillness taken out), the wound (veins and pits radiating from the extraction point), what grows in the wound (wrong growths, crystals, flesh-like matter, mutated life, demons). Fire blight's accent: ash, glass, ember-red veins, sulfur colours. Bands: core at the extractor, blighted, margin. Settled, no longer growing. Open: the two powers' names, who held the extractor and who attacked, and whether the blight shows any trace in Act I."
+      }
     }
   ]
 }
