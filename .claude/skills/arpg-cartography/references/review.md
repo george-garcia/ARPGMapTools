@@ -29,6 +29,11 @@ Walk it in this order; each line names its rule. Gather evidence with reads (`qu
 - [ ] Every settlement sits on water and on usable ground (G31); routes take low passes and climb scarps by switchback under ~13% (G28–G29).
 - [ ] Routes show only real traffic, never zone-to-zone lines (P16).
 
+**Story first** (`geography.md` §7)
+- [ ] Every landmark names its reason (G39) and its cause in the world's past or in nature (G38); a region of only scars is a finding.
+- [ ] Each scar's size matches its source (G40); scars cluster around their cause (G45); no signature scar repeats at full scale (G43).
+- [ ] Ancient sites are placed on the before era's land and water and aged in the now era (G47); the cause is in the ledger and notes, not spelled out on the land (G46).
+
 **Readability and identity** (`cartography-craft.md`)
 - [ ] Each zone's region reads as its own landform and ground, not one repeated texture; the act's signature (the acid pits) dominates.
 - [ ] **Colours separate:** list the biome hex colours of neighbouring regions and of the signature; near-identical hues (e.g. washes #B85D23 next to acid ground #C8661E) are a finding (K11, K16).
