@@ -61,7 +61,8 @@ The salt pan's brine pools are the lowest water (surface 20.9); every other pool
 The before era removes the generated rivers draining into Act I (`eras/before/05-rivers.json`) and draws its water instead:
 the falls stream runs on as Spring Brook from the Slums to the Spring, which drains through its lower pool and an outflow
 channel to the pan's south-west arm (`eras/before/20-water.json`). The channels are carved in the shared terrain, so today
-they are dry. How large the old salt lake on the pan was is still open (P24), so no lake is drawn there.
+they are dry: `eras/now/20-water.json` draws them as dead beds in Azgaar's `dry` river group (Spring Brook and its outflow), the
+same as Foundry Brook below the lava north of the volcano. How large the old salt lake on the pan was is still open (P24), so no lake is drawn there.
 
 Biomes: `finalize_terrain` and `set_climate` repaint every biome from climate, so Act I's zones are painted afterwards with
 `paint_biome`, in `eras/<era>/30-biomes.json`. Each paint goes over the ones before it, and `heights` lets an edge follow the

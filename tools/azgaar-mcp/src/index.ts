@@ -159,11 +159,11 @@ const wholeFrame = [[0, 0], [1, 0], [1, 1], [0, 1]];
 server.registerTool(
   "define_style_group",
   {
-    title: "Define a lake or route style group",
+    title: "Define a lake, river or route style group",
     description:
-      "Adds a style group to the lakes or routes layer, or updates one; or restyles an existing label group (city, town, added, river, …). A new lake group starts from the freshwater look, a new route group from trails; the given SVG attrs are merged over it and checked against Azgaar's style schema. Lakes take opacity, fill, fill-opacity, stroke, stroke-width, stroke-opacity, stroke-dasharray, filter; routes the same minus fill; labels also take font-family, font-size (a percentage such as '5%'), font-style, font-weight, letter-spacing and style. A null value unsets an attr. Styles are saved in the .map.",
+      "Adds a style group to the lakes, rivers or routes layer, or updates one (including a stock group such as the rivers' regular, frozen, dry and lava); or restyles an existing label group (city, town, added, river, …). A new lake group starts from the freshwater look, a new river group from regular, a new route group from trails; the given SVG attrs are merged over it and checked against Azgaar's style schema. Lakes take opacity, fill, fill-opacity, stroke, stroke-width, stroke-opacity, stroke-dasharray, filter; routes the same minus fill; labels also take font-family, font-size (a percentage such as '5%'), font-style, font-weight, letter-spacing and style. A null value unsets an attr. Styles are saved in the .map.",
     inputSchema: {
-      layer: z.enum(["lakes", "routes", "labels"]),
+      layer: z.enum(["lakes", "rivers", "routes", "labels"]),
       group: z.string().regex(/^[a-zA-Z][\w-]*$/),
       attrs: z.record(z.string(), z.union([z.string(), z.number(), z.null()])),
       zoom: z
@@ -301,19 +301,20 @@ server.registerTool(
   {
     title: "Draw a river",
     description:
-      "Draws a river along a polyline from source to mouth through the cells under it, and locks it so later climate and river regeneration keep its course. It joins a river it ends on. With `frame`, points are frame-local 0-1. Widths are in km: source_width at the source, width_factor how fast it widens.",
+      "Draws a river along a polyline from source to mouth through the cells under it, and locks it so later climate and river regeneration keep its course. It joins a river it ends on. With `frame`, points are frame-local 0-1. Widths are in km: source_width at the source, width_factor how fast it widens. `group` is its style group: regular (default), frozen, dry (a dead or dry bed), lava, or one from define_style_group on the rivers layer.",
     inputSchema: {
       points: z.array(point).min(2),
       frame: z.string().optional(),
       name: z.string().optional(),
       type: z.string().optional().describe("Free label such as River, Creek, Stream, Falls"),
       source_width: z.number().min(0).optional(),
-      width_factor: z.number().min(0).optional()
+      width_factor: z.number().min(0).optional(),
+      group: z.string().optional().describe("River style group: regular, frozen, dry, lava, or a custom one")
     }
   },
-  ({ points, frame, name, type, source_width, width_factor }) =>
+  ({ points, frame, name, type, source_width, width_factor, group }) =>
     respond(() =>
-      session.addRiver(toMapPoints(points, frame), { name, type, sourceWidth: source_width, widthFactor: width_factor })
+      session.addRiver(toMapPoints(points, frame), { name, type, sourceWidth: source_width, widthFactor: width_factor, group })
     )
 );
 

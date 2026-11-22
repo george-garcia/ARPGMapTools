@@ -333,7 +333,7 @@ export class AzgaarSession {
 
   /** Adds or updates a lake or route style group, starting from a stock group's look, or restyles an existing label group */
   async defineStyleGroup(
-    layer: "lakes" | "routes" | "labels",
+    layer: "lakes" | "rivers" | "routes" | "labels",
     group: string,
     attrs: Record<string, string | number | null>,
     zoom?: { min: number; max: number }
@@ -345,7 +345,7 @@ export class AzgaarSession {
         const created = !groups[group];
         if (created && layer === "labels")
           throw new Error(`No label group "${group}". Label groups: ${Object.keys(groups).join(", ")}`);
-        if (created) groups[group] = structuredClone(layer === "lakes" ? groups.freshwater : groups.trails);
+        if (created) groups[group] = structuredClone(layer === "lakes" ? groups.freshwater : layer === "rivers" ? groups.regular : groups.trails);
         try {
           // Styles.setValue checks each attr against Azgaar's style schema, so the .map reloads with it intact
           for (const [name, value] of Object.entries(attrs)) FMG.Styles.setValue(`${layer}.groups.${group}.attrs.${name}`, value);
@@ -548,7 +548,7 @@ export class AzgaarSession {
   }
 
   /** Draws a locked river along a polyline (map pixels, source first) through the cells it crosses */
-  async addRiver(points: Point[], options: { name?: string; type?: string; sourceWidth?: number; widthFactor?: number } = {}) {
+  async addRiver(points: Point[], options: { name?: string; type?: string; sourceWidth?: number; widthFactor?: number; group?: string } = {}) {
     const page = await this.open();
     return page.evaluate(
       ({ points, options }) => {
@@ -578,13 +578,14 @@ export class AzgaarSession {
         FMG.Rivers.setLocked(id, true);
         if (options.name) FMG.Rivers.rename(id, options.name);
         if (options.type) FMG.Rivers.setType(id, options.type);
+        if (options.group) FMG.Rivers.setGroup(id, options.group);
         if (options.sourceWidth !== undefined || options.widthFactor !== undefined) {
           const river = pack.rivers.find((r: any) => r.i === id);
           FMG.Rivers.setWidth(id, options.sourceWidth ?? river.sourceWidth, options.widthFactor ?? river.widthFactor);
         }
         FMG.Layers.draw("rivers");
         const river = pack.rivers.find((r: any) => r.i === id);
-        return { i: id, name: river.name, type: river.type, cells: cells.length, width: river.width };
+        return { i: id, name: river.name, type: river.type, group: river.group, cells: cells.length, width: river.width };
       },
       { points, options }
     );
@@ -946,6 +947,10 @@ export class AzgaarSession {
           const feature = pack.features[pack.cells.f[cell]];
           return feature?.type === "lake" ? String(feature.group ?? "") : null;
         };
+        const dryRivers = new Set(pack.rivers.filter((r: any) => r.group === "dry").map((r: any) => r.i));
+        const dryBeds: number[][][] = pack.rivers
+          .filter((r: any) => dryRivers.has(r.i))
+          .map((r: any) => (r.cells ?? []).filter((c: number) => c >= 0).map((c: number) => pack.cells.p[c]));
         const out: Record<string, string> = {
           water: fromCells(cell => pack.cells.h[cell] < 20),
           "lakes-acid": fromCells(cell => lakeGroup(cell)?.startsWith("acid") === true),
@@ -953,17 +958,18 @@ export class AzgaarSession {
             const group = lakeGroup(cell);
             return group !== null && !group.startsWith("acid");
           }),
-          rivers: fromCells(cell => pack.cells.r[cell] > 0)
+          // a dry bed is not water: it goes in the washes mask below, not here
+          rivers: fromCells(cell => pack.cells.r[cell] > 0 && !dryRivers.has(pack.cells.r[cell]))
         };
-        const lines = (groups: string[], width: number) => {
+        const lines = (groups: string[], width: number, extra: number[][][] = []) => {
           const { canvas, ctx } = canvasFor();
           ctx.strokeStyle = "#fff";
           ctx.lineWidth = width;
           ctx.lineCap = ctx.lineJoin = "round";
-          for (const route of pack.routes) {
-            if (!groups.includes(route.group)) continue;
+          const polylines = [...pack.routes.filter((route: any) => groups.includes(route.group)).map((route: any) => route.points), ...extra];
+          for (const points of polylines) {
             ctx.beginPath();
-            route.points.forEach(([x, y]: number[], k: number) => {
+            points.forEach(([x, y]: number[], k: number) => {
               const px = ((x - box.x) / box.width) * size;
               const py = ((y - box.y) / box.height) * size;
               if (k) ctx.lineTo(px, py);
@@ -974,7 +980,7 @@ export class AzgaarSession {
           return canvas.toDataURL("image/png");
         };
         out.roads = lines(["main-road", "old-road", "salt-road", "roads", "trails"], Math.max(2, size / 400));
-        out.washes = lines(["washes"], Math.max(3, size / 300));
+        out.washes = lines(["washes"], Math.max(3, size / 300), dryBeds);
         // two combined masks the saved Gaea graph reads, feathered a little so blends have no stair-steps:
         // "gaea-protect" keeps standing water and the salt pan out of erosion; "gaea-colour" is where the
         // 2D map's own colours replace the satellite colours (lakes, the acid ground, the salt and sulfur)

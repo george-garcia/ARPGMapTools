@@ -12,7 +12,8 @@ geology in `geography.md`: tune them in Gaea, and record what worked in §8. Rul
   Azgaar as an op (P1, P3), re-export, reopen. Never run Gaea's Rivers or Lake nodes on the regional tile: they invent
   drainage the map doesn't have. *DEV F2.8; PROJECT.*
 - **GA2. The tile** (`export_gaea`, `docs/gaea.md`): `heightfield.r32` (32-bit, 0–1 = 0–`heightMetres`), `colormap.png`,
-  `mask-water`, `mask-lakes-acid`, `mask-lakes-other`, `mask-rivers`, `mask-roads`, `mask-washes`, one
+  `mask-water`, `mask-lakes-acid`, `mask-lakes-other`, `mask-rivers` (running water only), `mask-roads`, `mask-washes` (the `washes`
+  routes and every `dry` river bed), one
   `mask-biome-<slug>` per biome, and the two graph masks `mask-gaea-protect` and `mask-gaea-colour`; ~125 m/px for Act I.
   Only the two graph masks are feathered; the biome and lake masks are hard-edged cell masks. *SOURCE F1.1–F1.2.*
 - **GA3. Gaea output never ships** and never goes into the game (P2). The saved projects live in `tools/gaea/`.

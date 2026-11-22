@@ -36,7 +36,7 @@ Open this folder in Claude Code and approve the `azgaar` server from `.mcp.json`
 | `set_lakes` | Sets the subtype (freshwater, salt, dry, lava…), style group and name of the lakes inside a polygon |
 | `define_style_group` | Adds or updates a lake or route style group (fill, stroke, dashes…), or restyles a label group and the zoom range it shows at; checked against Azgaar's style schema and saved in the `.map` |
 | `remove_rivers` | Removes the generated (unlocked) rivers draining into a polygon |
-| `add_river` | Draws a locked, named river along a polyline |
+| `add_river` | Draws a locked, named river along a polyline; `group` sets its style group (regular, frozen, dry, lava or a custom one) |
 | `add_route` | Draws a locked line in any route group, such as a road or a dashed seasonal wash |
 | `open_map` | Loads a `.map` file |
 | `save_map` | Saves exactly what Azgaar's own Save writes, so the desktop app opens it (default `world/build/<seed>.map`) |

@@ -377,5 +377,112 @@
       "group": "mineral",
       "name": "[placeholder] Dead Spring lower pool"
     }
+  },
+  {
+    "id": "now.style.river.dry",
+    "tool": "define_style_group",
+    "note": "Dead stream beds: Azgaar's stock dry group (v1.157), edged a little darker so the pale bed reads on the playa mud and the fans",
+    "args": {
+      "layer": "rivers",
+      "group": "dry",
+      "attrs": {
+        "fill": "#c9bfa7",
+        "stroke": "#8a7f68",
+        "stroke-width": 0.3
+      }
+    }
+  },
+  {
+    "id": "now.river.dead.spring-brook",
+    "tool": "add_river",
+    "note": "The before era's Spring Brook, dead today: its channel is carved in the shared terrain, so its dry bed stays, in the dry river group. The falls stream now ends at the Slums, used up (P28)",
+    "args": {
+      "frame": "act1",
+      "points": [
+        [
+          0.25,
+          0.445
+        ],
+        [
+          0.27,
+          0.55
+        ],
+        [
+          0.31,
+          0.66
+        ],
+        [
+          0.35,
+          0.74
+        ],
+        [
+          0.372,
+          0.775
+        ]
+      ],
+      "name": "[placeholder] Spring Brook (dry bed)",
+      "type": "Dry bed",
+      "source_width": 0.05,
+      "width_factor": 0.5,
+      "group": "dry"
+    }
+  },
+  {
+    "id": "now.river.dead.spring-outlet",
+    "tool": "add_river",
+    "note": "The before era's Spring Outflow, dead today: its channel is carved in the shared terrain, so its dry bed stays, in the dry river group. The falls stream now ends at the Slums, used up (P28)",
+    "args": {
+      "frame": "act1",
+      "points": [
+        [
+          0.415,
+          0.8
+        ],
+        [
+          0.445,
+          0.84
+        ]
+      ],
+      "name": "[placeholder] Spring Outflow (dry bed)",
+      "type": "Dry bed",
+      "source_width": 0.05,
+      "width_factor": 0.5,
+      "group": "dry"
+    }
+  },
+  {
+    "id": "now.river.dead.spring-outflow",
+    "tool": "add_river",
+    "note": "The before era's Spring Outflow, dead today: its channel is carved in the shared terrain, so its dry bed stays, in the dry river group. The falls stream now ends at the Slums, used up (P28)",
+    "args": {
+      "frame": "act1",
+      "points": [
+        [
+          0.49,
+          0.852
+        ],
+        [
+          0.55,
+          0.86
+        ],
+        [
+          0.6,
+          0.868
+        ],
+        [
+          0.615,
+          0.89
+        ],
+        [
+          0.625,
+          0.905
+        ]
+      ],
+      "name": "[placeholder] Spring Outflow (dry bed)",
+      "type": "Dry bed",
+      "source_width": 0.05,
+      "width_factor": 0.5,
+      "group": "dry"
+    }
   }
 ]
